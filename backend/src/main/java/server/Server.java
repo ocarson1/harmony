@@ -2,6 +2,7 @@ package server;
 
 import static spark.Spark.after;
 
+import com.google.cloud.firestore.Firestore;
 import spark.Spark;
 
 public class Server {
@@ -30,10 +31,9 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-    // Setting up the handler for the GET /order endpoint
-    //Spark.get("loadcsv", new LoadCSVHandler(csv_content, new CSVCreator()));
-    //Spark.get("getcsv", new GetCSVHandler(csv_content));
-    //Spark.get("weather", new WeatherHandler());
+    // Initialize the Firestore Database
+    Firebase f = new Firebase();
+    f.testAdd();
 
     Spark.init();
     Spark.awaitInitialization();
