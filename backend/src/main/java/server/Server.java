@@ -3,6 +3,7 @@ package server;
 import static spark.Spark.after;
 
 import com.google.cloud.firestore.Firestore;
+import server.handlers.GetRecentSongHandler;
 import spark.Spark;
 
 public class Server {
@@ -34,6 +35,8 @@ public class Server {
     // Initialize the Firestore Database
     Firebase f = new Firebase();
     f.testAdd();
+
+    Spark.get("getRecentSong", new GetRecentSongHandler());
 
     Spark.init();
     Spark.awaitInitialization();
