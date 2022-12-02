@@ -115,20 +115,15 @@ import Map, {
   Source, Layer, PointLike, MapRef, MapboxGeoJSONFeature } from 'react-map-gl' 
 import 'mapbox-gl/dist/mapbox-gl.css'
 import './App.css';
-import {overlayData, geoLayer, isFeatureCollection} from './overlays'
-import Redlining from './Redlining'
-import {myKey} from './private/key'
+import LogIn from './react-components/LogIn';
 
 function App() {
   // basic framework of first page
   return (
     <div className="App">
-      <div className="background">
-        <img src="">
-          <div>
-            <div className="popup"><>
-          </div>
-        </img>
+      <div className="web-container">
+        <img className="" src="./images/mapboxbackground.jpg"></img>
+        <LogIn></LogIn>
       </div>
     </div>
   );
