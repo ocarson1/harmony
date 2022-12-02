@@ -109,6 +109,7 @@
 // export default App;
 
 import React, { useEffect, useState, useRef } from 'react'
+// import {Routes, Route, useNavigate} from 'react-router-dom'
 import Map, {    
   ViewState, ViewStateChangeEvent,
   MapLayerMouseEvent,
@@ -118,15 +119,61 @@ import './App.css';
 import LogIn from './react-components/LogIn';
 
 function App() {
+  // const navigate = useNavigate();
+
+  // const navigateLogin = () => {
+  //   // 👇️ navigate to /login
+  //   navigate('/login');
+  // };
+
+  // const navigateWebapp = () => {
+  //   // 👇️ navigate to /webapp
+  //   navigate('/webapp');
+  // };
+
+  // const openLogIn = () => {
+  //   return (
+  //     <div className="App">
+  //     <div className="web-container">
+  //       <img className="" src="./images/mapboxbackground.jpg"></img>
+  //       <LogIn></LogIn>
+  //     </div>
+  //   </div>
+  //   )
+  // }
   // basic framework of first page
-  return (
-    <div className="App">
-      <div className="web-container">
-        <img className="" src="./images/mapboxbackground.jpg"></img>
-        <LogIn></LogIn>
-      </div>
+//   return (
+//     <div className="App">
+//       <div className="web-container">
+//         <img className="" src="./images/mapboxbackground.jpg"></img>
+//         <button onClick={navigateLogin}>Log In</button>
+//         <button onClick={navigateWebapp}>Webapp</button>
+
+//         <Routes>
+//           <Route path="/login" element={<Login />} />
+//           <Route path="/" element={<Webapp />} />
+//         </Routes>
+//       </div>
+//     </div>
+//   );
+// }
+
+return (
+  <div className="App">
+    <div className="web-container">
+      <img className="" src="./images/mapboxbackground.jpg"></img>
+      <LogIn></LogIn>
     </div>
-  );
+  </div>
+);
 }
+
+// function Login() {
+//   return <LogIn></LogIn>
+// }
+
+// function Webapp() {
+//   return <h2>Contacts</h2>;
+// }
 
 export default App;
