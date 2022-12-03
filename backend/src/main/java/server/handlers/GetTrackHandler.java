@@ -35,6 +35,7 @@ public class GetTrackHandler implements Route {
       String title = "test";
       String album = "test";
       String preview = "test";
+      String imgURL = "test";
       List<String> genres = new ArrayList<>();
 
       resp.put("result", "success");
@@ -42,6 +43,7 @@ public class GetTrackHandler implements Route {
       resp.put("album", album);
       resp.put("preview_url", preview);
       resp.put("genres", genres);
+      resp.put("img_url", imgURL);
 
       return new ServerResponse().serialize(resp);
 
