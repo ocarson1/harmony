@@ -54,7 +54,7 @@ export default function GenerateMap() {
          onMove={(ev: ViewStateChangeEvent) => setViewState(ev.viewState)} 
          onClick={(ev: MapLayerMouseEvent) => onMapClick(ev)}
          // This is too big, and the 0.9 factor is pretty hacky
-         style={{width:(window.innerWidth - 406), height:window.innerHeight*0.9}} 
+         style={{width:(window.innerWidth - 406), height:window.innerHeight}} 
          mapStyle={'mapbox://styles/mapbox/dark-v11'}>
 
           <Source id="geo_data" type="geojson" data={overlay}>
@@ -62,11 +62,11 @@ export default function GenerateMap() {
           </Source>
         </Map>       
       </div>
-      <div className='map-status'>
+      {/* <div className='map-status'>
         {`lat=${viewState.latitude.toFixed(4)},
           long=${viewState.longitude.toFixed(4)},
           zoom=${viewState.zoom.toFixed(4)}`}
-      </div>
+      </div> */}
     </div>
     </div>
   );

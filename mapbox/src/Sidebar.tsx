@@ -1,22 +1,32 @@
 import './styles/Sidebar.css'
+import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 
 
 export default function GenerateSidebar() {
 
     return (
         <div className="sidebar">
+            <Tabs className = "tabs">
+                <TabList>
+                    <Tab>VIEW</Tab>
+                    <Tab>PROFILE</Tab>
+                </TabList>
+                <TabPanel>
             <div className="view-tab">
-                <p>VIEW</p>
                 <EntryButton />
                 <div className = "filter-by">
-                    FILTER BY...
+                    Filter by:
                 </div>
                 <div className = "filter-info">
                 </div>
                 <ViewToggler />
-        
-
             </div>
+            </TabPanel>
+            <TabPanel>
+                <div className = "profile-tab">
+                </div>
+                </TabPanel>
+            </Tabs>
         </div>
     )
 }
