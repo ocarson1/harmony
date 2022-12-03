@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import com.google.cloud.firestore.Firestore;
 import server.handlers.GetRecentSongHandler;
 import server.handlers.GetTrackHandler;
+import server.handlers.UserLocationHandler;
 import spark.Spark;
 
 public class Server {
@@ -39,6 +40,7 @@ public class Server {
 
     Spark.get("getRecentSong", new GetRecentSongHandler());
     Spark.get("getTrack", new GetTrackHandler());
+    Spark.get("userLoc", new UserLocationHandler(f));
 
     Spark.init();
     Spark.awaitInitialization();

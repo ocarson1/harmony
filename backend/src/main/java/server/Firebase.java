@@ -9,6 +9,7 @@ import com.google.firebase.cloud.FirestoreClient;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.Map;
 
 public class Firebase {
 
@@ -49,7 +50,7 @@ public class Firebase {
   }
 
   // the parameter needs to contain a few dataum: the user's specific ID/name; and the spotify data we want to actually access
-  public void addUser(HashMap<String, Object> user) {
+  public void addUser(Map<String, Object> user) {
     ///.document("username") needs to be changed to the actual user token (each document name must be unique)
     this.db.collection("users").document("username2").set(user);
 
