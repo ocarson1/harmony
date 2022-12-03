@@ -108,17 +108,6 @@
 
 // export default App;
 
-import React, { useEffect, useState, useRef } from 'react'
-// import {Routes, Route, useNavigate} from 'react-router-dom'
-import Map, {    
-  ViewState, ViewStateChangeEvent,
-  MapLayerMouseEvent,
-  Source, Layer, PointLike, MapRef, MapboxGeoJSONFeature } from 'react-map-gl' 
-import 'mapbox-gl/dist/mapbox-gl.css'
-import './App.css';
-import LogIn from './react-components/LogIn';
-
-function App() {
   // const navigate = useNavigate();
 
   // const navigateLogin = () => {
@@ -158,14 +147,44 @@ function App() {
 //   );
 // }
 
-return (
-  <div className="App">
-    <div className="web-container">
-      <img className="" src="./images/mapboxbackground.jpg"></img>
-      <LogIn></LogIn>
+import React, { useEffect, useState, useRef } from 'react'
+// import {Routes, Route, useNavigate} from 'react-router-dom'
+import './App.css';
+import LogIn from './react-components/LogIn';
+
+const getTokenFromUrl = () => {
+  return window.location.hash
+  .substring(1)
+  .split('&')
+  .reduce((initial: any, item: any) => {
+    let parts: string[] = item.split("=")
+    initial[parts[0]] = decodeURIComponent(parts[1])
+    return initial;
+  });
+}
+
+function App() {
+  const [spotifyToken, setSpotifyToken] = useState("");
+
+  useEffect(() => {
+    console.log("This is what was derived from the URL: ", getTokenFromUrl())
+    const spotifyToken = getTokenFromUrl()
+    window.location.hash= "";
+    console.log("This is our spotify token", spotifyToken);
+
+    if (spotifyToken) {
+      setSpotifyToken(spotifyToken)
+    }
+  })
+
+  return (
+    <div className="App">
+      <div className="web-container">
+        <img className="" src="./images/mapboxbackground.jpg"></img>
+        <LogIn></LogIn>
+      </div>
     </div>
-  </div>
-);
+  );
 }
 
 // function Login() {
