@@ -4,6 +4,7 @@ import static spark.Spark.after;
 
 import com.google.cloud.firestore.Firestore;
 import server.handlers.GetRecentSongHandler;
+import server.handlers.GetTrackHandler;
 import spark.Spark;
 
 public class Server {
@@ -37,6 +38,7 @@ public class Server {
     f.testAdd();
 
     Spark.get("getRecentSong", new GetRecentSongHandler());
+    Spark.get("getTrack", new GetTrackHandler());
 
     Spark.init();
     Spark.awaitInitialization();
