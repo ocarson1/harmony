@@ -29,6 +29,7 @@
     cursor: pointer;
 }
 
+
 .filter-by {
 position:relative;
 height: 120px;
@@ -45,16 +46,7 @@ text-align: center;
 color: #000000;
 }
 
-.filter-info {
 
-    position:relative;
-    top: -30px;
-    left: 20px;
-    width: 344px;
-    height: 400px;
-    background: linear-gradient(180deg, #B4DCEF 0%, rgba(180, 220, 239, 0) 100%);
-    border-radius: 25px;    
-}
 
 /* .Tabs {
     width: 80%;
@@ -68,6 +60,7 @@ color: #000000;
   } */
 
   .react-tabs {
+
     -webkit-tap-highlight-color: transparent;
   }
 
@@ -82,7 +75,6 @@ color: #000000;
   }
 
   .react-tabs__tab {
-    
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
@@ -99,6 +91,7 @@ color: #000000;
   }
 
   .react-tabs__tab--selected {
+    user-select: none;
     background: #EBEBEB;
   }
 

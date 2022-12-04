@@ -1,6 +1,7 @@
 import './styles/Sidebar.css'
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
-import {ToggleSwitch} from './ToggleSwitch';
+import {ToggleSwitch} from './components/ToggleSwitch';
+import FilterInfo from './components/FilterInfo'
 import React, { useState } from 'react';
 
 
@@ -20,8 +21,7 @@ export default function GenerateSidebar() {
                 <div className = "filter-by">
                     Filter by:
                 </div>
-                <div className = "filter-info">
-                </div>
+                <FilterInfo />
                 <ToggleSwitch 
                 selected ={theme}
                 toggleSelected={() => {

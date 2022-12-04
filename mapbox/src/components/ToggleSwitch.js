@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import "./styles/ToggleSwitch.css"
+import "../styles/ToggleSwitch.css"
 
 export class ToggleSwitch extends Component {
     constructor(props) {
@@ -13,8 +13,8 @@ export class ToggleSwitch extends Component {
         const {selected,toggleSelected} = this.props;
         return (
             <div className="toggle-container" onClick={toggleSelected}>
-                <div className={`dialog-button ${selected ? "" : "disabled"}`}>
-                    {selected ? "Light" : "Dark"}
+                <div className={`dialog-button ${selected ? "" : "dark"}`}>
+                    {selected ? "LIGHT" : "DARK"}
                 </div>
             </div>
         )
