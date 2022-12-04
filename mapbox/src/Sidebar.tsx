@@ -1,6 +1,6 @@
 import './styles/Sidebar.css'
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
-import {ToggleSwitch} from './ToggleSwitch'
+import {ToggleSwitch} from './ToggleSwitch';
 import React, { useState } from 'react';
 
 
