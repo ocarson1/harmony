@@ -1,8 +1,11 @@
 import './styles/Sidebar.css'
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
+import {ToggleSwitch} from './ToggleSwitch'
+import React, { useState } from 'react';
 
 
 export default function GenerateSidebar() {
+    const [theme, setTheme] = useState(false);
 
     return (
         <div className="sidebar">
@@ -19,7 +22,12 @@ export default function GenerateSidebar() {
                 </div>
                 <div className = "filter-info">
                 </div>
-                <ViewToggler />
+                <ToggleSwitch 
+                selected ={theme}
+                toggleSelected={() => {
+                    setTheme(!theme);
+                }}
+                />
             </div>
             </TabPanel>
             <TabPanel>
@@ -36,16 +44,5 @@ function EntryButton() {
         <div>
     <button className="entry-button">+ ADD NEW ENTRY</button>
     </div>
-    )
-}
-
-function ViewToggler() {
-    return(
-        <div>
-            <label className="switch">
-                
-
-            </label>
-        </div>
     )
 }
