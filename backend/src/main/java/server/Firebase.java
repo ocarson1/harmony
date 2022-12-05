@@ -53,7 +53,5 @@ public class Firebase {
   public void addUser(Map<String, Object> user) {
     ///.document("username") needs to be changed to the actual user token (each document name must be unique)
     this.db.collection("users").document("username2").set(user);
-
   }
-
 }
