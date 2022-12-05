@@ -9,13 +9,10 @@ import org.jgrapht.util.*;
 import java.util.*;
 import java.util.function.*;
 
-//@example:class:end
-
 /**
  * Demonstrates how to create a complete graph and perform a depth first search on it.
  *
  */
-// @example:class:begin
 public final class GraphTry
 {
   // number of vertices

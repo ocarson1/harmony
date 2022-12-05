@@ -1,11 +1,14 @@
 package server.handlers;
 
+import com.squareup.moshi.JsonAdapter;
+import com.squareup.moshi.Moshi;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import server.APIUtility;
 import server.ServerResponse;
+import server.TrackObj;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -31,11 +34,17 @@ public class GetTrackHandler implements Route {
       String url = "https://api.spotify.com/v1/tracks/" + id;
 
       APIUtility trackURL = new APIUtility(url);
-      //String id = songIDFromJSON(songUrl.getAPIRequest(token)).getSongID();
-      String title = "test";
-      String album = "test";
-      String preview = "test";
-      String imgURL = "test";
+
+      Moshi moshi = new Moshi.Builder().build();
+      JsonAdapter<TrackObj> trackAdapter = moshi.adapter(TrackObj.class);
+
+      String JSONBody = trackURL.getAPIRequest(token);
+      TrackObj trackObj = trackAdapter.fromJson(JSONBody);
+
+      String title = trackObj.name;
+      String album = trackObj.album.name;
+      String preview = trackObj.preview_url;
+      String imgURL = trackObj.images.url;
       List<String> genres = new ArrayList<>();
 
       resp.put("result", "success");

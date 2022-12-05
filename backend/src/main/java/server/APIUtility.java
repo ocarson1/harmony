@@ -60,6 +60,7 @@ public class APIUtility {
         .build();
     HttpResponse<String> response =
         HttpClient.newBuilder().build().send(request, BodyHandlers.ofString());
+    System.out.println(response.body());
     return response.body();
   }
 }
