@@ -26,7 +26,7 @@ function App() {
       .then(data => setAccessToken(data.access_token))
 }, [])
 
-console.log(access_token)
+
 //
   // return (
   //   <div className="App">
