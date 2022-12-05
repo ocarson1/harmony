@@ -2,11 +2,11 @@ import './styles/Sidebar.css'
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import {ToggleSwitch} from './components/ToggleSwitch';
 import FilterInfo from './components/FilterInfo'
+import HistoryInfo from './components/HistoryInfo'
 import React, { useState } from 'react';
 
 
-export default function GenerateSidebar() {
-    const [theme, setTheme] = useState(false);
+export default function GenerateSidebar(props: sidebarProps) {
 
     return (
         <div className="sidebar">
@@ -23,21 +23,30 @@ export default function GenerateSidebar() {
                 </div>
                 <FilterInfo />
                 <ToggleSwitch 
-                selected ={theme}
+                selected ={props.theme}
                 toggleSelected={() => {
-                    setTheme(!theme);
+                    props.setTheme(!props.theme);
                 }}
                 />
             </div>
             </TabPanel>
             <TabPanel>
                 <div className = "profile-tab">
+                    <div className = "history">
+                        History:
+                    </div>
+                    <HistoryInfo />
                 </div>
                 </TabPanel>
             </Tabs>
         </div>
     )
 }
+
+interface sidebarProps {
+    theme: boolean;
+    setTheme: Function;
+  }
 
 function EntryButton() {
     return(

@@ -4,46 +4,45 @@
     width: 406px;
     height: 100%;
     background: #EBEBEB;
-    display: inline-block;
+    /* display: inline-block; */
+    z-index: 10;
+    top:30px;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 .entry-button {
     width: 329px;
     height: 78px;
-
     background: linear-gradient(180deg, #6FCAF4 0%, #A65BBA 100%);
     border-radius: 51px;
-
     font-family: 'Montserrat',sans-serif;
     font-style: normal;
     font-weight: 700;
     font-size: 28px;
     line-height: 34px;
     text-align: center;
-
     color: #FFFFFF;
-
     padding: 0;
     border: none;
-
     cursor: pointer;
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
 }
 
 
-.filter-by {
-position:relative;
-height: 120px;
-left: 20px;
+.filter-by, .history {
+  position:relative;
+  height: 120px;
+  left: 20px;
 
 
-font-weight: 700;
-font-size: 24px;
-line-height: 29px;
-display: flex;
-align-items: center;
-text-align: center;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 29px;
+  display: flex;
+  align-items: center;
+  text-align: center;
 
-color: #000000;
+  color: #000000;
 }
 
 
@@ -72,6 +71,8 @@ color: #000000;
     justify-content: space-between;
     background: #000000;
     padding-left: 0px;
+    position:relative;
+    top:-30px
   }
 
   .react-tabs__tab {
@@ -95,6 +96,9 @@ color: #000000;
     background: #EBEBEB;
   }
 
+  *:focus {
+    outline: none;
+}
   /* .react-tabs__tab:hover {
     background: rgba(50, 224, 196, 0.15);
   } */

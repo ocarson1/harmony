@@ -5,7 +5,7 @@ import Map, {
    Source, Layer } from 'react-map-gl'  
 
 import 'mapbox-gl/dist/mapbox-gl.css'
-import './styles/MapDemo.css'
+import './styles/Map.css'
 
 import {myKey} from './private/key'
 
@@ -15,7 +15,12 @@ function onMapClick(e: MapLayerMouseEvent) {
   console.log(e)
 }
 
-export default function GenerateMap() {
+interface mapProps {
+  theme: boolean;
+  setTheme: Function;
+}
+
+export default function GenerateMap(props: mapProps) {
 
   const [viewState, setViewState] = useState<ViewState>({
     longitude: -71.4129,
@@ -55,7 +60,7 @@ export default function GenerateMap() {
          onClick={(ev: MapLayerMouseEvent) => onMapClick(ev)}
          // This is too big, and the 0.9 factor is pretty hacky
          style={{width:(window.innerWidth - 406), height:window.innerHeight}} 
-         mapStyle={'mapbox://styles/mapbox/dark-v11'}>
+         mapStyle={props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'}>
 
           <Source id="geo_data" type="geojson" data={overlay}>
             <Layer id = {geoLayer.id} type = {geoLayer.type} paint = {geoLayer.paint} />
@@ -68,6 +73,9 @@ export default function GenerateMap() {
           zoom=${viewState.zoom.toFixed(4)}`}
       </div> */}
     </div>
+    <button className="playlist-button">MAKE A GEO-PLAYLIST
+
+    </button>
     </div>
   );
 }
