@@ -16,6 +16,7 @@ const getTokenFromUrl = () => {
 
 function App() {
   const CLIENT_ID = '50b02aae40fd4b2c99db1dbe69cb3935'
+  const CLIENT_SECRET = ''
   const REDIRECT_URI = 'http://localhost:3000'
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
@@ -24,17 +25,25 @@ function App() {
 
   useEffect(() => {
     const hash: string = window.location.hash
-    let token: string = window.localStorage.getItem("token")!
-    console.log("use effect outside if token: " + token)
 
-    if (!token && hash) {
+    if (hash) {
       console.log("use effect inside if")
-      //idk why the types r inconsistent ts so annoying
-      // let token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split('=')[1]
-
-      console.log(token)
+      const token = hash.substring(1).split("&")[0].split('=')[1]
   }
-}, [])
+}, )
+
+//other tutorial stuff???
+
+//   useEffect(() => {
+//     var authParameters = {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/x-www-form-urlencoded'
+//       },
+//       body: 'grant_type =' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+//     }
+//     fetch('https://accounts.spotify.com/api/token', authParameters)
+// }, [])
   // return (
   //   <div className="App">
   //     <div className="web-container">
