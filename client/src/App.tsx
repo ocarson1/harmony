@@ -3,47 +3,31 @@ import React, { useEffect, useState, useRef } from 'react'
 import './App.css';
 import LogIn from './react-components/LogIn';
 
-const getTokenFromUrl = () => {
-  return window.location.hash
-  .substring(1)
-  .split('&')
-  .reduce((initial: any, item: any) => {
-    let parts: string[] = item.split("=")
-    initial[parts[0]] = decodeURIComponent(parts[1])
-    return initial;
-  });
-}
-
 function App() {
-  const CLIENT_ID = '50b02aae40fd4b2c99db1dbe69cb3935'
-  const CLIENT_SECRET = ''
+  const CLIENT_ID = 'ce58270f079346658ebe132ae27ae27b'
+  const CLIENT_SECRET = '8ce08f38b60f474896c4ce17af94d709'
   const REDIRECT_URI = 'http://localhost:3000'
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
 
-  const [token, setToken] = useState("");
+  const [access_token, setAccessToken] = useState("");
 
   useEffect(() => {
-    const hash: string = window.location.hash
+    var authParameters = {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
+    }
 
-    if (hash) {
-      console.log("use effect inside if")
-      const token = hash.substring(1).split("&")[0].split('=')[1]
-  }
-}, )
+    fetch('https://accounts.spotify.com/api/token', authParameters)
+      .then(result => result.json())
+      .then(data => setAccessToken(data.access_token))
+}, [])
 
-//other tutorial stuff???
-
-//   useEffect(() => {
-//     var authParameters = {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       },
-//       body: 'grant_type =' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-//     }
-//     fetch('https://accounts.spotify.com/api/token', authParameters)
-// }, [])
+console.log(access_token)
+//
   // return (
   //   <div className="App">
   //     <div className="web-container">
