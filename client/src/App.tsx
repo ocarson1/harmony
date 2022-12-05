@@ -25,12 +25,14 @@ function App() {
   useEffect(() => {
     const hash: string = window.location.hash
     let token: string = window.localStorage.getItem("token")!
+    console.log("use effect outside if token: " + token)
 
     if (!token && hash) {
+      console.log("use effect inside if")
       //idk why the types r inconsistent ts so annoying
-        let token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split('=')[1]
+      // let token = hash.substring(1).split("&").find(elem => elem.startsWith("access_token")).split('=')[1]
 
-        console.log(token)
+      console.log(token)
   }
 }, [])
   // return (
