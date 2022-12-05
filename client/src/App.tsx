@@ -26,6 +26,13 @@ function App() {
       .then(data => setAccessToken(data.access_token))
 }, [])
 
+fetch('http://localhost:3232/getTrack?id=11dFghVXANMIKmJXsNCbNI&token=' + access_token)
+.then(r => r.json())
+.then(r => {
+  if(r.result==="success"){
+    console.log(access_token)
+  }
+})
 
 //
   // return (
