@@ -43,23 +43,6 @@ public class GetRecentSongHandler implements Route {
       List<Item> items = idObj.items;
       String id = items.get(0).track.id;
 
-//      String title = trackObj.name;
-//      String album = trackObj.album.name;
-//      String preview = trackObj.preview_url;
-//      List<Image> imgURLs = trackObj.album.images;
-//      String imgURL = imgURLs.get(0).url;
-//      List<String> genres = new ArrayList<>();
-
-//      resp.put("result", "success");
-//      resp.put("title", title);
-//      resp.put("album", album);
-//      resp.put("preview_url", preview);
-//      resp.put("genres", genres);
-//      resp.put("img_url", imgURL);
-
-//      APIUtility songUrl = new APIUtility(url);
-//
-//      String id =
       resp.put("result", "success");
       resp.put("id", id);
       return new ServerResponse().serialize(resp);

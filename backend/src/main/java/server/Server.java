@@ -3,6 +3,7 @@ package server;
 import static spark.Spark.after;
 
 import com.google.cloud.firestore.Firestore;
+import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
 import server.handlers.GetTrackHandler;
 import server.handlers.UserLocationHandler;
@@ -41,6 +42,7 @@ public class Server {
     Spark.get("getRecentSong", new GetRecentSongHandler());
     Spark.get("getTrack", new GetTrackHandler());
     Spark.get("userLoc", new UserLocationHandler(f));
+    Spark.get("addLike", new AddToLikedSongsHandler());
 
     Spark.init();
     Spark.awaitInitialization();

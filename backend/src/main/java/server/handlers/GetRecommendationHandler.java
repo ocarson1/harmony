@@ -24,10 +24,6 @@ import spark.Route;
 
 public class GetRecommendationHandler implements Route {
 
-  public GetRecommendationHandler() {
-
-  }
-
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
@@ -71,33 +67,6 @@ public class GetRecommendationHandler implements Route {
       e.printStackTrace();
       resp.put("result", "error_bad_token");
       return new ServerResponse().serialize(resp);
-    }
-  }
-
-  /**
-   * Gets a response from an API using an input query.
-   *
-   * @param url - the query to make a request from the API endpoint.
-   * @return - the HTTP response from the input query to the endpoint.
-   * @throws URISyntaxException - when the query uses incorrect syntax.
-   * @throws IOException - when we cannot successfully get a response from a request sent because of
-   *     input format.
-   * @throws InterruptedException - when the request gets interrupted so we cannot get the response.
-   */
-  public HttpResponse<String> getResponse(String url)
-      throws URISyntaxException, IOException, InterruptedException {
-    try {
-      HttpRequest req = HttpRequest.newBuilder().uri(new URI(url)).GET().build();
-      return HttpClient.newBuilder().build().send(req, HttpResponse.BodyHandlers.ofString());
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-      throw new URISyntaxException(url, "invalid api call");
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new IOException();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-      throw new InterruptedException();
     }
   }
 
