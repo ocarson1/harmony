@@ -13,8 +13,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import server.APIUtility;
+import server.deserializationObjects.RecommendationObj;
 import server.ServerResponse;
-import server.handlers.RecommendationObj.ID;
+import server.deserializationObjects.RecommendationObj.ID;
+import server.deserializationObjects.TrackObj;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -97,6 +99,13 @@ public class GetRecommendationHandler implements Route {
       e.printStackTrace();
       throw new InterruptedException();
     }
+  }
+
+  public RecommendationObj getRecObj(String JSONBody) throws IOException {
+    Moshi moshi = new Moshi.Builder().build();
+    JsonAdapter<RecommendationObj> recAdapter = moshi.adapter(RecommendationObj.class);
+
+    return recAdapter.fromJson(JSONBody);
   }
 
 }

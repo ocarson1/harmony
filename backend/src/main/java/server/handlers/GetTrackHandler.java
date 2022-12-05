@@ -9,8 +9,8 @@ import java.util.List;
 import java.util.Map;
 import server.APIUtility;
 import server.ServerResponse;
-import server.TrackObj;
-import server.TrackObj.Image;
+import server.deserializationObjects.TrackObj;
+import server.deserializationObjects.TrackObj.Image;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -62,7 +62,6 @@ public class GetTrackHandler implements Route {
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
-      e.printStackTrace();
       resp.put("result", "error_bad_token");
       return new ServerResponse().serialize(resp);
     }
