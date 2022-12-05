@@ -5,16 +5,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
-import java.util.ArrayList;
 import java.util.List;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
-import server.SongID;
-import server.SongID.Item;
-import server.TrackObj;
-import server.TrackObj.Image;
+import server.deserializationObjects.SongID;
+import server.deserializationObjects.SongID.Item;
 import server.handlers.GetRecentSongHandler;
 
 public class UnitTestRecent {

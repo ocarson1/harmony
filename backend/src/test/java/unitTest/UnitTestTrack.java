@@ -11,9 +11,8 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
-import server.TrackObj;
-import server.TrackObj.Image;
-import server.handlers.GetRecentSongHandler;
+import server.deserializationObjects.TrackObj;
+import server.deserializationObjects.TrackObj.Image;
 import server.handlers.GetTrackHandler;
 
 
