@@ -120,7 +120,7 @@ public class TestUserLocationHandler {
     userMap.put("id", "123");
 
     HttpURLConnection clientConnection2 = tryRequest("userLoc?location=5.3.2&id=456");
-    assertEquals(200, clientConnection.getResponseCode());
+    assertEquals(200, clientConnection2.getResponseCode());
 
     Map<String, Object> userMap2 = new HashMap<>();
     userMap2.put("location", "5.3.2");

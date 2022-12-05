@@ -12,10 +12,8 @@ public class SongID {
     private String songID;
   }
 
-
   public String getSongID() {
     return this.items.track.songID;
   }
-
 }
 
