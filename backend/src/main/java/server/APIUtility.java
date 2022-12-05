@@ -63,4 +63,16 @@ public class APIUtility {
     System.out.println(response.body());
     return response.body();
   }
+
+  public String putAPIRequest(String token) throws URISyntaxException, IOException, InterruptedException {
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(this.apiUrl))
+        .header("Authorization", "Bearer" + token)
+        .PUT(HttpRequest.BodyPublishers.ofString("Sample request body"))
+        .build();
+    HttpResponse<String> response =
+        HttpClient.newBuilder().build().send(request, BodyHandlers.ofString());
+    System.out.println(response.body());
+    return response.body();
+  }
 }
