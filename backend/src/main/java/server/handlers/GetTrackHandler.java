@@ -2,6 +2,7 @@ package server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -9,6 +10,7 @@ import java.util.Map;
 import server.APIUtility;
 import server.ServerResponse;
 import server.TrackObj;
+import server.TrackObj.Image;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -40,11 +42,13 @@ public class GetTrackHandler implements Route {
 
       String JSONBody = trackURL.getAPIRequest(token);
       TrackObj trackObj = trackAdapter.fromJson(JSONBody);
+      //TrackObj trackObj = this.handleTrackReq(token, id);
 
       String title = trackObj.name;
       String album = trackObj.album.name;
       String preview = trackObj.preview_url;
-      String imgURL = trackObj.images.url;
+      List<Image> imgURLs = trackObj.album.images;
+      String imgURL = imgURLs.get(0).url;
       List<String> genres = new ArrayList<>();
 
       resp.put("result", "success");
@@ -62,5 +66,12 @@ public class GetTrackHandler implements Route {
       resp.put("result", "error_bad_token");
       return new ServerResponse().serialize(resp);
     }
+  }
+
+  public TrackObj getTrackObj(String JSONBody) throws IOException {
+    Moshi moshi = new Moshi.Builder().build();
+    JsonAdapter<TrackObj> trackAdapter = moshi.adapter(TrackObj.class);
+
+    return trackAdapter.fromJson(JSONBody);
   }
 }

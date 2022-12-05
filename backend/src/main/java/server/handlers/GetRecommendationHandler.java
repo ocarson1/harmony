@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -20,6 +21,10 @@ import spark.Response;
 import spark.Route;
 
 public class GetRecommendationHandler implements Route {
+
+  public GetRecommendationHandler() {
+
+  }
 
   @Override
   public Object handle(Request request, Response response) throws Exception {
@@ -34,7 +39,7 @@ public class GetRecommendationHandler implements Route {
       //split individual song ids and store in array
       String[] ids = params.get("ids").value().split(",");
 
-      System.out.println(ids.toString());
+      System.out.println(Arrays.toString(ids));
       if (ids.length <= 2) {
         return new ServerResponse().serialize(resp);
       }
