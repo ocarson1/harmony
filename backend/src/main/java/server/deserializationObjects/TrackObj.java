@@ -6,7 +6,7 @@ public class TrackObj {
   public String name;
   public String preview_url;
   public Album album;
-  public List<Artists> artist;
+  public List<Artists> artists;
 
   public static class Album {
     public List<Image> images;

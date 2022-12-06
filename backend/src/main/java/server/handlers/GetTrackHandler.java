@@ -46,7 +46,7 @@ public class GetTrackHandler implements Route {
 
       String title = trackObj.name;
       String album = trackObj.album.name;
-      String artistId = trackObj.artist.get(0).id;
+      String artistId = trackObj.artists.get(0).id;
       String preview = trackObj.preview_url;
       List<Image> imgURLs = trackObj.album.images;
       String imgURL = imgURLs.get(0).url;

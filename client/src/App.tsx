@@ -9,6 +9,7 @@ function App() {
   const REDIRECT_URI = 'http://localhost:3000'
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
+  const SCOPE = "user-read-recently-played user-library-modify"
 
   const [access_token, setAccessToken] = useState("");
 
@@ -49,7 +50,7 @@ fetch('http://localhost:3232/getTrack?id=11dFghVXANMIKmJXsNCbNI&token=' + access
     <div className="App">
        <header className="App-header">
                 <h1>Spotify React</h1>
-                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`}>Login to Spotify</a>
         </header>
     </div>
   );

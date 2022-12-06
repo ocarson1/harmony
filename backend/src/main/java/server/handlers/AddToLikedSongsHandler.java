@@ -32,23 +32,23 @@ public class AddToLikedSongsHandler implements Route {
 
       APIUtility idURL = new APIUtility(url);
 
-      String JSONBody = null;
-      Boolean add = Boolean.valueOf(params.get("add").value());
+      String JSONBody;
+      boolean add = Boolean.parseBoolean(params.get("add").value());
       if (add) {
-        JSONBody = idURL.putAPIRequest(token);
+        JSONBody = idURL.putAPIRequest(token, id);
       } else {
         JSONBody = idURL.deleteAPIRequest(token);
       }
 
-      Moshi moshi = new Moshi.Builder().build();
-      JsonAdapter<ErrorObj> errorAdapter = moshi.adapter(ErrorObj.class);
-      ErrorObj errObj = errorAdapter.fromJson(JSONBody);
-
-      if (errObj.error == null) {
-        resp.put("result", "success");
-      } else {
+      //Moshi moshi = new Moshi.Builder().build();
+      //JsonAdapter<ErrorObj> errorAdapter = moshi.adapter(ErrorObj.class);
+      if (JSONBody != null) {
         resp.put("result", "error_bad_token");
+        //ErrorObj errObj = errorAdapter.fromJson(JSONBody);
+      } else {
+        resp.put("result", "success");
       }
+
       return new ServerResponse().serialize(resp);
     } catch (Exception e) {
       System.out.println(e.getMessage());
