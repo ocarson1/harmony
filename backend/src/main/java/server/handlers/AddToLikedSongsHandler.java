@@ -19,10 +19,10 @@ public class AddToLikedSongsHandler implements Route {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
-      if (!params.hasKey("token") || !params.hasKey("id")) {
+      if (!params.hasKey("token") || !params.hasKey("id") || !params.hasKey("add")) {
         resp.put("result", "error_bad_request");
         return new ServerResponse().serialize(resp);
-      } else if (params.get("id").value().equals("") || params.get("token").value().equals("")) {
+      } else if (params.get("id").value().equals("") || params.get("token").value().equals("") || params.get("add").value().equals("")) {
         resp.put("result", "error_no_token");
         return new ServerResponse().serialize(resp);
       }
@@ -31,7 +31,14 @@ public class AddToLikedSongsHandler implements Route {
       String url = "https://api.spotify.com/v1/me/tracks?ids=" + id;
 
       APIUtility idURL = new APIUtility(url);
-      String JSONBody = idURL.putAPIRequest(token);
+
+      String JSONBody = null;
+      Boolean add = Boolean.valueOf(params.get("add").value());
+      if (add) {
+        JSONBody = idURL.putAPIRequest(token);
+      } else {
+        JSONBody = idURL.deleteAPIRequest(token);
+      }
 
       Moshi moshi = new Moshi.Builder().build();
       JsonAdapter<ErrorObj> errorAdapter = moshi.adapter(ErrorObj.class);
