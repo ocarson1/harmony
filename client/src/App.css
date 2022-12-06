@@ -2,6 +2,8 @@
   text-align: center;
   position: absolute;
   font-family: 'Montserrat', sans-serif;
+  height: 100%;
+  width: 100%;
   font-size: medium;
 }
 
@@ -24,6 +26,6 @@
 }
 
 .web-container {
-  height: 100vh;
-  width: 100vh;
+  height: 100%;
+  width: 100%;
 }
