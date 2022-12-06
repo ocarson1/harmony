@@ -4,7 +4,7 @@ import { FillLayer } from "react-map-gl";
 import { MapboxScaleControl } from "react-map-gl/dist/esm/types";
 
 // Import the raw JSON file
-//import rl_data from "./mockData/fullDownload.json"
+import rl_data from "./mockData/mockMarkers.json"
 
 // Type predicate for FeatureCollection
 function isFeatureCollection(json: any): json is FeatureCollection {
@@ -12,7 +12,9 @@ function isFeatureCollection(json: any): json is FeatureCollection {
 }
 
 export async function overlayData(): Promise<GeoJSON.FeatureCollection | undefined> {
-  let rl_data = await fetchGeoJSON(24,50,-126,-60)
+  
+  // HARMONY: to use fetchGeoJSON uncomment this out and comment out the rl data import
+  //let rl_data = await fetchGeoJSON(24,50,-126,-60)
   console.log(rl_data)
 
   if(isFeatureCollection(rl_data)) {
@@ -22,6 +24,9 @@ export async function overlayData(): Promise<GeoJSON.FeatureCollection | undefin
   else return undefined
 }
 
+
+// HARMONY:  We will probably need to fetch our GeoJSON in a way similar to this because the point data is always changing. Not 
+// using this method right now because I'm testing out adding images with mock geoJSON data.
 async function fetchGeoJSON(minLat: Number, maxLat: Number, minLon: Number, maxLon: Number) {
   let url: string = `http://localhost:2023/redlining?minLat=${minLat}&maxLat=${maxLat}&minLon=${minLon}&maxLon=${maxLon}`
   return await fetch(url)

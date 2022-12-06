@@ -10,6 +10,7 @@ import './styles/Map.css'
 import {myKey} from './private/key'
 
 import {overlayData, geoLayer} from './overlays' 
+import mapboxgl from 'mapbox-gl';
 
 function onMapClick(e: MapLayerMouseEvent) {
   console.log(e)
@@ -48,7 +49,8 @@ export default function GenerateMap(props: mapProps) {
       <div className="map-demo-map">   
         {/* We could use {...viewState} for the 6 viewState fields, 
             but "spread" syntax wasn't covered in class. */}
-        <Map 
+
+        <Map
          mapboxAccessToken={myKey}
          latitude={viewState.latitude}
          longitude={viewState.longitude}
@@ -59,8 +61,10 @@ export default function GenerateMap(props: mapProps) {
          onMove={(ev: ViewStateChangeEvent) => setViewState(ev.viewState)} 
          onClick={(ev: MapLayerMouseEvent) => onMapClick(ev)}
          // This is too big, and the 0.9 factor is pretty hacky
-         style={{width:(window.innerWidth - 406), height:window.innerHeight}} 
+         style={{width:(window.innerWidth), height:window.innerHeight}} 
          mapStyle={props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'}>
+
+          
 
           <Source id="geo_data" type="geojson" data={overlay}>
             <Layer id = {geoLayer.id} type = {geoLayer.type} paint = {geoLayer.paint} />

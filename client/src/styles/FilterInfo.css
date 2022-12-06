@@ -1,11 +1,12 @@
 .filter-info {
     position:relative;
     top: -30px;
-    left: 20px;
+    left: 30px;
     width: 344px;
     height: 200px;
     background: linear-gradient(180deg, #B4DCEF 0%, rgba(180, 220, 239, 0) 100%);
     border-radius: 25px;    
+    font: 'Montserrat', serif;
     font-weight: 500;
     font-size: 15px;
 }
@@ -41,7 +42,7 @@
   
   .Dropdown-arrow {
     /* this makes it a triangle facing down */
-    border-color: #999 transparent transparent;
+    border-color: #000000 transparent transparent;
     border-style: solid;
     border-width: 5px 5px 0;
 
@@ -50,12 +51,12 @@
     margin-top: -ceil(2.5);
     position: absolute;
     right: 10px;
-    top: 14px;
+    top: 50%;
     width: 0
   }
   
   .is-open .Dropdown-arrow {
-    border-color: transparent transparent #999;
+    border-color: transparent transparent #000000;
     border-width: 0 5px 5px;
   }
   
