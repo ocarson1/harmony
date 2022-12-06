@@ -2,11 +2,11 @@ package server;
 
 import static spark.Spark.after;
 
-import com.google.cloud.firestore.Firestore;
 import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
 import server.handlers.GetTrackHandler;
 import server.handlers.UserLocationHandler;
+import server.handlers.AddSongAtLocHandler;
 import spark.Spark;
 
 public class Server {
@@ -35,14 +35,14 @@ public class Server {
           response.header("Access-Control-Allow-Methods", "*");
         });
 
-//    // Initialize the Firestore Database
-//    Firebase f = new Firebase();
-//    f.testAdd();
+    // Initialize the Firestore Database
+    Firebase f = new Firebase();
 
     Spark.get("getRecentSong", new GetRecentSongHandler());
     Spark.get("getTrack", new GetTrackHandler());
-//    Spark.get("userLoc", new UserLocationHandler(f));
+    Spark.get("userLoc", new UserLocationHandler(f));
     Spark.get("addLike", new AddToLikedSongsHandler());
+    Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
 
     Spark.init();
     Spark.awaitInitialization();
