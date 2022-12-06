@@ -1,10 +1,13 @@
 import { Dispatch, SetStateAction } from 'react';
 import './LogIn.css';
 
-function LogIn(){
+interface LogInProps {
+    href: string
+}
+function LogIn({href}: LogInProps){
     
     const handleSubmit = () => {
-        window.open('https://accounts.spotify.com/authorize/?client_id=ce58270f079346658ebe132ae27ae27b&response_type=code&redirect_uri=https://localhost:3000', "_self")
+        window.open(href, "_self")
     }
 
     console.log(document.location.href);

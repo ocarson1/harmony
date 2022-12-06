@@ -26,25 +26,25 @@ function App() {
       .then(data => setAccessToken(data.access_token))
 }, [])
 
-console.log(access_token)
-//
-  // return (
-  //   <div className="App">
-  //     <div className="web-container">
-  //       <img className="" src="./images/mapboxbackground.jpg"></img>
-  //       <LogIn></LogIn>
-  //     </div>
-  //   </div>
-  // );
+const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
 
-  //temporary html for testing spotify auth from tutorial
   return (
     <div className="App">
-       <header className="App-header">
-                <h1>Spotify React</h1>
-                <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
-        </header>
+      <div className="web-container">
+        <img className="" src="./images/mapboxbackground.jpg"></img>
+        <LogIn href={href}></LogIn>
+      </div>
     </div>
   );
+
+  // //temporary html for testing spotify auth from tutorial
+  // return (
+  //   <div className="App">
+  //      <header className="App-header">
+  //               <h1>Spotify React</h1>
+  //               <a href={`${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`}>Login to Spotify</a>
+  //       </header>
+  //   </div>
+  // );
 }
 export default App;
