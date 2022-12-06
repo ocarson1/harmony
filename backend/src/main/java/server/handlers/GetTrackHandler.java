@@ -48,6 +48,7 @@ public class GetTrackHandler implements Route {
       String album = trackObj.album.name;
       String artistId = trackObj.artists.get(0).id;
       String preview = trackObj.preview_url;
+      String releaseYear = trackObj.album.release_date.substring(0, 4);
       List<Image> imgURLs = trackObj.album.images;
       String imgURL = imgURLs.get(0).url;
 
@@ -56,6 +57,7 @@ public class GetTrackHandler implements Route {
       resp.put("album", album);
       resp.put("preview_url", preview);
       resp.put("img_url", imgURL);
+      resp.put("release_date", releaseYear);
 
       String urlArtist = "https://api.spotify.com/v1/artists/" + artistId;
       APIUtility artistURL = new APIUtility(urlArtist);

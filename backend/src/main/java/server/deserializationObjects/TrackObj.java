@@ -11,6 +11,7 @@ public class TrackObj {
   public static class Album {
     public List<Image> images;
     public String name;
+    public String release_date;
   }
 
   public static class Artists {
