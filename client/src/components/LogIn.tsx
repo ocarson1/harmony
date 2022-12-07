@@ -1,13 +1,17 @@
 import { Dispatch, SetStateAction } from 'react';
-import '..styles/LogIn.css';
+import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import '../styles/LogIn.css'
 
 interface LogInProps {
     href: string
+    clearance: boolean
 }
-function LogIn({href}: LogInProps){
+function LogIn({href,clearance}: LogInProps){
     
     const handleSubmit = () => {
         window.open(href, "_self")
+        clearance = true
+        console.log("clearance" + clearance)
     }
 
     console.log(document.location.href);
