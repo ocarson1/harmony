@@ -29,9 +29,8 @@ public class UserLocationHandler implements Route {
       String id = params.get("id").value();
 
       this.userMap.put("location", location);
-      this.userMap.put("id", id);
 
-      this.f.addUser(this.userMap);
+      this.f.addLocation(id, this.userMap);
       return f;
     } catch (Exception e) {
       e.printStackTrace();

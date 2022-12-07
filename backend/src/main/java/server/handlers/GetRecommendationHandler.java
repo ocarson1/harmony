@@ -8,12 +8,15 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import server.APIUtility;
+import server.deserializationObjects.RecommendationObj;
 import server.ServerResponse;
-import server.handlers.RecommendationObj.ID;
+import server.deserializationObjects.RecommendationObj.ID;
+import server.deserializationObjects.TrackObj;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -34,7 +37,7 @@ public class GetRecommendationHandler implements Route {
       //split individual song ids and store in array
       String[] ids = params.get("ids").value().split(",");
 
-      System.out.println(ids.toString());
+      System.out.println(Arrays.toString(ids));
       if (ids.length <= 2) {
         return new ServerResponse().serialize(resp);
       }
@@ -67,31 +70,11 @@ public class GetRecommendationHandler implements Route {
     }
   }
 
-  /**
-   * Gets a response from an API using an input query.
-   *
-   * @param url - the query to make a request from the API endpoint.
-   * @return - the HTTP response from the input query to the endpoint.
-   * @throws URISyntaxException - when the query uses incorrect syntax.
-   * @throws IOException - when we cannot successfully get a response from a request sent because of
-   *     input format.
-   * @throws InterruptedException - when the request gets interrupted so we cannot get the response.
-   */
-  public HttpResponse<String> getResponse(String url)
-      throws URISyntaxException, IOException, InterruptedException {
-    try {
-      HttpRequest req = HttpRequest.newBuilder().uri(new URI(url)).GET().build();
-      return HttpClient.newBuilder().build().send(req, HttpResponse.BodyHandlers.ofString());
-    } catch (URISyntaxException e) {
-      e.printStackTrace();
-      throw new URISyntaxException(url, "invalid api call");
-    } catch (IOException e) {
-      e.printStackTrace();
-      throw new IOException();
-    } catch (InterruptedException e) {
-      e.printStackTrace();
-      throw new InterruptedException();
-    }
+  public RecommendationObj getRecObj(String JSONBody) throws IOException {
+    Moshi moshi = new Moshi.Builder().build();
+    JsonAdapter<RecommendationObj> recAdapter = moshi.adapter(RecommendationObj.class);
+
+    return recAdapter.fromJson(JSONBody);
   }
 
 }
