@@ -6,7 +6,6 @@ import java.util.HashMap;
 import java.util.Map;
 import server.APIUtility;
 import server.ServerResponse;
-import server.deserializationObjects.RecommendationObj;
 import server.deserializationObjects.UserObj;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -39,13 +38,15 @@ public class GetUserProfileHandler implements Route {
       UserObj userObj = recAdapter.fromJson(JSONBody);
 
       resp.put("result", "success");
-      //resp.put("id", tracks);
+      resp.put("name", userObj.display_name);
+      resp.put("img_url", userObj.images.get(0).url);
       return new ServerResponse().serialize(resp);
 
-  } catch (Exception e) {
+    } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
       resp.put("result", "error_bad_token");
       return new ServerResponse().serialize(resp);
     }
+  }
 }
