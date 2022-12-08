@@ -4,6 +4,7 @@ import static spark.Spark.after;
 
 import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
+import server.handlers.GetRecommendationHandler;
 import server.handlers.GetTrackHandler;
 import server.handlers.UserLocationHandler;
 import server.handlers.AddSongAtLocHandler;
@@ -42,6 +43,8 @@ public class Server {
     Spark.get("getTrack", new GetTrackHandler());
     Spark.get("userLoc", new UserLocationHandler(f));
     Spark.get("addLike", new AddToLikedSongsHandler());
+    Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
+    Spark.get("getRecs", new GetRecommendationHandler());
     Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
 
     Spark.init();

@@ -7,5 +7,11 @@ public class RecommendationObj {
 
   public static class ID {
     public String id;
+    public Album album;
+    public String duration_ms;
+  }
+
+  public static class Album {
+    public String release_date;
   }
 }

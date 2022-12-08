@@ -1,4 +1,4 @@
-package server;
+package server.graph;
 
 import org.jgrapht.*;
 import org.jgrapht.generate.*;
