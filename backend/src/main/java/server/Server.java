@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import com.google.cloud.firestore.Firestore;
 import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
+import server.handlers.GetRecommendationHandler;
 import server.handlers.GetTrackHandler;
 import server.handlers.UserLocationHandler;
 import spark.Spark;
@@ -43,6 +44,11 @@ public class Server {
     Spark.get("getTrack", new GetTrackHandler());
     Spark.get("userLoc", new UserLocationHandler(f));
     Spark.get("addLike", new AddToLikedSongsHandler());
+<<<<<<< Updated upstream
+=======
+    Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
+    Spark.get("getRecs", new GetRecommendationHandler());
+>>>>>>> Stashed changes
 
     Spark.init();
     Spark.awaitInitialization();
