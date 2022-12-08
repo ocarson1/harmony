@@ -2,10 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-<<<<<<< HEAD
-=======
-      <module fileurl="file://$PROJECT_DIR$/backend/moshi.iml" filepath="$PROJECT_DIR$/backend/moshi.iml" />
->>>>>>> 8f9bef1f5a635d2392e1f164b0eb9987288d1f35
       <module fileurl="file://$PROJECT_DIR$/.idea/term-project-adeendar-alippman-gcantare-ocarson1-vli18.iml" filepath="$PROJECT_DIR$/.idea/term-project-adeendar-alippman-gcantare-ocarson1-vli18.iml" />
     </modules>
   </component>

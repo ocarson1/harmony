@@ -8,11 +8,7 @@
       </list>
     </option>
   </component>
-<<<<<<< HEAD
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK" />
-=======
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="17" project-jdk-type="JavaSDK">
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" default="true" project-jdk-name="openjdk-17" project-jdk-type="JavaSDK">
     <output url="file://$USER_HOME$/FALL 2021/CSCI 0150/cs15/out" />
   </component>
->>>>>>> 8f9bef1f5a635d2392e1f164b0eb9987288d1f35
 </project>

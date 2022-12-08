@@ -99,12 +99,9 @@
        We used to use Gson, but Gson isn't being maintained actively anymore,
        and doesn't interact well with records. The developer who switched
        from Gson to Moshi has added remarks (e.g., consistent exception use).
-
        Moshi 1.13.0 was released in December, 2021
-
        We'll also use Moshi's adapters package, which includes pre-built adapters
        for quite a few things, including polymorphic adapters.
-
        The adapters README.md includes a "latest.version" version; replaced with
        latest version as of August 2022.
    -->
@@ -158,18 +155,18 @@
     <!--          <version>2.8.9</version>-->
     <!--        </dependency>-->
 
-<!--    <dependency>-->
-<!--      <groupId>com.googlecode.json-simple</groupId>-->
-<!--      <artifactId>json-simple</artifactId>-->
-<!--      <version>1.1.1</version>-->
-<!--    </dependency>-->
+    <!--    <dependency>-->
+    <!--      <groupId>com.googlecode.json-simple</groupId>-->
+    <!--      <artifactId>json-simple</artifactId>-->
+    <!--      <version>1.1.1</version>-->
+    <!--    </dependency>-->
 
-<!--    &lt;!&ndash; https://mvnrepository.com/artifact/commons-io/commons-io &ndash;&gt;-->
-<!--    <dependency>-->
-<!--      <groupId>commons-io</groupId>-->
-<!--      <artifactId>commons-io</artifactId>-->
-<!--      <version>2.6</version>-->
-<!--    </dependency>-->
+    <!--    &lt;!&ndash; https://mvnrepository.com/artifact/commons-io/commons-io &ndash;&gt;-->
+    <!--    <dependency>-->
+    <!--      <groupId>commons-io</groupId>-->
+    <!--      <artifactId>commons-io</artifactId>-->
+    <!--      <version>2.6</version>-->
+    <!--    </dependency>-->
   </dependencies>
 
 </project>
