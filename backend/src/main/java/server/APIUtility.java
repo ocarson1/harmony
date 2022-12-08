@@ -19,7 +19,7 @@ public class APIUtility {
   private String apiUrl;
 
   /**
-   * The first APIUtility contstructor takes in the URL to the API, a list of endpoints, and a list
+   * The first APIUtility constructor takes in the URL to the API, a list of endpoints, and a list
    * of parameters.
    *
    * @param apiUrl    the URL for a given API
@@ -56,7 +56,7 @@ public class APIUtility {
     HttpRequest request = HttpRequest.newBuilder()
         .uri(new URI(this.apiUrl))
         .GET()
-        .header("Authorization", "Bearer" + token)
+        .header("Authorization", "Bearer " + token)
         .build();
     HttpResponse<String> response =
         HttpClient.newBuilder().build().send(request, BodyHandlers.ofString());
@@ -64,11 +64,23 @@ public class APIUtility {
     return response.body();
   }
 
-  public String putAPIRequest(String token) throws URISyntaxException, IOException, InterruptedException {
+  public String putAPIRequest(String token, String id) throws URISyntaxException, IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder()
         .uri(new URI(this.apiUrl))
-        .header("Authorization", "Bearer" + token)
-        .PUT(HttpRequest.BodyPublishers.ofString("Sample request body"))
+        .header("Authorization", "Bearer " + token)
+        .PUT(HttpRequest.BodyPublishers.ofString(id))
+        .build();
+    HttpResponse<String> response =
+        HttpClient.newBuilder().build().send(request, BodyHandlers.ofString());
+    System.out.println(response.body());
+    return response.body();
+  }
+
+  public String deleteAPIRequest(String token) throws URISyntaxException, IOException, InterruptedException {
+    HttpRequest request = HttpRequest.newBuilder()
+        .uri(new URI(this.apiUrl))
+        .header("Authorization", "Bearer " + token)
+        .DELETE()
         .build();
     HttpResponse<String> response =
         HttpClient.newBuilder().build().send(request, BodyHandlers.ofString());

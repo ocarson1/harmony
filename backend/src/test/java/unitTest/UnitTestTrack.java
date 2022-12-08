@@ -36,11 +36,13 @@ public class UnitTestTrack {
     String preview = trackObj.preview_url;
     List<Image> imgURLs = trackObj.album.images;
     String imgURL = imgURLs.get(0).url;
+    String releaseYear = trackObj.album.release_date.substring(0, 4);
 
     assertEquals("Cut To The Feeling", title);
     assertEquals("Cut To The Feeling", album);
     assertEquals("https://p.scdn.co/mp3-preview/4e69d142cceaca1fa4bc8db7a319ab7a0b8ffd82?cid=774b29d4f13844c495f206cafdad9c86", preview);
     assertEquals("https://i.scdn.co/image/ab67616d0000b2737359994525d219f64872d3b1", imgURL);
+    assertEquals("2017", releaseYear);
   }
 
   @Test
