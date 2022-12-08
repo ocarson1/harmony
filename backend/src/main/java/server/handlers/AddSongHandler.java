@@ -40,12 +40,12 @@ public class AddSongHandler implements Route {
         resp.put("result", "error_lat_lon_params");
       } else if (params.get("token").value().equals("") || params.get("lat").value().equals("")
           || params.get("lon").value().equals("")) {
-        resp.put("result", "error_no_token");
+        resp.put("result", "error_invalid_params");
       } else {
         try {
-          resp.put("result", "success");
           String token = params.get("token").value();
-          System.out.println(token);
+          resp.put("result", "success");
+
           double lat = Double.parseDouble(params.get("lat").value());
           double lon = Double.parseDouble(params.get("lon").value());
 

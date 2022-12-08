@@ -1,6 +1,7 @@
 package server;
 
 import com.google.auth.oauth2.GoogleCredentials;
+import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.Firestore;
 
 import com.google.firebase.FirebaseApp;
@@ -75,5 +76,19 @@ public class Firebase {
 
   public void addSong(String id, Map<String, Object> songInfo) {
     this.db.collection("songs").document(id).set(songInfo);
+  }
+
+  public boolean docExists(String collection, String docName) {
+    DocumentReference songsRef = this.db.collection(collection)
+        .document(docName);
+
+    if (songsRef == null) {
+      return false;
+    } else if (songsRef.getId() == docName){
+      return true;
+    } else {
+      return false;
+    }
+
   }
 }
