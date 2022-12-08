@@ -57,7 +57,7 @@ public class GetRecommendationHandler implements Route {
         url += genre + ",";
       }
       url = url.substring(0, url.length() - 1);
-      System.out.println(url);
+
       APIUtility recURL = new APIUtility(url);
 
       Moshi moshi = new Moshi.Builder().build();
