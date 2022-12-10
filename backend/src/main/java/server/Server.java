@@ -2,6 +2,7 @@ package server;
 
 import static spark.Spark.after;
 
+import java.util.concurrent.ExecutionException;
 import server.handlers.AddSongHandler;
 import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
@@ -13,7 +14,7 @@ import server.handlers.AddSongAtLocHandler;
 import spark.Spark;
 
 public class Server {
-  public static void main(String[] args) {
+  public static void main(String[] args) throws ExecutionException, InterruptedException {
     Spark.port(3232);
     /*
        Setting CORS headers to allow cross-origin requests from the client; this is necessary for the client to
@@ -49,6 +50,8 @@ public class Server {
     Spark.get("getRecs", new GetRecommendationHandler());
     Spark.get("getUser", new GetUserProfileHandler());
     Spark.get("add", new AddSongHandler(f));
+
+    System.out.println(f.getData("users", "Arman"));
 
     Spark.init();
     Spark.awaitInitialization();
