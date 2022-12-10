@@ -78,6 +78,10 @@ public class Firebase {
     this.db.collection("songs").document(id).set(songInfo);
   }
 
+  public void addSongInfo(String id, Map<String, Object> metadata) {
+    this.db.collection("songInfo").document(id).set(metadata);
+  }
+
   public boolean docExists(String collection, String docName) {
     DocumentReference songsRef = this.db.collection(collection)
         .document(docName);
@@ -89,6 +93,4 @@ public class Firebase {
     } else {
       return false;
     }
-
-  }
 }
