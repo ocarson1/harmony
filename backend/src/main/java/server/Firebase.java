@@ -1,18 +1,23 @@
 package server;
 
+import com.google.api.core.ApiFuture;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
+import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 public class Firebase {
 
@@ -94,6 +99,24 @@ public class Firebase {
       return true;
     } else {
       return false;
+    }
+  }
+
+  public Map<String, Object> getData(String collection, String docName)
+      throws ExecutionException, InterruptedException {
+    //this code was taken from Firestore data retrieval docs
+    DocumentReference docRef = this.db.collection(collection).document(docName);
+// asynchronously retrieve the document
+    ApiFuture<DocumentSnapshot> future = docRef.get();
+// ...
+// future.get() blocks on response
+    DocumentSnapshot document = future.get();
+    if (document.exists()) {
+      return document.getData();
+    } else {
+      Map<String, Object> map = new HashMap<>();
+      map.put("result", "no data found");
+      return map;
     }
   }
 }
