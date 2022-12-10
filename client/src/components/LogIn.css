@@ -1,12 +1,9 @@
 .welcome-popup {
     /* position: absolute;
     margin: 0 auto; */
-    justify-content: 'center';
-    align-items: 'center';
-    /* position:absolute;
-    align-self: center;
-    top:50%;
-    left:50%; */
+    position:absolute;
+    top:30%;
+    left:68%;
     /* transform:translate(-50%,-50%); */
     width: 470px;
     height: 274px;
