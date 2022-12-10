@@ -1,19 +1,28 @@
 package server.handlers;
 
-import com.squareup.moshi.JsonAdapter;
-import com.squareup.moshi.Moshi;
 import java.util.HashMap;
 import java.util.Map;
 import server.APIUtility;
 import server.ServerResponse;
-import server.deserializationObjects.ErrorObj;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Adds or removes a song from the Spotify user's saved songs library.
+ */
 public class AddToLikedSongsHandler implements Route {
 
+  /**
+   * Invoked when the addLike endpoint is called. The "add" parameter indicates whether the song
+   * is to be added or removed from the library based on a boolean value of true or false. The request
+   * must also include the user's session token and the id of the song to add or remove.
+   * @param request - the request object for the addLike endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return the serialized Map of String to Object containing the result.
+   * @throws Exception - if an error is encountered in the retrieval process
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();

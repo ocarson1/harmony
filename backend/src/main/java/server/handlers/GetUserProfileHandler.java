@@ -12,8 +12,19 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Gets information on the user's profile from their access token.
+ */
 public class GetUserProfileHandler implements Route {
 
+  /**
+   * Invoked when the getUser endpoint is called. The params must include just the user's
+   * access token from the authorization process.
+   * @param request - the request object for the addLike endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return the serialized Map of String to Object containing the result.
+   * @throws Exception - if an error is encountered in the retrieval process
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
