@@ -66,8 +66,9 @@ public class GetRecommendationHandler implements Route {
       RecommendationObj recObj = recAdapter.fromJson(JSONBody);
 
       List<ID> tracks = recObj.tracks;
-      CreatePlaylist createPlaylist = new CreatePlaylist(tracks);
-      System.out.println(createPlaylist.toString());
+      List<Song>
+      //CreatePlaylist createPlaylist = new CreatePlaylist(tracks);
+      //System.out.println(createPlaylist.toString());
 
       resp.put("result", "success");
       resp.put("id", tracks);

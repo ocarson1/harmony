@@ -9,6 +9,7 @@ public class RecommendationObj {
     public String id;
     public Album album;
     public String duration_ms;
+    public int popularity;
   }
 
   public static class Album {
