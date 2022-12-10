@@ -42,7 +42,7 @@ public class Server {
     Firebase f = new Firebase();
 
     Spark.get("getRecentSong", new GetRecentSongHandler());
-    Spark.get("getTrack", new GetTrackHandler());
+    Spark.get("getTrack", new GetTrackHandler(f));
     Spark.get("userLoc", new UserLocationHandler(f));
     Spark.get("addLike", new AddToLikedSongsHandler());
     Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
