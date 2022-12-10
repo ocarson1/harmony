@@ -101,7 +101,7 @@ public class TestUserLocationHandler {
     userMap.put("lon", "3");
     userMap.put("id", "123");
 
-    assertEquals(userMap, userLocHandle.getUserMap());
+    assertEquals(userMap, userLocHandle. getUserMap());
   }
 
   @Test

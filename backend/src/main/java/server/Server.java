@@ -2,6 +2,7 @@ package server;
 
 import static spark.Spark.after;
 
+import server.handlers.AddSongHandler;
 import server.handlers.AddToLikedSongsHandler;
 import server.handlers.GetRecentSongHandler;
 import server.handlers.GetRecommendationHandler;
@@ -46,8 +47,8 @@ public class Server {
     Spark.get("addLike", new AddToLikedSongsHandler());
     Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.get("getRecs", new GetRecommendationHandler());
-    Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.get("getUser", new GetUserProfileHandler());
+    Spark.get("add", new AddSongHandler(f));
 
     Spark.init();
     Spark.awaitInitialization();

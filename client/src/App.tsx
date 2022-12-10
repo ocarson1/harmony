@@ -25,6 +25,7 @@ function App() {
     fetch('https://accounts.spotify.com/api/token', authParameters)
       .then(result => result.json())
       .then(data => setAccessToken(data.access_token))
+
 }, [])
 
 fetch('http://localhost:3232/getTrack?id=11dFghVXANMIKmJXsNCbNI&token=' + access_token)
