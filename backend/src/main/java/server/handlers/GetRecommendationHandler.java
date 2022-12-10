@@ -1,18 +1,22 @@
 package server.handlers;
 
+import com.google.cloud.firestore.CollectionReference;
+import com.google.cloud.firestore.Query;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import server.APIUtility;
-import server.deserializationObjects.RecommendationObj;
+import server.Firebase;
 import server.ServerResponse;
+import server.deserializationObjects.RecommendationObj;
 import server.deserializationObjects.RecommendationObj.ID;
-import server.deserializationObjects.TrackObj;
 import server.graph.CreatePlaylist;
 import spark.QueryParamsMap;
 import spark.Request;
@@ -21,20 +25,29 @@ import spark.Route;
 
 public class GetRecommendationHandler implements Route {
 
+  private final Firebase f;
+
+  public GetRecommendationHandler(Firebase f) {
+    this.f = f;
+  }
+
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
-      if (!params.hasKey("token") || !params.hasKey("songIds") || !params.hasKey("artistIds") || !params.hasKey("genres")) {
+      if (!params.hasKey("token") || !params.hasKey("songIds")) {
         resp.put("result", "error_bad_request");
         return new ServerResponse().serialize(resp);
       }
       String token = params.get("token").value();
       //split individual song ids and store in array
       String[] ids = params.get("songIds").value().split(",");
-      String[] artists = params.get("artistIds").value().split(",");
-      String[] genres = params.get("genres").value().split(",");
+      Set<String> artists = new HashSet<>();
+      Set<String> genres = new HashSet<>();
+      //String[] artists = params.get("artistIds").value().split(",");
+      //String[] genres = params.get("genres").value().split(",");
+
 
       System.out.println(Arrays.toString(ids));
 //      if (ids.length <= 2) {
@@ -67,8 +80,9 @@ public class GetRecommendationHandler implements Route {
       RecommendationObj recObj = recAdapter.fromJson(JSONBody);
 
       List<ID> tracks = recObj.tracks;
-      CreatePlaylist createPlaylist = new CreatePlaylist(tracks);
-      System.out.println(createPlaylist.toString());
+      //List<Song>
+      //CreatePlaylist createPlaylist = new CreatePlaylist(tracks);
+      //System.out.println(createPlaylist.toString());
 
       resp.put("result", "success");
       resp.put("id", tracks);

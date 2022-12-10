@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import server.APIUtility;
+import server.Firebase;
 import server.ServerResponse;
 import server.deserializationObjects.GenreObj;
 import server.deserializationObjects.TrackObj;
@@ -18,6 +19,11 @@ import spark.Response;
 import spark.Route;
 
 public class GetTrackHandler implements Route {
+
+  private final Firebase f;
+  public GetTrackHandler(Firebase f) {
+    this.f = f;
+  }
 
   @Override
   public Object handle(Request request, Response response) throws Exception {
@@ -50,11 +56,13 @@ public class GetTrackHandler implements Route {
       String preview = trackObj.preview_url;
       String releaseYear = trackObj.album.release_date.substring(0, 4);
       List<Image> imgURLs = trackObj.album.images;
+
       String imgURL = imgURLs.get(0).url;
 
-      resp.put("result", "success");
       resp.put("title", title);
+      resp.put("id", id);
       resp.put("album", album);
+      resp.put("artist_id", artistId);
       resp.put("preview_url", preview);
       resp.put("img_url", imgURL);
       resp.put("release_date", releaseYear);
@@ -69,6 +77,10 @@ public class GetTrackHandler implements Route {
       List<String> genres = genreObj.genres;
       resp.put("genres", genres);
 
+      this.addSongMetadata(id, resp);
+
+      resp.put("result", "success");
+
       return new ServerResponse().serialize(resp);
 
     } catch (Exception e) {
@@ -76,6 +88,10 @@ public class GetTrackHandler implements Route {
       resp.put("result", "error_bad_token");
       return new ServerResponse().serialize(resp);
     }
+  }
+
+  private void addSongMetadata(String songID, Map<String, Object> resp) {
+    this.f.addSongInfo(songID, resp);
   }
 
   public TrackObj getTrackObj(String JSONBody) throws IOException {

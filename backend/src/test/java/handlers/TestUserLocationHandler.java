@@ -18,6 +18,7 @@ import server.handlers.UserLocationHandler;
 import spark.Spark;
 
 public class TestUserLocationHandler {
+  Firebase f = new Firebase();
   /** Handles setup before any tests are called. */
   @BeforeAll
   public static void setup_before_everything() {
@@ -74,8 +75,7 @@ public class TestUserLocationHandler {
 
   @Test
   public void TestUserLocNoParam() throws IOException {
-    Firebase f = new Firebase();
-    UserLocationHandler userLocHandle = new UserLocationHandler(f);
+    UserLocationHandler userLocHandle = new UserLocationHandler(this.f);
     Spark.get("/userLoc", userLocHandle);
     Spark.init();
     Spark.awaitInitialization();
@@ -88,44 +88,48 @@ public class TestUserLocationHandler {
 
   @Test
   public void TestUserLocCorrect() throws IOException {
-    Firebase f = new Firebase();
-    UserLocationHandler userLocHandle = new UserLocationHandler(f);
+    UserLocationHandler userLocHandle = new UserLocationHandler(this.f);
     Spark.get("/userLoc", userLocHandle);
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("userLoc?location=1.1.21&id=123");
+    HttpURLConnection clientConnection = tryRequest("userLoc?lat=1.1.21&lon=3&id=123");
     assertEquals(200, clientConnection.getResponseCode());
 
     Map<String, Object> userMap = new HashMap<>();
-    userMap.put("location", "1.1.21");
+    userMap.put("lat", "1.1.21");
+    userMap.put("lon", "3");
     userMap.put("id", "123");
 
-    assertEquals(userMap, userLocHandle.getUserMap());
+    assertEquals(userMap, userLocHandle. getUserMap());
   }
 
   @Test
   public void TestUserLocMultiple() throws IOException {
-    Firebase f = new Firebase();
-    UserLocationHandler userLocHandle = new UserLocationHandler(f);
+    UserLocationHandler userLocHandle = new UserLocationHandler(this.f);
     Spark.get("/userLoc", userLocHandle);
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("userLoc?location=1.1.21&id=123");
+    HttpURLConnection clientConnection = tryRequest("userLoc?lat=2&lon=4&id=142");
     assertEquals(200, clientConnection.getResponseCode());
 
     Map<String, Object> userMap = new HashMap<>();
-    userMap.put("location", "1.1.21");
-    userMap.put("id", "123");
+    userMap.put("lat", "2");
+    userMap.put("lon", "4");
+    userMap.put("id", "142");
 
-    HttpURLConnection clientConnection2 = tryRequest("userLoc?location=5.3.2&id=456");
+    assertEquals(userMap, userLocHandle.getUserMap());
+
+    HttpURLConnection clientConnection2 = tryRequest("userLoc?lat=1&lon=2&id=123");
+
     assertEquals(200, clientConnection2.getResponseCode());
 
     Map<String, Object> userMap2 = new HashMap<>();
-    userMap2.put("location", "5.3.2");
-    userMap2.put("id", "456");
+    userMap2.put("lat", "1");
+    userMap2.put("lon", "2");
+    userMap2.put("id", "123");
 
-    assertEquals(userMap, userLocHandle.getUserMap());
+    assertEquals(userMap2, userLocHandle.getUserMap());
   }
 }
