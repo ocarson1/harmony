@@ -19,6 +19,7 @@ function onMapClick(e: MapLayerMouseEvent) {
 interface mapProps {
   theme: boolean;
   setTheme: Function;
+  style: React.CSSProperties;
 }
 
 export default function GenerateMap(props: mapProps) {
@@ -61,8 +62,9 @@ export default function GenerateMap(props: mapProps) {
          onMove={(ev: ViewStateChangeEvent) => setViewState(ev.viewState)} 
          onClick={(ev: MapLayerMouseEvent) => onMapClick(ev)}
          // This is too big, and the 0.9 factor is pretty hacky
-         style={{width:(window.innerWidth), height:window.innerHeight}} 
-         mapStyle={props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'}>
+        //  style={{width:(window.innerWidth), height:window.innerHeight}} 
+        style={props.style} 
+        mapStyle={props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'}>
 
           
 

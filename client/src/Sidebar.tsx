@@ -3,8 +3,13 @@ import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import {ToggleSwitch} from './components/ToggleSwitch';
 import FilterInfo from './components/FilterInfo'
 import HistoryInfo from './components/HistoryInfo'
+import EntryButton from './components/EntryButton'
 import React, { useState } from 'react';
 
+interface sidebarProps {
+    theme: boolean;
+    setTheme: Function;
+  }
 
 export default function GenerateSidebar(props: sidebarProps) {
 
@@ -43,15 +48,10 @@ export default function GenerateSidebar(props: sidebarProps) {
     )
 }
 
-interface sidebarProps {
-    theme: boolean;
-    setTheme: Function;
-  }
-
-function EntryButton() {
-    return(
-        <div>
-    <button className="entry-button">+ ADD NEW ENTRY</button>
-    </div>
-    )
-}
+// function EntryButton() {
+//     return(
+//         <div>
+//     <button className="entry-button">+ ADD NEW ENTRY</button>
+//     </div>
+//     )
+// }

@@ -3,6 +3,7 @@ import Map from './Map'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
+import UserEntry from './components/UserEntry';
 
 let entryClearance: boolean = false;
 
@@ -40,8 +41,9 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme}/>
+          <Map theme={theme} setTheme={setTheme} style={{width:(window.innerWidth), height:window.innerHeight}}/>
           <Sidebar theme={theme} setTheme={setTheme}/> 
+          <UserEntry theme={theme} setTheme={setTheme}></UserEntry>
         </div>
       </div>
     );
