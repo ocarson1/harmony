@@ -47,7 +47,7 @@ public class Server {
     Spark.get("userLoc", new UserLocationHandler(f));
     Spark.get("addLike", new AddToLikedSongsHandler());
     Spark.get("addSongAtLoc", new AddSongAtLocHandler(f));
-    Spark.get("getRecs", new GetRecommendationHandler());
+    Spark.get("getRecs", new GetRecommendationHandler(f));
     Spark.get("getUser", new GetUserProfileHandler());
     Spark.get("add", new AddSongHandler(f));
 

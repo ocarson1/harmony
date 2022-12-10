@@ -19,6 +19,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import server.Firebase;
 import server.handlers.GetTrackHandler;
 import spark.Spark;
 
@@ -31,8 +32,8 @@ public class TestTrackHandler {
     // Set the Spark port number. This can only be done once, and has to
     // happen before any route maps are added. Hence using @BeforeClass.
     // Setting port 0 will cause Spark to use an arbitrary available port.
-    Spark.port(0);
     Logger.getLogger("").setLevel(Level.WARNING); // empty name = root logger
+
   }
 
   /**
@@ -40,12 +41,14 @@ public class TestTrackHandler {
    * need to replace the reference itself. We clear this state out after every test runs.
    */
   private Map<String, Object> responseMap = new HashMap<>();
+  private Firebase f;
 
   /** Handles setup before each individual test is called. */
   @BeforeEach
   public void setup() {
     // Re-initialize state, etc. for _every_ test method run
     this.responseMap.clear();
+    this.f = new Firebase();
   }
 
   /** Handles teardown after each individual test is run. */
@@ -55,6 +58,7 @@ public class TestTrackHandler {
     Spark.unmap("/getTrack");
     Spark.stop();
     Spark.awaitStop(); // don't proceed until the server is stopped
+    this.f = null;
   }
 
   /**
@@ -80,7 +84,7 @@ public class TestTrackHandler {
 
   @Test
   public void testNoTokenInParams() throws IOException {
-    Spark.get("/getTrack", new GetTrackHandler());
+    Spark.get("/getTrack", new GetTrackHandler(this.f));
     Spark.init();
     Spark.awaitInitialization();
 
@@ -96,7 +100,7 @@ public class TestTrackHandler {
 
   @Test
   public void testEmptyToken() throws IOException {
-    Spark.get("/getTrack", new GetTrackHandler());
+    Spark.get("/getTrack", new GetTrackHandler(this.f));
     Spark.init();
     Spark.awaitInitialization();
 
@@ -112,7 +116,7 @@ public class TestTrackHandler {
 
   @Test
   public void testEmptyID() throws IOException {
-    Spark.get("/getTrack", new GetTrackHandler());
+    Spark.get("/getTrack", new GetTrackHandler(this.f));
     Spark.init();
     Spark.awaitInitialization();
 
@@ -128,7 +132,7 @@ public class TestTrackHandler {
 
   @Test
   public void testBadToken() throws IOException {
-    Spark.get("/getTrack", new GetTrackHandler());
+    Spark.get("/getTrack", new GetTrackHandler(this.f));
     Spark.init();
     Spark.awaitInitialization();
 

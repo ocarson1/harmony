@@ -60,6 +60,7 @@ public class GetTrackHandler implements Route {
       String imgURL = imgURLs.get(0).url;
 
       resp.put("title", title);
+      resp.put("id", id);
       resp.put("album", album);
       resp.put("artist_id", artistId);
       resp.put("preview_url", preview);
@@ -76,7 +77,7 @@ public class GetTrackHandler implements Route {
       List<String> genres = genreObj.genres;
       resp.put("genres", genres);
 
-      this.addSongMetadata(resp);
+      this.addSongMetadata(id, resp);
 
       resp.put("result", "success");
 
@@ -89,8 +90,8 @@ public class GetTrackHandler implements Route {
     }
   }
 
-  private void addSongMetadata(Map<String, Object> resp) {
-
+  private void addSongMetadata(String songID, Map<String, Object> resp) {
+    this.f.addSongInfo(songID, resp);
   }
 
   public TrackObj getTrackObj(String JSONBody) throws IOException {
