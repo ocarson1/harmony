@@ -1,12 +1,19 @@
 package server.sort;
 
+import java.util.List;
+import server.deserializationObjects.RecommendationObj.ID;
+
 public class PlaylistGenerator {
 
-  private
+  private List<ID> tracks;
 
-  public PlaylistGenerator(){}
+  public PlaylistGenerator(List<ID> tracks){
+    this.tracks = tracks;
+  }
 
-  public String
+
+
+
 
 
 
