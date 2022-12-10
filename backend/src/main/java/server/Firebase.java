@@ -27,10 +27,11 @@ public class Firebase {
   /**
    * followed instructions from this video: https://www.youtube.com/watch?v=Mcsp59_2E7E&t=175s
    */
-  public void initializeFirebase()  {
+  public void initializeFirebase() {
     try {
       //get private key
-      FileInputStream serviceAccount = new FileInputStream("src/main/java/server/ServiceAccountKey.json");
+      FileInputStream serviceAccount = new FileInputStream(
+          "src/main/java/server/ServiceAccountKey.json");
 
       FirebaseOptions options = new FirebaseOptions.Builder()
           .setCredentials(GoogleCredentials.fromStream(serviceAccount))
@@ -88,9 +89,10 @@ public class Firebase {
 
     if (songsRef == null) {
       return false;
-    } else if (songsRef.getId() == docName){
+    } else if (songsRef.getId() == docName) {
       return true;
     } else {
       return false;
     }
+  }
 }
