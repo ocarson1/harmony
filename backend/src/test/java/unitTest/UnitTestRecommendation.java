@@ -10,11 +10,13 @@ import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 import org.junit.jupiter.api.Test;
+import server.Firebase;
 import server.deserializationObjects.RecommendationObj;
 import server.deserializationObjects.RecommendationObj.ID;
 import server.handlers.GetRecommendationHandler;
 
 public class UnitTestRecommendation {
+  Firebase f = new Firebase();
   @Test
   public void testUnitRecommendationDeserializeOne() throws IOException, ParseException {
     JSONParser parser = new JSONParser();
@@ -24,7 +26,7 @@ public class UnitTestRecommendation {
     String jsonBody = jsonObject.toJSONString();
     jsonBody = jsonBody.replaceAll("\\\\", "");
 
-    GetRecommendationHandler handle = new GetRecommendationHandler();
+    GetRecommendationHandler handle = new GetRecommendationHandler(f);
     RecommendationObj recObj = handle.getRecObj(jsonBody);
 
     List<ID> tracks = recObj.tracks;
@@ -42,7 +44,7 @@ public class UnitTestRecommendation {
     String jsonBody = jsonObject.toJSONString();
     jsonBody = jsonBody.replaceAll("\\\\", "");
 
-    GetRecommendationHandler handle = new GetRecommendationHandler();
+    GetRecommendationHandler handle = new GetRecommendationHandler(f);
     RecommendationObj recObj = handle.getRecObj(jsonBody);
 
     List<ID> tracks = recObj.tracks;

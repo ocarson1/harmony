@@ -6,6 +6,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
@@ -47,13 +48,17 @@ public class GetRecommendationHandler implements Route {
       Set<String> genres = new HashSet<>();
       //String[] artists = params.get("artistIds").value().split(",");
       //String[] genres = params.get("genres").value().split(",");
-
-
-      System.out.println(Arrays.toString(ids));
-//      if (ids.length <= 2) {
-//        resp.put("result", "not enough songs");
-//        return new ServerResponse().serialize(resp);
-//      }
+      System.out.println("here");
+      for (String id: ids) {
+        Map<String, Object> songData = this.f.getData("songInfo", id);
+        artists.add(String.valueOf(songData.get("artist_id")));
+        ArrayList<String> genreList = (ArrayList<String>)songData.get("genres");
+        for (String genre: genreList) {
+          genreList.set(genreList.indexOf(genre), genre.replace(" ", ""));
+        }
+        //Set<String> genreList = new HashSet<>();
+        genres.addAll(new HashSet<>(genreList));
+      }
 
       String url = "https://api.spotify.com/v1/recommendations?limit=4&seed_tracks=";
       for (String id : ids) {
@@ -70,6 +75,7 @@ public class GetRecommendationHandler implements Route {
         url += genre + ",";
       }
       url = url.substring(0, url.length() - 1);
+      System.out.println(url);
 
       APIUtility recURL = new APIUtility(url);
 
