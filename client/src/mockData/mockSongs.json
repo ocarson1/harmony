@@ -1,0 +1,36 @@
+{
+  "BQCDV3LrZML7I9ay2H8h_Ci517Pl_NMBYxYccWKtd-XhxcZ2eGWb-nPVf2s2q0yLNnDv-WAPfDr29sXR6GN4sKtZIwgTQ1UvXyVYdeafDNGAC7RuiL6mCeNWW0b4mzGgpSUb8pbmICA6vXjgvO9pkfZPIyAMmxJLkZGfcl2zcNcg1GpbK6pHzXL9qrJoKEe4Bh0": {
+    "data": {
+      "id": "3K2U5XjczEXKxlY1i1WSj6",
+      "token": "BQCDV3LrZML7I9ay2H8h_Ci517Pl_NMBYxYccWKtd-XhxcZ2eGWb-nPVf2s2q0yLNnDv-WAPfDr29sXR6GN4sKtZIwgTQ1UvXyVYdeafDNGAC7RuiL6mCeNWW0b4mzGgpSUb8pbmICA6vXjgvO9pkfZPIyAMmxJLkZGfcl2zcNcg1GpbK6pHzXL9qrJoKEe4Bh0",
+      "track-data": {
+        "album": "Best Urdu Qawwalies",
+        "genres": [
+          "indian fusion",
+          "pakistani folk",
+          "qawwali",
+          "sufi",
+          "world"
+        ],
+        "img_url": "https://i.scdn.co/image/ab67616d0000b27304b052e84325a16bc18a4c78",
+        "preview_url": "https://p.scdn.co/mp3-preview/4695b01c72ba4146e3ee5a8dd9f98e4a836a80ad?cid=ce58270f079346658ebe132ae27ae27b",
+        "release_date": "2018",
+        "title": "Tum Ek Gorakh Dhanda Ho"
+      },
+      "userGeoJSON": {
+        "geometry": {
+          "coordinates": [
+            123,
+            9999
+          ],
+          "type": "Point"
+        },
+        "properties": {
+          "name": "3K2U5XjczEXKxlY1i1WSj6"
+        },
+        "type": "Feature"
+      }
+    },
+    "result": "success"
+  }
+}
