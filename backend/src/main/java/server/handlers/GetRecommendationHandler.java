@@ -1,13 +1,10 @@
 package server.handlers;
 
-import com.google.cloud.firestore.CollectionReference;
-import com.google.cloud.firestore.Query;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -18,20 +15,34 @@ import server.Firebase;
 import server.ServerResponse;
 import server.deserializationObjects.RecommendationObj;
 import server.deserializationObjects.RecommendationObj.ID;
-import server.graph.CreatePlaylist;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Returns a list of recommended songs based on the songs inputted.
+ * The "recommended" songs are determined through a sorting algorithm.
+ */
 public class GetRecommendationHandler implements Route {
 
   private final Firebase f;
 
+  /**
+   * Initializes the Firebase instance variable.
+   * @param f - Firebase instance
+   */
   public GetRecommendationHandler(Firebase f) {
     this.f = f;
   }
 
+  /**
+   * Invoked when the getRecs endpoint is called. The request must include a token and list of song IDs.
+   * @param request - the request object for the getRecs endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return the serialized Map of String to Object containing the result.
+   * @throws Exception - if an error is encountered in the retrieval process
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
@@ -56,7 +67,6 @@ public class GetRecommendationHandler implements Route {
         for (String genre: genreList) {
           genreList.set(genreList.indexOf(genre), genre.replace(" ", ""));
         }
-        //Set<String> genreList = new HashSet<>();
         genres.addAll(new HashSet<>(genreList));
       }
 
@@ -102,6 +112,12 @@ public class GetRecommendationHandler implements Route {
     }
   }
 
+  /**
+   * Helper method that allows us to test deserialization using the RecommendationObj.
+   * @param JSONBody - Mock JSON response data
+   * @return - RecommendationObj
+   * @throws IOException - if the JSON file cannot be found
+   */
   public RecommendationObj getRecObj(String JSONBody) throws IOException {
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<RecommendationObj> recAdapter = moshi.adapter(RecommendationObj.class);

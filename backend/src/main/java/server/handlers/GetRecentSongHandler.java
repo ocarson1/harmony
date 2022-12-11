@@ -15,8 +15,18 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Retrieves the user's most recently listened-to song.
+ */
 public class GetRecentSongHandler implements Route {
 
+  /**
+   * Invoked when the getRecentSong endpoint is called. The request must include a token.
+   * @param request - the request object for the getRecentSong endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return the serialized Map of String to Object containing the result.
+   * @throws Exception - if an error is encountered in the retrieval process
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
@@ -54,6 +64,13 @@ public class GetRecentSongHandler implements Route {
       return new ServerResponse().serialize(resp);
     }
   }
+
+  /**
+   * Method that allows for unit testing of deserialization using the SongID class.
+   * @param JSONBody - Mock JSON data
+   * @return - Deserialized songID
+   * @throws IOException - if the file containing the JSON is not found
+   */
   public SongID getIDObj(String JSONBody) throws IOException {
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<SongID> trackAdapter = moshi.adapter(SongID.class);

@@ -13,6 +13,9 @@ import server.handlers.UserLocationHandler;
 import server.handlers.AddSongAtLocHandler;
 import spark.Spark;
 
+/**
+ * Top-level class. Contains the main() method which starts Spark and runs the various handlers.
+ */
 public class Server {
   public static void main(String[] args) throws ExecutionException, InterruptedException {
     Spark.port(3232);

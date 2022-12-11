@@ -46,7 +46,7 @@ public class APIUtility {
   /**
    * This method returns the result of a GET request to any external API, provided correct endpoints
    * and parameters were provided.
-   *
+   * @param token - the access token provided to the user through the authentication process
    * @return the result of an API response as a Json String
    * @throws URISyntaxException   If the URL was incorrectly formatted
    * @throws IOException          if the response from the URL could not be read
@@ -64,6 +64,16 @@ public class APIUtility {
     return response.body();
   }
 
+  /**
+   * This method returns the result of a PUT request to any external API, provided correct endpoints
+   * and parameters were provided.
+   * @param token - the access token provided to the user through the authentication process
+   * @param id - content for the body of the PUT request
+   * @return - JSON response body
+   * @throws URISyntaxException   If the URL was incorrectly formatted
+   * @throws IOException          if the response from the URL could not be read
+   * @throws InterruptedException if the connection to the API was interrupted
+   */
   public String putAPIRequest(String token, String id) throws URISyntaxException, IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder()
         .uri(new URI(this.apiUrl))
@@ -76,6 +86,15 @@ public class APIUtility {
     return response.body();
   }
 
+  /**
+   * This method returns the result of a DELETE request to any external API, provided correct endpoints
+   * and parameters were provided.
+   * @param token - the access token provided to the user through the authentication process
+   * @return - JSON response body
+   * @throws URISyntaxException   If the URL was incorrectly formatted
+   * @throws IOException          if the response from the URL could not be read
+   * @throws InterruptedException if the connection to the API was interrupted
+   */
   public String deleteAPIRequest(String token) throws URISyntaxException, IOException, InterruptedException {
     HttpRequest request = HttpRequest.newBuilder()
         .uri(new URI(this.apiUrl))

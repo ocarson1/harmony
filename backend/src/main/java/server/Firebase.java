@@ -19,19 +19,24 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
+/**
+ * Class that represents a reference to our Google Firestore database.
+ */
 public class Firebase {
 
   private Firestore db;
 
+  /**
+   * The constructor calls the initialization method.
+   */
   public Firebase() {
     this.initializeFirebase();
   }
-//  public Firebase() {
-//
-//  }
 
   /**
-   * followed instructions from this video: https://www.youtube.com/watch?v=Mcsp59_2E7E&t=175s
+   * Initializes the Firestore reference through the information stored in the service account key
+   * file, which is not in GitHub because it needs to remain private.
+   * We followed instructions from this video: https://www.youtube.com/watch?v=Mcsp59_2E7E&t=175s
    */
   public void initializeFirebase() {
     try {
@@ -45,15 +50,6 @@ public class Firebase {
 
       FirebaseApp.initializeApp(options);
       this.db = FirestoreClient.getFirestore();
-//      InputStream serviceAccount = new FileInputStream("src/main/java/server/ServiceAccountKey.json");
-//      GoogleCredentials credentials = GoogleCredentials.fromStream(serviceAccount);
-//      FirebaseOptions options = new FirebaseOptions.Builder()
-//          .setCredentials(credentials)
-//          .build();
-//      FirebaseApp.initializeApp(options);
-//
-//      Firestore db = FirestoreClient.getFirestore();
-//      return db;
 
       //figure out a better way to handle this exception later!
     } catch (IOException e) {
@@ -61,34 +57,41 @@ public class Firebase {
     }
   }
 
-//  public void testAdd() {
-//    HashMap<String, Object> userMap = new HashMap<>();
-//    userMap.put("name", "Arman");
-//    userMap.put("location", "Providence, RI");
-//    userMap.put("song", "Like A Tattoo - Sade");
-//
-//    this.addUserInfo("Arman", userMap);
-//  }
-
-  // the parameter needs to contain a few dataum: the user's specific ID/name; and the spotify data we want to actually access
-  public void addUser(String username) {
-    ///.document("username") needs to be changed to the actual user token (each document name must be unique)
-    //this.db.collection("users").document("username2").set(user);
-    this.db.collection("users").document(username);
-  }
-
+  /**
+   * Adds a location to a user document in the users collection.
+   * @param username - user's id
+   * @param userInfo - info to add about the user (location in this case)
+   */
   public void addLocation(String username, Map<String, Object> userInfo) {
     this.db.collection("users").document(username).set(userInfo);
   }
 
+  /**
+   * Adds a song to the songs collection. Creates a new document with the given
+   * authorization token, and adds fields containing info from the map.
+   * @param id - authorization code
+   * @param songInfo - info about the song
+   */
   public void addSong(String id, Map<String, Object> songInfo) {
     this.db.collection("songs").document(id).set(songInfo);
   }
 
+  /**
+   * Adds a song's metadata to the songInfo collection by creating a new document
+   * with the song's id as the document id.
+   * @param id - song's id
+   * @param metadata - info about the song
+   */
   public void addSongInfo(String id, Map<String, Object> metadata) {
     this.db.collection("songInfo").document(id).set(metadata);
   }
 
+  /**
+   * Checks whether a document exists in a given collection.
+   * @param collection - collection to check
+   * @param docName - document being searched for
+   * @return - boolean representing whether the doc exists in the collection
+   */
   public boolean docExists(String collection, String docName) {
     DocumentReference songsRef = this.db.collection(collection)
         .document(docName);
@@ -102,6 +105,14 @@ public class Firebase {
     }
   }
 
+  /**
+   * Gets data from a given document from a given collection.
+   * @param collection - name of the collection to search
+   * @param docName - name of the document being searched for
+   * @return - Map containing the information being returned
+   * @throws ExecutionException - if an error occurs during execution
+   * @throws InterruptedException - if an error interrupts the searching process
+   */
   public Map<String, Object> getData(String collection, String docName)
       throws ExecutionException, InterruptedException {
     //this code was taken from Firestore data retrieval docs
