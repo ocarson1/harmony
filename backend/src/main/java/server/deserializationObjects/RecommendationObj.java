@@ -2,6 +2,10 @@ package server.deserializationObjects;
 
 import java.util.List;
 
+/**
+ * Class used for deserialization of the JSON response of the spotify get recommendations
+ * endpoint.
+ */
 public class RecommendationObj {
   public List<ID> tracks;
 

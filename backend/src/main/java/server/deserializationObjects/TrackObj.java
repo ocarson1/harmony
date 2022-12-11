@@ -2,6 +2,10 @@ package server.deserializationObjects;
 
 import java.util.List;
 
+/**
+ * Class used for deserialization of the JSON response from the get track endpoint of
+ * the Spotify API.
+ */
 public class TrackObj {
   public String name;
   public String preview_url;
