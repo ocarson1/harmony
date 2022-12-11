@@ -4,10 +4,11 @@ import mockSongs from './mockData/mockSongs.json'
 //import { useStateMap } from "../hooks/mapHook";
 export const Markers = () => {
     const songdata = mockSongs;
-    for (var key in songdata.jsonData)
+    
+    
 
 
-    }
+    
 
     
   //const { markers } = useStateMap();
@@ -15,13 +16,14 @@ export const Markers = () => {
     
       
         <Marker
-          latitude={12}
-          longitude={12}
-          scale={.1}
+          latitude={41.8}
+          longitude={-71.5}
+          
        >
-         <img src="https://i.scdn.co/image/ab67616d0000b27304b052e84325a16bc18a4c78" />
+
+         <img src="https://i.scdn.co/image/ab67616d0000b27304b052e84325a16bc18a4c78" width={40} height={40}/>
         </Marker>
       
     
-  );
-};
+  )
+}

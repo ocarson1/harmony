@@ -11,6 +11,7 @@ import {myKey} from './private/key'
 
 import {overlayData, geoLayer} from './overlays' 
 import mapboxgl from 'mapbox-gl';
+import {Markers} from './Markers'
 
 function onMapClick(e: MapLayerMouseEvent) {
   console.log(e)
@@ -50,6 +51,7 @@ export default function GenerateMap(props: mapProps) {
       <div className="map-demo-map">   
         {/* We could use {...viewState} for the 6 viewState fields, 
             but "spread" syntax wasn't covered in class. */}
+            
 
         <Map
          mapboxAccessToken={myKey}
@@ -71,6 +73,7 @@ export default function GenerateMap(props: mapProps) {
           <Source id="geo_data" type="geojson" data={overlay}>
             <Layer id = {geoLayer.id} type = {geoLayer.type} paint = {geoLayer.paint} />
           </Source>
+          <Markers/>
         </Map>       
       </div>
       {/* <div className='map-status'>

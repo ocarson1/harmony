@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Map from './Map'
+//import Map from './Map'
+import MapTwo from './MapTwo'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
@@ -41,7 +42,7 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme} style={{width:(window.innerWidth), height:window.innerHeight}}/>
+          <MapTwo theme={theme} setTheme={setTheme} />
           <Sidebar theme={theme} setTheme={setTheme}/> 
           <UserEntry theme={theme} setTheme={setTheme}></UserEntry>
         </div>
