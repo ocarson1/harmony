@@ -1,4 +1,4 @@
-# SPRINT 2 README
+# FINAL PROJECT README
 
 ## Project Details
 Project name: Harmony \
