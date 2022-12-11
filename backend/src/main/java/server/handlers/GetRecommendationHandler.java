@@ -15,6 +15,7 @@ import server.Firebase;
 import server.ServerResponse;
 import server.deserializationObjects.RecommendationObj;
 import server.deserializationObjects.RecommendationObj.ID;
+import server.sort.Quicksort;
 import spark.QueryParamsMap;
 import spark.Request;
 import spark.Response;
@@ -70,7 +71,7 @@ public class GetRecommendationHandler implements Route {
         genres.addAll(new HashSet<>(genreList));
       }
 
-      String url = "https://api.spotify.com/v1/recommendations?limit=4&seed_tracks=";
+      String url = "https://api.spotify.com/v1/recommendations?limit=100&seed_tracks=";
       for (String id : ids) {
         url += id + ",";
       }
@@ -95,13 +96,12 @@ public class GetRecommendationHandler implements Route {
       String JSONBody = recURL.getAPIRequest(token);
       RecommendationObj recObj = recAdapter.fromJson(JSONBody);
 
-      List<ID> tracks = recObj.tracks;
-      //List<Song>
-      //CreatePlaylist createPlaylist = new CreatePlaylist(tracks);
-      //System.out.println(createPlaylist.toString());
+      //List<ID> tracks = recObj.tracks;
+      Quicksort sort = new Quicksort(recObj.tracks);
+      List<ID> sortedIDs = sort.quickSort(0, recObj.tracks.size() - 1).subList(0,10);
 
       resp.put("result", "success");
-      resp.put("id", tracks);
+      resp.put("sorted", sortedIDs);
       return new ServerResponse().serialize(resp);
 
     } catch (Exception e) {
