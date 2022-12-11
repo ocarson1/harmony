@@ -28,6 +28,10 @@ public class GetRecommendationHandler implements Route {
 
   private final Firebase f;
 
+  /**
+   * Initializes the Firebase instance variable.
+   * @param f - Firebase instance
+   */
   public GetRecommendationHandler(Firebase f) {
     this.f = f;
   }
@@ -108,6 +112,12 @@ public class GetRecommendationHandler implements Route {
     }
   }
 
+  /**
+   * Helper method that allows us to test deserialization using the RecommendationObj.
+   * @param JSONBody - Mock JSON response data
+   * @return - RecommendationObj
+   * @throws IOException - if the JSON file cannot be found
+   */
   public RecommendationObj getRecObj(String JSONBody) throws IOException {
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<RecommendationObj> recAdapter = moshi.adapter(RecommendationObj.class);
