@@ -2,11 +2,6 @@ import '../styles/EntryButton.css'
 import '../styles/UserEntry.css'
 import UserEntry from './UserEntry'
 
-interface LogInProps {
-    href: string
-    clearance: boolean
-}
-
 function EntryButton() {
 
     const openNew = () => {

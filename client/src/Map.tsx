@@ -79,9 +79,6 @@ export default function GenerateMap(props: mapProps) {
           zoom=${viewState.zoom.toFixed(4)}`}
       </div> */}
     </div>
-    <button className="playlist-button">MAKE A GEO-PLAYLIST
-
-    </button>
     </div>
   );
 }

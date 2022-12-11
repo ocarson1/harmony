@@ -9,9 +9,14 @@ import React, { useState } from 'react';
 interface sidebarProps {
     theme: boolean;
     setTheme: Function;
+    setEntryIsShown: Function;
   }
 
 export default function GenerateSidebar(props: sidebarProps) {
+
+    const openNewEntry = () => {
+        props.setEntryIsShown(true);
+    }
 
     return (
         <div className="sidebar">
@@ -22,7 +27,8 @@ export default function GenerateSidebar(props: sidebarProps) {
                 </TabList>
                 <TabPanel>
             <div className="view-tab">
-                <EntryButton />
+                {/* <EntryButton /> */}
+                <button className="entry-button" onClick={openNewEntry}>+ ADD NEW ENTRY</button>
                 <div className = "filter-by">
                     Filter by:
                 </div>

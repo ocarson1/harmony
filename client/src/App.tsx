@@ -4,6 +4,7 @@ import './styles/App.css';
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
 import UserEntry from './components/UserEntry';
+import './styles/Map.css'
 
 let entryClearance: boolean = false;
 
@@ -18,6 +19,9 @@ function App() {
 
   const [access_token, setAccessToken] = useState("no_access");
   const [theme, setTheme] = useState(false);
+  const [entryIsShown, setEntryIsShown] = useState(false);
+
+  console.log("entryIsShown " + entryIsShown)
 
   console.log(access_token)
   useEffect(() => {
@@ -42,8 +46,9 @@ function App() {
       <div className="App">
         <div className="web-container">
           <Map theme={theme} setTheme={setTheme} style={{width:(window.innerWidth), height:window.innerHeight}}/>
-          <Sidebar theme={theme} setTheme={setTheme}/> 
-          <UserEntry theme={theme} setTheme={setTheme}></UserEntry>
+          <button className="playlist-button">MAKE A GEO-PLAYLIST</button>
+          <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}/> 
+          {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}></UserEntry>}
         </div>
       </div>
     );

@@ -1,11 +1,11 @@
 .entry-popup {
-    visibility: hidden;
+    visibility: visible;
     position: absolute;
     z-index: 1000;
-    top:45%;
-    left:25%;
-    width: 800px;
-    height: 550px;
+    top:46%;
+    left:28%;
+    width: 710px;
+    min-height: 515px;
     margin-left:-250px; /*negative half of width above*/
     margin-top:-250px; /* negative half of height above */
     background: linear-gradient(180deg, #6FCAF4 0%, #A65BBA 100%);
@@ -13,52 +13,107 @@
 }
 
 .entry-header {
+    flex-direction:column;
+}
+
+.title {
     text-align: left;
+    width: 200px;
     padding-left: 30px;
-    padding-top: 15px;
-    padding-bottom: 7px;
+    padding-top: 23px;
+    padding-bottom: 15px;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
     font-size: 25px;
-    line-height: 44px;
     color: #FFFFFF;
+}
+
+.close-button {
+    position:absolute; 
+    top:25px;; 
+    right:30px;
+    border:none;
+    width: 25px;
+    height: 25px;   
+    background: #FFFFFF;
+    border-radius: 9px;
 }
 
 .entry-header-line {
     position: absolute;
-    width: 795px;
-    height: 0px;
-    border: 2px solid #FFFFFF;
+    width: 708px;
+    border: 1px solid #FFFFFF;
 }
 
 .entry-text {
     position: absolute;
     padding-top: 18px;
-    padding-bottom: 18px;
     padding-left: 30px;
     font-style: normal;
     font-weight: 500;
-    font-size: 18px;
+    font-size: 16px;
     color: #FFFFFF;
 }
 
-.map-wrapper {
+.entry-map {
     position: position;
-    padding-top:50px;
-    margin-left:50px;
-    width: 400px;
-    height: 300px;
+    padding-top:55px;
+    left: 20%;
+    width: 650px;
+    height: 280px;
     border-radius: 25px;
+    padding-bottom: 20px;
+}
+
+.entry-bottom {
+    flex-direction: column;
+    min-height: fit-content;
 }
 
 .most-recent-song {
+    display: flex;
     position: absolute;
-    padding-left: 30px;
-    width: 209px;
-    height: 74px;
+    left: 30px;
+    min-width: 200px;
+    max-width: fit-content;
+    height: 60px;
     background: #FFFFFF;
-    border-radius: 37px;
+    border-radius: 50px;
+    font-weight: 400;
+    flex-direction: column;
+}
+
+.song-icon {
+    margin-left: 10px;
+    margin-top: 10px;
+}
+
+.song-info {
+    position: inherit;
+    margin-top: 13px;
+    margin-left:60px;
+    margin-right:20px;
+    flex-direction: row;
+    font-family: 'Montserrat';
+    font-style: normal;
+    min-width: fit-content;
+}
+
+.done-button {
+    right: 30px;
+    position: absolute;
+    border: none;
+    width: 130px;
+    height: 60px;
+    background: #71C7F2;
+    border-radius: 39px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 25px;
+    text-align: center;
+    color: #FFFFFF;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
