@@ -22,6 +22,7 @@ public class AddToLikedSongsHandler implements Route {
    * @param response - the response object that allows response modification.
    * @return the serialized Map of String to Object containing the result.
    * @throws Exception - if an error is encountered in the retrieval process
+   * Example query: localhost:3232/addLike?token=[token]&id=[song id]&add=[true or false]
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {

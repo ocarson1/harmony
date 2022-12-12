@@ -36,6 +36,7 @@ public class GetCollectionHandler implements Route {
    * @param response - the response object that allows response modification.
    * @return - The serialized map of string to object
    * @throws Exception - if an error is encountered during retrieval
+   * Example query: localhost:3232/getCollection?name=[]
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {

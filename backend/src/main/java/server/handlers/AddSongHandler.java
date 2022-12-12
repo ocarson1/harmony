@@ -75,7 +75,7 @@ public class AddSongHandler implements Route {
 
           //store track metadata
           Map<String, Object> trackMetadata = this.getTrackMetadata(id, token);
-          dataMap.put("track-data", trackMetadata);
+          dataMap.put("track_data", trackMetadata);
 
           //store user location
           Map<String, Object> loc = this.getSongLocGJSON(id, lat, lon);
@@ -166,7 +166,8 @@ public class AddSongHandler implements Route {
       List<String> genres = genreObj.genres;
       resp.put("genres", genres);
       System.out.println(resp);
-    return resp;
+      this.addSongMetadata(id, resp);
+      return resp;
   }
 
   /**
@@ -198,5 +199,14 @@ public class AddSongHandler implements Route {
       return "invalid token";
     }
   }
+
+  /**
+   * Helper method to add a song's metadata to the SongInfo collection.
+   * @param songID
+   * @param resp
+   */
+  private void addSongMetadata(String songID, Map<String, Object> resp) {
+    this.f.addSongInfo(songID, resp);
   }
+}
 

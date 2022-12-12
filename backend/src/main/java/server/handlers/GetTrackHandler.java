@@ -3,7 +3,6 @@ package server.handlers;
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +17,9 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ *
+ */
 public class GetTrackHandler implements Route {
 
   private final Firebase f;
@@ -25,6 +27,13 @@ public class GetTrackHandler implements Route {
     this.f = f;
   }
 
+  /**
+   *
+   * @param request
+   * @param response
+   * @return
+   * @throws Exception
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
@@ -90,10 +99,21 @@ public class GetTrackHandler implements Route {
     }
   }
 
+  /**
+   * Helper method to add a song's metadata to the SongInfo collection.
+   * @param songID
+   * @param resp
+   */
   private void addSongMetadata(String songID, Map<String, Object> resp) {
     this.f.addSongInfo(songID, resp);
   }
 
+  /**
+   *
+   * @param JSONBody
+   * @return
+   * @throws IOException
+   */
   public TrackObj getTrackObj(String JSONBody) throws IOException {
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<TrackObj> trackAdapter = moshi.adapter(TrackObj.class);
@@ -101,6 +121,12 @@ public class GetTrackHandler implements Route {
     return trackAdapter.fromJson(JSONBody);
   }
 
+  /**
+   *
+   * @param JSONBody
+   * @return
+   * @throws IOException
+   */
   public GenreObj getGenreObj (String JSONBody) throws IOException {
     Moshi moshi = new Moshi.Builder().build();
     JsonAdapter<GenreObj> genreAdapter = moshi.adapter(GenreObj.class);
