@@ -1,6 +1,9 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from '!mapbox-gl'; // eslint-disable-line import/no-webpack-loader-syntax
+import mapboxgl from 'mapbox-gl'; 
+import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
+// eslint-disable-line import/no-webpack-loader-syntax
 import {myKey} from './private/key'
+//import './styles/Map.css'
 
 
 //TODO: redo light/dark mode switching
@@ -25,6 +28,13 @@ export default function Map(props) {
       center: [lng, lat],
       zoom: zoom
     });
+
+    var geocoder = new MapboxGeocoder({
+      accessToken: myKey,
+      mapboxgl: mapboxgl,
+    });
+    geocoder.addTo('#geocoder-container')
+
   });
 
   useEffect(() => {
@@ -38,7 +48,9 @@ export default function Map(props) {
  
   return (
     <div>
-      <div ref={mapContainer} className="map-container" />
+      <div ref={mapContainer} className="map-container">
+        <div id="geocoder-container"></div>
+      </div>
     </div>
   );
 }

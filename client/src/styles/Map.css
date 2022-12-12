@@ -9,6 +9,11 @@
     /* display: inline-block; */
 }
 
+.geocoder-container {
+    position: relative;
+    left: 0px
+}
+
 .map-demo-map {
     z-index: 0;
 }
