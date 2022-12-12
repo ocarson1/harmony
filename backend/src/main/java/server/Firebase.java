@@ -111,15 +111,14 @@ public class Firebase {
   /**
    * Gets data from a given document from a given collection.
    * @param collection - name of the collection to search
-   * @param docName - name of the document being searched for
    * @return - Map containing the information being returned
    * @throws ExecutionException - if an error occurs during execution
    * @throws InterruptedException - if an error interrupts the searching process
    */
-  public Map<String, Object> getData(String collection, String docName)
+  public Map<String, Object> getCollection(String collection)
       throws ExecutionException, InterruptedException {
     //this code was taken from Firestore data retrieval docs
-    ApiFuture<QuerySnapshot> future = this.db.collection("collection").get();
+    ApiFuture<QuerySnapshot> future = this.db.collection(collection).get();
 // future.get() blocks on response
     List<QueryDocumentSnapshot> documents = future.get().getDocuments();
     Map<String, Object> map = new HashMap<>();
@@ -127,5 +126,23 @@ public class Firebase {
       map.put(document.getId(), document.getData());
     }
     return map;
+  }
+
+  public Map<String, Object> getData(String collection, String docName)
+      throws ExecutionException, InterruptedException {
+    //this code was taken from Firestore data retrieval docs
+    DocumentReference docRef = this.db.collection(collection).document(docName);
+// asynchronously retrieve the document
+    ApiFuture<DocumentSnapshot> future = docRef.get();
+// ...
+// future.get() blocks on response
+    DocumentSnapshot document = future.get();
+    if (document.exists()) {
+      return document.getData();
+    } else {
+      Map<String, Object> map = new HashMap<>();
+      map.put("result", "no data found");
+      return map;
+    }
   }
 }

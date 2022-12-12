@@ -54,8 +54,6 @@ public class Server {
     Spark.get("getUser", new GetUserProfileHandler());
     Spark.get("add", new AddSongHandler(f));
 
-    System.out.println(f.getData("users", "Arman"));
-
     Spark.init();
     Spark.awaitInitialization();
     System.out.println("Server started.");

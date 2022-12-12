@@ -81,19 +81,19 @@ public class TestAddSongHandler {
     Spark.init();
     Spark.awaitInitialization();
 
-    String AlphaNumericStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789”;
-
-    // creating a StringBuffer size of AlphaNumericStr
-
-    StringBuilder s = new StringBuilder(24);
-    int i;
-    for ( i=0; i<24; i++) {
-
-      int ch = (int)(AlphaNumericString.length() * Math.random());
-
-      //adding Random character one by one at the end of s
-
-      s.append(AlphaNumericStr.charAt(ch));
+//    String AlphaNumericStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789”;
+//
+//    // creating a StringBuffer size of AlphaNumericStr
+//
+//    StringBuilder s = new StringBuilder(24);
+//    int i;
+//    for ( i=0; i<24; i++) {
+//
+//      int ch = (int)(AlphaNumericString.length() * Math.random());
+//
+//      //adding Random character one by one at the end of s
+//
+//      s.append(AlphaNumericStr.charAt(ch));
 
 
       HttpURLConnection clientConnection = tryRequest("addLike?token=113131&id=hdwlkd");
