@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
-import Map from './Map'
+//import Map from './Map'
+import MapTwo from './MapTwo'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
@@ -39,13 +40,13 @@ function App() {
   }, [])
 
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
-  
+ 
   if (access_token !== "no_access") {
     console.log('Rendering Main')
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme} style={{width:(window.innerWidth), height:window.innerHeight}}/>
+          <MapTwo theme={theme} setTheme={setTheme} />
           <button className="playlist-button">MAKE A GEO-PLAYLIST</button>
           <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}/> 
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}></UserEntry>}
