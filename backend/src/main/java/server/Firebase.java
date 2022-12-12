@@ -109,9 +109,9 @@ public class Firebase {
   }
 
   /**
-   * Gets data from a given document from a given collection.
-   * @param collection - name of the collection to search
-   * @return - Map containing the information being returned
+   * Gets data from an entire collection in the Firestore database.
+   * @param collection - collection name
+   * @return - Map of String to Object where string is id of document
    * @throws ExecutionException - if an error occurs during execution
    * @throws InterruptedException - if an error interrupts the searching process
    */
@@ -128,6 +128,13 @@ public class Firebase {
     return map;
   }
 
+  /**
+   * Gets data from a given document from a given collection.
+   * @param collection - name of the collection to search
+   * @return - Map containing the information being returned
+   * @throws ExecutionException - if an error occurs during execution
+   * @throws InterruptedException - if an error interrupts the searching process
+   */
   public Map<String, Object> getData(String collection, String docName)
       throws ExecutionException, InterruptedException {
     //this code was taken from Firestore data retrieval docs
