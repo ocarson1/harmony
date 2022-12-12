@@ -7,6 +7,8 @@ import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
 import com.google.cloud.firestore.Firestore;
 
+import com.google.cloud.firestore.QueryDocumentSnapshot;
+import com.google.cloud.firestore.QuerySnapshot;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -16,6 +18,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ExecutionException;
 
@@ -116,18 +119,13 @@ public class Firebase {
   public Map<String, Object> getData(String collection, String docName)
       throws ExecutionException, InterruptedException {
     //this code was taken from Firestore data retrieval docs
-    DocumentReference docRef = this.db.collection(collection).document(docName);
-// asynchronously retrieve the document
-    ApiFuture<DocumentSnapshot> future = docRef.get();
-// ...
+    ApiFuture<QuerySnapshot> future = this.db.collection("collection").get();
 // future.get() blocks on response
-    DocumentSnapshot document = future.get();
-    if (document.exists()) {
-      return document.getData();
-    } else {
-      Map<String, Object> map = new HashMap<>();
-      map.put("result", "no data found");
-      return map;
+    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+    Map<String, Object> map = new HashMap<>();
+    for (QueryDocumentSnapshot document : documents) {
+      map.put(document.getId(), document.getData());
     }
+    return map;
   }
 }
