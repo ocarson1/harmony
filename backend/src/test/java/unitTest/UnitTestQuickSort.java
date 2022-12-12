@@ -4,12 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
 import java.util.List;
-import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import server.deserializationObjects.RecommendationObj.ID;
 import server.sort.Quicksort;
 
-public class UnitTestSort {
+public class UnitTestQuickSort {
 
   private void printPopularity(List<ID> ids, String listName) {
     String listIds = "";
