@@ -20,6 +20,7 @@ public class TrackObj {
 
   public static class Artists {
     public String id;
+    public String name;
   }
   public static class Image{
     public int height;

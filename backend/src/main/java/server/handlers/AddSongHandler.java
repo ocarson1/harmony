@@ -112,6 +112,7 @@ public class AddSongHandler implements Route {
       String title = trackObj.name;
       String album = trackObj.album.name;
       String artistId = trackObj.artists.get(0).id;
+      String artistName = trackObj.artists.get(0).name;
       String preview = trackObj.preview_url;
       String releaseYear = trackObj.album.release_date.substring(0, 4);
       List<Image> imgURLs = trackObj.album.images;
@@ -120,6 +121,7 @@ public class AddSongHandler implements Route {
       resp.put("title", title);
       resp.put("album", album);
       resp.put("preview_url", preview);
+      resp.put("artist", artistName);
       resp.put("img_url", imgURL);
       resp.put("release_date", releaseYear);
 
