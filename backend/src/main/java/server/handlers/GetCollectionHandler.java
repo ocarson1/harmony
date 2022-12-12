@@ -11,14 +11,32 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * The GetCollectionHandler class. This class is used when the frontend loads
+ * all previously-submitted songs, and displays them graphically.
+ */
 public class GetCollectionHandler implements Route {
 
   private Firebase f;
 
+  /**
+   * Constructor for GetCollectionHandler. Initializes the Firebase
+   * instance variable.
+   * @param f - Firebase instance
+   */
   public GetCollectionHandler(Firebase f) {
     this.f = f;
   }
 
+  /**
+   * Retrieves all the data from the songs collection in the Firestore database
+   * into a Map of String to Object where string is the id of the document, and serializes it
+   * so the frontend can display song data geographically.
+   * @param request - the request object for the getCollection endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return - The serialized map of string to object
+   * @throws Exception - if an error is encountered during retrieval
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> resp = new HashMap<>();
