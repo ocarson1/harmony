@@ -49,7 +49,7 @@ public class AddSongHandler implements Route {
           double lat = Double.parseDouble(params.get("lat").value());
           double lon = Double.parseDouble(params.get("lon").value());
 
-          HashMap<String, Object> dataMap = new HashMap<>();
+          Map<String, Object> dataMap = new HashMap<>();;
 
           //store the token
           dataMap.put("token", token);
@@ -66,10 +66,15 @@ public class AddSongHandler implements Route {
           Map<String, Object> loc = this.getSongLocGJSON(id, lat, lon);
           dataMap.put("userGeoJSON", loc);
 
-          resp.put("data", dataMap);
-
-          this.f.addSong(token, resp);
-
+          //check if token already exists in the collection
+          if (this.f.docExists("songs", token)) {
+            this.f.updateSongData(dataMap, token);
+          } else {
+            List<Map<String, Object>> datum = new ArrayList<>();
+            datum.add(dataMap);
+            resp.put("data", datum);
+            this.f.addSong(token, resp);
+          }
         } catch (Exception e) {
           e.printStackTrace();
           resp.put("result", "error_data_source");

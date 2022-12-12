@@ -40,11 +40,11 @@ public class AddSongAtLocHandler implements Route {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
-      if (!params.hasKey("id") || !params.hasKey("lat") || !params.hasKey("lon")) {
+      if (!params.hasKey("id") || !params.hasKey("lat") || !params.hasKey("lon") || !params.hasKey("token")) {
         resp.put("result", "error_bad_request");
         return new ServerResponse().serialize(resp);
       } else if (params.get("id").value().equals("") || params.get("lat").value().equals("")
-          || params.get("lon").value().equals("")) {
+          || params.get("lon").value().equals("") || params.get("token").value().equals("")) {
         resp.put("result", "error_no_token");
         return new ServerResponse().serialize(resp);
       }
@@ -64,7 +64,7 @@ public class AddSongAtLocHandler implements Route {
       this.f.addSong(id, geoMap);
 
       resp.put("result","success");
-      resp.put("geoMap",geoMap);
+      resp.put("data",geoMap);
       return new ServerResponse().serialize(resp);
     } catch (Exception e) {
       System.out.println(e.getMessage());

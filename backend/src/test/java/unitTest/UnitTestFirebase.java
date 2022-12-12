@@ -28,9 +28,11 @@ public class UnitTestFirebase {
   }
 
   @Test
-  public void testGetData() throws ExecutionException, InterruptedException {
+  public void testGetDataAdd() throws ExecutionException, InterruptedException {
     Firebase db = new Firebase();
-    Map<String, Object> map = db.getCollection("songs");
+    Map<String, Object> map = db.getData("songs", "BQDa_O7xGklla8H1l0jroDBVlnfDtkMajYP4a4R6A0Df_5K_HrjGrGFTtEkg4T-pU1B4ZtjMZ9q9QKgGHFPiaUUb1_CIXpc9ZEgC5Ke7tmO7DxHaR1-WhsLX7Ye6yQorrH9LJTVJSDeGAZ4UvQWO23Xypk3Q7yzz57_b1TGOB6X3omu6q8pJUNK8ZprS4PrWEjXhGQ6OT3ps");
+    map.put("test", "hello");
+
     System.out.println(map);
   }
 
