@@ -4,6 +4,7 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 // eslint-disable-line import/no-webpack-loader-syntax
 import {myKey} from './private/key'
 //import './styles/Map.css'
+import MarkerHandler from './MarkerHandler'
 
 
 //TODO: redo light/dark mode switching
@@ -28,6 +29,8 @@ export default function Map(props) {
       center: [lng, lat],
       zoom: zoom
     });
+
+    map.current.on('load', MarkerHandler(map.current))
 
     var geocoder = new MapboxGeocoder({
       accessToken: myKey,

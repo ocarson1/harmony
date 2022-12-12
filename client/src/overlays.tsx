@@ -15,10 +15,8 @@ export async function overlayData(): Promise<GeoJSON.FeatureCollection | undefin
   
   // HARMONY: to use fetchGeoJSON uncomment this out and comment out the rl data import
   //let rl_data = await fetchGeoJSON(24,50,-126,-60)
-  console.log(rl_data)
 
   if(isFeatureCollection(rl_data)) {
-  console.log("is valid!")
     return rl_data
   }
   else return undefined
