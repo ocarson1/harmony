@@ -5,6 +5,7 @@ import static spark.Spark.after;
 import java.util.concurrent.ExecutionException;
 import server.handlers.AddSongHandler;
 import server.handlers.AddToLikedSongsHandler;
+import server.handlers.GetCollectionHandler;
 import server.handlers.GetRecentSongHandler;
 import server.handlers.GetRecommendationHandler;
 import server.handlers.GetTrackHandler;
@@ -53,6 +54,7 @@ public class Server {
     Spark.get("getRecs", new GetRecommendationHandler(f));
     Spark.get("getUser", new GetUserProfileHandler());
     Spark.get("add", new AddSongHandler(f));
+    Spark.get("getCollection", new GetCollectionHandler(f));
 
     Spark.init();
     Spark.awaitInitialization();
