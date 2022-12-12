@@ -1,6 +1,5 @@
 package server.sort;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import server.deserializationObjects.RecommendationObj.ID;
@@ -32,11 +31,11 @@ public class Quicksort {
     Collections.swap(arr, i, j);
   }
 
-  public List<ID> quickSort(List<ID> arr, int l, int h) {
+  public List<ID> quickSort(int l, int h) {
     if (l < h) {
-      int partitionIndex = this.partition(arr, l, h);
-      this.quickSort(arr, l, partitionIndex - 1);
-      this.quickSort(arr, partitionIndex + 1, h);
+      int partitionIndex = this.partition(this.ids, l, h);
+      this.quickSort(l, partitionIndex - 1);
+      this.quickSort(partitionIndex + 1, h);
     }
     return this.ids;
   }
