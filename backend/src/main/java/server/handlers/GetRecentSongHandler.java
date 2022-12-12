@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import server.APIUtility;
+import server.Firebase;
 import server.ServerResponse;
 import server.deserializationObjects.SongID;
 import server.deserializationObjects.SongID.Item;
@@ -26,6 +27,7 @@ public class GetRecentSongHandler implements Route {
    * @param response - the response object that allows response modification.
    * @return the serialized Map of String to Object containing the result.
    * @throws Exception - if an error is encountered in the retrieval process
+   * Example query: http://localhost:3232/getRecentSong?token=[]
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {

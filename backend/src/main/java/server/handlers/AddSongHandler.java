@@ -30,6 +30,13 @@ public class AddSongHandler implements Route {
     this.f = f;
   }
 
+  /**
+   *
+   * @param request
+   * @param response
+   * @return
+   * Example query: http://localhost:3232/add?token=[]&lat=[]&lon=[]
+   */
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
