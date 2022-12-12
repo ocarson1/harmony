@@ -40,14 +40,14 @@ public class Quicksort {
     return this.ids;
   }
 
-//  // Function to print an array
-//  public void printArray(List<ID> arr, int size)
-//  {
-//    for (int i = 0; i < size; i++)
-//      System.out.print(arr.get(i).popularity + " ");
-//
-//    System.out.println();
-//  }
+  // Function to print an array
+  public void printArray(List<ID> arr, int size)
+  {
+    for (int i = 0; i < size; i++)
+      System.out.print(arr.get(i).popularity + " ");
+
+    System.out.println();
+  }
 
 //  // Driver Code
 //  public static void main(String[] args)
