@@ -22,19 +22,27 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Adds the user's most recently-listened to song to the database at the given
+ * lat and lon.
+ */
 public class AddSongHandler implements Route {
 
   private Firebase f;
 
+  /**
+   * Initializes the Firebase instance variable.
+   * @param f - Firebase reference
+   */
   public AddSongHandler(Firebase f) {
     this.f = f;
   }
 
   /**
-   *
-   * @param request
-   * @param response
-   * @return
+   * Invoked when the add endpoint is called. Requires a token, lat, and lon.
+   * @param request - the request object for the getRecs endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return - serialized Map of String to Object
    * Example query: http://localhost:3232/add?token=[]&lat=[]&lon=[]
    */
   @Override
@@ -85,6 +93,13 @@ public class AddSongHandler implements Route {
       return new ServerResponse().serialize(resp);
   }
 
+  /**
+   * Helper method to add the song's location to a GeoJSON formatted map.
+   * @param id - song ID
+   * @param lat - latitude
+   * @param lon - longitude
+   * @return - Map of String to Object
+   */
   private Map<String, Object> getSongLocGJSON(String id, double lat, double lon) {
     Map<String, Object> geoMap = new HashMap<>();
     Map<String, Object> innerGeometryMap = new HashMap<>();
@@ -103,6 +118,15 @@ public class AddSongHandler implements Route {
     return geoMap;
   }
 
+  /**
+   * Helper method to get the track's metadata.
+   * @param id - song id
+   * @param token - access token
+   * @return - Map of String to Object containing track metadata
+   * @throws URISyntaxException - if URI is incorrectly formed
+   * @throws IOException - if file cannot be found
+   * @throws InterruptedException - if processing is interrupted
+   */
   private Map<String, Object> getTrackMetadata(String id, String token)
       throws URISyntaxException, IOException, InterruptedException {
     Map<String, Object> resp = new HashMap<>();
@@ -145,6 +169,14 @@ public class AddSongHandler implements Route {
     return resp;
   }
 
+  /**
+   * Helper method to get the user's most recently-listened-to song.
+   * @param token - access token
+   * @return - id of most recent song
+   * @throws URISyntaxException - if URI is incorrectly formed
+   * @throws IOException - if file cannot be found
+   * @throws InterruptedException - if processing is interrupted
+   */
   private String getMostRecentSong(String token)
       throws URISyntaxException, IOException, InterruptedException {
     try {

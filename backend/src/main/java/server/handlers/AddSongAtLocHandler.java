@@ -12,26 +12,31 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
+/**
+ * Adds a song at a specified location (lat and lon).
+ */
 public class AddSongAtLocHandler implements Route {
 
   private Firebase f;
 
+  /**
+   * The AddSongAtLocHandler constructor initializes the Firebase instance variable.
+   * @param f
+   */
   public AddSongAtLocHandler(Firebase f) {
     this.f = f;
   }
-  /*
-  {
-  "type": "Feature",
-  "geometry": {
-    "type": "Point",
-    "coordinates": [125.6, 10.1]
-  },
-  "properties": {
-    "name": "Dinagat Islands"
-  }
-}
-   */
 
+  /**
+   * Invoked when the addSongAtLoc endpoint is called. The request must include the song id,
+   * the latitude, and the longitude.
+   * @param request - the request object for the endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return - serialized Map to String
+   * @throws Exception - if an error is encountered in the retrieval process
+   * Example query: localhost:3232/addSongAtLoc
+   * TODO: ADD SONG USING TOKEN
+   */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     Map<String, Object> geoMap = new HashMap<>();

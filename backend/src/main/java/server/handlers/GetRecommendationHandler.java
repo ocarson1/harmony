@@ -43,6 +43,8 @@ public class GetRecommendationHandler implements Route {
    * @param response - the response object that allows response modification.
    * @return the serialized Map of String to Object containing the result.
    * @throws Exception - if an error is encountered in the retrieval process
+   * Example query: localhost:3232/getRecs?token=[]&songIds=[],[],[]
+   * SONG IDS MUST BE SEPARATED BY COMMAS!
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
@@ -58,8 +60,7 @@ public class GetRecommendationHandler implements Route {
       String[] ids = params.get("songIds").value().split(",");
       Set<String> artists = new HashSet<>();
       Set<String> genres = new HashSet<>();
-      //String[] artists = params.get("artistIds").value().split(",");
-      //String[] genres = params.get("genres").value().split(",");
+
       System.out.println("here");
       for (String id: ids) {
         Map<String, Object> songData = this.f.getData("songInfo", id);
