@@ -30,8 +30,8 @@ public class UnitTestFirebase {
   @Test
   public void testGetData() throws ExecutionException, InterruptedException {
     Firebase db = new Firebase();
-    Map<String, Object> map = db.getData("users", "Arman");
-    assertEquals(map.get("song"), "Like A Tattoo - Sade");
+    Map<String, Object> map = db.getCollection("songs");
+    System.out.println(map);
   }
 
 }
