@@ -7,6 +7,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.junit.jupiter.api.AfterEach;
@@ -74,6 +75,18 @@ public class TestAddSongHandler {
     return clientConnection;
   }
 
+  /**
+   * Helper method for fuzz testing.
+   * @return
+   */
+  private static int getRandomLatLon() {
+    Random rand = new Random();
+    return rand.nextInt(360000);
+  }
+
+  // number of trials for fuzz test
+  static final int NUM_TRIALS = 50;
+
   @Test
   public void fuzzTesting() throws IOException {
     Firebase f = new Firebase();
@@ -81,23 +94,15 @@ public class TestAddSongHandler {
     Spark.init();
     Spark.awaitInitialization();
 
-//    String AlphaNumericStr = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvxyz0123456789”;
-//
-//    // creating a StringBuffer size of AlphaNumericStr
-//
-//    StringBuilder s = new StringBuilder(24);
-//    int i;
-//    for ( i=0; i<24; i++) {
-//
-//      int ch = (int)(AlphaNumericString.length() * Math.random());
-//
-//      //adding Random character one by one at the end of s
-//
-//      s.append(AlphaNumericStr.charAt(ch));
+    for (int i = 0; i < NUM_TRIALS; i++) {
+      int lat = getRandomLatLon();
+      int lon = getRandomLatLon();
+      int token = getRandomLatLon();
 
-
-      HttpURLConnection clientConnection = tryRequest("addLike?token=113131&id=hdwlkd");
-    assertEquals(200, clientConnection.getResponseCode());
+      String url = "add?lat=" + lat + "&lon=" + lon + "&token=" + token;
+      HttpURLConnection clientConnection = tryRequest(url);
+      assertEquals(200, clientConnection.getResponseCode());
+      clientConnection.disconnect();
+    }
   }
-
 }
