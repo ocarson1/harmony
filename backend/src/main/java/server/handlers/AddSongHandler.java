@@ -22,16 +22,31 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-public class AddSongHandler implements Route {
+/**
+ * Gets the user's most recent song and adds it at their latitude and longitude.
+ */
+public class AddSongHandler extends AddSong implements Route {
 
   private Firebase f;
 
+  /**
+   * Initializes the Firebase instance variable.
+   * @param f - Firebase instance
+   */
   public AddSongHandler(Firebase f) {
     this.f = f;
   }
 
+  /**
+   * Invoked when the add endpoint is called. Requires a token and values of latitude
+   * and longitude.
+   * @param request - the request object for the add endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return - serialized map of string to object
+   * Example query: localhost:3232/add?token=[]&lat=[]&lon=[]
+   */
   @Override
-  public Object handle(Request request, Response response) {
+  public Object handle(Request request, Response response){
     Map<String, Object> resp = new HashMap<>();
     QueryParamsMap params = request.queryMap();
       if (!params.hasKey("token")) {
@@ -59,11 +74,13 @@ public class AddSongHandler implements Route {
           dataMap.put("id", id);
 
           //store track metadata
-          Map<String, Object> trackMetadata = this.getTrackMetadata(id, token);
+          Map<String, Object> trackMetadata = super.getTrackMetadata(id, token);
           dataMap.put("track-data", trackMetadata);
 
+          this.f.addSongInfo(id, trackMetadata);
+
           //store user location
-          Map<String, Object> loc = this.getSongLocGJSON(id, lat, lon);
+          Map<String, Object> loc = super.getSongLocGJSON(id, lat, lon);
           dataMap.put("userGeoJSON", loc);
 
           //check if token already exists in the collection
@@ -78,67 +95,7 @@ public class AddSongHandler implements Route {
       return new ServerResponse().serialize(resp);
   }
 
-  private Map<String, Object> getSongLocGJSON(String id, double lat, double lon) {
-    Map<String, Object> geoMap = new HashMap<>();
-    Map<String, Object> innerGeometryMap = new HashMap<>();
-    Map<String, Object> propertiesMap = new HashMap<>();
-
-    geoMap.put("type", "Feature");
-    innerGeometryMap.put("type", "Point");
-    List<Double> coords = new ArrayList<>();
-    coords.add(lat);
-    coords.add(lon);
-    innerGeometryMap.put("coordinates", coords);
-    geoMap.put("geometry", innerGeometryMap);
-    propertiesMap.put("name", id);
-    geoMap.put("properties", propertiesMap);
-
-    return geoMap;
-  }
-
-  private Map<String, Object> getTrackMetadata(String id, String token)
-      throws URISyntaxException, IOException, InterruptedException {
-    Map<String, Object> resp = new HashMap<>();
-      String urlTrack = "https://api.spotify.com/v1/tracks/" + id;
-
-      APIUtility trackURL = new APIUtility(urlTrack);
-
-      Moshi moshi = new Moshi.Builder().build();
-      JsonAdapter<TrackObj> trackAdapter = moshi.adapter(TrackObj.class);
-
-      String JSONBody = trackURL.getAPIRequest(token);
-      TrackObj trackObj = trackAdapter.fromJson(JSONBody);
-
-      String title = trackObj.name;
-      String album = trackObj.album.name;
-      String artistId = trackObj.artists.get(0).id;
-      String artistName = trackObj.artists.get(0).name;
-      String preview = trackObj.preview_url;
-      String releaseYear = trackObj.album.release_date.substring(0, 4);
-      List<Image> imgURLs = trackObj.album.images;
-      String imgURL = imgURLs.get(0).url;
-
-      resp.put("title", title);
-      resp.put("album", album);
-      resp.put("preview_url", preview);
-      resp.put("artist", artistName);
-      resp.put("img_url", imgURL);
-      resp.put("release_date", releaseYear);
-
-      String urlArtist = "https://api.spotify.com/v1/artists/" + artistId;
-      APIUtility artistURL = new APIUtility(urlArtist);
-      Moshi moshi2 = new Moshi.Builder().build();
-      JsonAdapter<GenreObj> genreAdapter = moshi2.adapter(GenreObj.class);
-      String JSONBodyGenre = artistURL.getAPIRequest(token);
-      GenreObj genreObj = genreAdapter.fromJson(JSONBodyGenre);
-
-      List<String> genres = genreObj.genres;
-      resp.put("genres", genres);
-    return resp;
-  }
-
-  private String getMostRecentSong(String token)
-      throws URISyntaxException, IOException, InterruptedException {
+  private String getMostRecentSong(String token) {
     try {
       String url = "https://api.spotify.com/v1/me/player/recently-played?limit=1";
 
@@ -158,5 +115,5 @@ public class AddSongHandler implements Route {
       return "invalid token";
     }
   }
-  }
+}
 
