@@ -8,7 +8,6 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import okio.Buffer;
@@ -17,11 +16,11 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import server.Firebase;
+import server.handlers.AddSongAtLocHandler;
 import server.handlers.AddSongHandler;
 import spark.Spark;
 
-public class TestAddSongHandler {
-
+public class TestAddSongAtLocHandler {
   /** Handles setup before any tests are called. */
   @BeforeAll
   public static void setup_before_everything() {
@@ -50,7 +49,7 @@ public class TestAddSongHandler {
   @AfterEach
   public void teardown() {
     // Gracefully stop Spark listening on both endpoints
-    Spark.unmap("/add");
+    Spark.unmap("/addSongAtLoc");
     Spark.stop();
     Spark.awaitStop(); // don't proceed until the server is stopped
   }
@@ -79,81 +78,68 @@ public class TestAddSongHandler {
   @Test
   public void testNoTokenInParams() throws IOException {
     Firebase f = new Firebase();
-    Spark.get("/add", new AddSongHandler(f));
+    Spark.get("/addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("add");
+    HttpURLConnection clientConnection = tryRequest("addSongAtLoc");
     assertEquals(200, clientConnection.getResponseCode());
 
     Moshi moshi = new Moshi.Builder().build();
     Map response =
         moshi.adapter(Map.class).fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
 
-    assertEquals("error_token_param", response.get("result"));
+    assertEquals("error_bad_request", response.get("result"));
   }
 
   @Test
   public void testEmptyToken() throws IOException {
     Firebase f = new Firebase();
-    Spark.get("/add", new AddSongHandler(f));
+    Spark.get("/addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("add?token=");
+    HttpURLConnection clientConnection = tryRequest("addSongAtLoc?token=");
     assertEquals(200, clientConnection.getResponseCode());
 
     Moshi moshi = new Moshi.Builder().build();
     Map response =
         moshi.adapter(Map.class).fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
 
-    assertEquals("error_lat_lon_params", response.get("result"));
+    assertEquals("error_bad_request", response.get("result"));
   }
 
   @Test
   public void testBadToken() throws IOException {
     Firebase f = new Firebase();
-    Spark.get("/add", new AddSongHandler(f));
+    Spark.get("/addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("add?token=113131");
+    HttpURLConnection clientConnection = tryRequest("addSongAtLoc?token=113131");
     assertEquals(200, clientConnection.getResponseCode());
 
     Moshi moshi = new Moshi.Builder().build();
     Map response =
         moshi.adapter(Map.class).fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
 
-    assertEquals("error_lat_lon_params", response.get("result"));
+    assertEquals("error_bad_request", response.get("result"));
   }
-
-  /**
-   * Helper method for fuzz testing.
-   * @return
-   */
-  private static int getRandomLatLon() {
-    Random rand = new Random();
-    return rand.nextInt(360000);
-  }
-
-  // number of trials for fuzz test
-  static final int NUM_TRIALS = 50;
 
   @Test
-  public void fuzzTesting() throws IOException {
+  public void testBadParams () throws IOException {
     Firebase f = new Firebase();
-    Spark.get("/add", new AddSongHandler(f));
+    Spark.get("/addSongAtLoc", new AddSongAtLocHandler(f));
     Spark.init();
     Spark.awaitInitialization();
 
-    for (int i = 0; i < NUM_TRIALS; i++) {
-      int lat = getRandomLatLon();
-      int lon = getRandomLatLon();
+    HttpURLConnection clientConnection = tryRequest("addSongAtLoc?token=113131&lat=1&lon=1&id=");
+    assertEquals(200, clientConnection.getResponseCode());
 
-      String url = "add?lat=" + lat + "&lon=" + lon;
-      HttpURLConnection clientConnection = tryRequest(url);
-      assertEquals(200, clientConnection.getResponseCode());
-      clientConnection.disconnect();
-    }
+    Moshi moshi = new Moshi.Builder().build();
+    Map response =
+        moshi.adapter(Map.class).fromJson(new Buffer().readFrom(clientConnection.getInputStream()));
+
+    assertEquals("error_invalid_params", response.get("result"));
   }
 }
