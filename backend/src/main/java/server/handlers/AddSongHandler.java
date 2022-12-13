@@ -22,29 +22,14 @@ import spark.Request;
 import spark.Response;
 import spark.Route;
 
-/**
- * Adds the user's most recently-listened to song to the database at the given
- * lat and lon.
- */
 public class AddSongHandler implements Route {
 
   private Firebase f;
 
-  /**
-   * Initializes the Firebase instance variable.
-   * @param f - Firebase reference
-   */
   public AddSongHandler(Firebase f) {
     this.f = f;
   }
 
-  /**
-   * Invoked when the add endpoint is called. Requires a token, lat, and lon.
-   * @param request - the request object for the getRecs endpoint with HTTP request information.
-   * @param response - the response object that allows response modification.
-   * @return - serialized Map of String to Object
-   * Example query: http://localhost:3232/add?token=[]&lat=[]&lon=[]
-   */
   @Override
   public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
@@ -64,7 +49,7 @@ public class AddSongHandler implements Route {
           double lat = Double.parseDouble(params.get("lat").value());
           double lon = Double.parseDouble(params.get("lon").value());
 
-          HashMap<String, Object> dataMap = new HashMap<>();
+          Map<String, Object> dataMap = new HashMap<>();;
 
           //store the token
           dataMap.put("token", token);
@@ -75,16 +60,16 @@ public class AddSongHandler implements Route {
 
           //store track metadata
           Map<String, Object> trackMetadata = this.getTrackMetadata(id, token);
-          dataMap.put("track_data", trackMetadata);
+          dataMap.put("track-data", trackMetadata);
 
           //store user location
           Map<String, Object> loc = this.getSongLocGJSON(id, lat, lon);
           dataMap.put("userGeoJSON", loc);
 
+          //check if token already exists in the collection
           resp.put("data", dataMap);
 
           this.f.addSong(token, resp);
-
         } catch (Exception e) {
           e.printStackTrace();
           resp.put("result", "error_data_source");
@@ -93,13 +78,6 @@ public class AddSongHandler implements Route {
       return new ServerResponse().serialize(resp);
   }
 
-  /**
-   * Helper method to add the song's location to a GeoJSON formatted map.
-   * @param id - song ID
-   * @param lat - latitude
-   * @param lon - longitude
-   * @return - Map of String to Object
-   */
   private Map<String, Object> getSongLocGJSON(String id, double lat, double lon) {
     Map<String, Object> geoMap = new HashMap<>();
     Map<String, Object> innerGeometryMap = new HashMap<>();
@@ -118,15 +96,6 @@ public class AddSongHandler implements Route {
     return geoMap;
   }
 
-  /**
-   * Helper method to get the track's metadata.
-   * @param id - song id
-   * @param token - access token
-   * @return - Map of String to Object containing track metadata
-   * @throws URISyntaxException - if URI is incorrectly formed
-   * @throws IOException - if file cannot be found
-   * @throws InterruptedException - if processing is interrupted
-   */
   private Map<String, Object> getTrackMetadata(String id, String token)
       throws URISyntaxException, IOException, InterruptedException {
     Map<String, Object> resp = new HashMap<>();
@@ -165,19 +134,9 @@ public class AddSongHandler implements Route {
 
       List<String> genres = genreObj.genres;
       resp.put("genres", genres);
-      System.out.println(resp);
-      this.addSongMetadata(id, resp);
-      return resp;
+    return resp;
   }
 
-  /**
-   * Helper method to get the user's most recently-listened-to song.
-   * @param token - access token
-   * @return - id of most recent song
-   * @throws URISyntaxException - if URI is incorrectly formed
-   * @throws IOException - if file cannot be found
-   * @throws InterruptedException - if processing is interrupted
-   */
   private String getMostRecentSong(String token)
       throws URISyntaxException, IOException, InterruptedException {
     try {
@@ -199,14 +158,5 @@ public class AddSongHandler implements Route {
       return "invalid token";
     }
   }
-
-  /**
-   * Helper method to add a song's metadata to the SongInfo collection.
-   * @param songID
-   * @param resp
-   */
-  private void addSongMetadata(String songID, Map<String, Object> resp) {
-    this.f.addSongInfo(songID, resp);
   }
-}
 

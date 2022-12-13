@@ -5,10 +5,12 @@ import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.firestore.CollectionReference;
 import com.google.cloud.firestore.DocumentReference;
 import com.google.cloud.firestore.DocumentSnapshot;
+import com.google.cloud.firestore.FieldValue;
 import com.google.cloud.firestore.Firestore;
 
 import com.google.cloud.firestore.QueryDocumentSnapshot;
 import com.google.cloud.firestore.QuerySnapshot;
+import com.google.cloud.firestore.WriteResult;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
 import com.google.firebase.cloud.FirestoreClient;
@@ -76,7 +78,7 @@ public class Firebase {
    * @param songInfo - info about the song
    */
   public void addSong(String id, Map<String, Object> songInfo) {
-    this.db.collection("songs").document(id).set(songInfo);
+    this.db.collection("songs").add(songInfo);
   }
 
   /**
@@ -95,13 +97,12 @@ public class Firebase {
    * @param docName - document being searched for
    * @return - boolean representing whether the doc exists in the collection
    */
-  public boolean docExists(String collection, String docName) {
+  public boolean docExists(String collection, String docName)
+      throws ExecutionException, InterruptedException {
     DocumentReference songsRef = this.db.collection(collection)
         .document(docName);
 
-    if (songsRef == null) {
-      return false;
-    } else if (songsRef.getId() == docName) {
+    if (songsRef.get().get().exists()) {
       return true;
     } else {
       return false;
@@ -151,5 +152,11 @@ public class Firebase {
       map.put("result", "no data found");
       return map;
     }
+  }
+
+  public void updateSongData (Map<String, Object> data, String docName) {
+    // Update an existing document
+    DocumentReference docRef = this.db.collection("songs").document(docName);
+    ApiFuture<WriteResult> arrayUnion = docRef.update("data", FieldValue.arrayUnion(data));
   }
 }
