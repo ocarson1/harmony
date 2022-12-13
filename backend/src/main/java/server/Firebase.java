@@ -78,7 +78,7 @@ public class Firebase {
    * @param songInfo - info about the song
    */
   public void addSong(String id, Map<String, Object> songInfo) {
-    this.db.collection("songs").document(id).set(songInfo);
+    this.db.collection("songs").add(songInfo);
   }
 
   /**
@@ -97,13 +97,12 @@ public class Firebase {
    * @param docName - document being searched for
    * @return - boolean representing whether the doc exists in the collection
    */
-  public boolean docExists(String collection, String docName) {
+  public boolean docExists(String collection, String docName)
+      throws ExecutionException, InterruptedException {
     DocumentReference songsRef = this.db.collection(collection)
         .document(docName);
 
-    if (songsRef == null) {
-      return false;
-    } else if (songsRef.getId() == docName) {
+    if (songsRef.get().get().exists()) {
       return true;
     } else {
       return false;

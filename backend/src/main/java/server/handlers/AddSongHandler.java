@@ -67,14 +67,9 @@ public class AddSongHandler implements Route {
           dataMap.put("userGeoJSON", loc);
 
           //check if token already exists in the collection
-          if (this.f.docExists("songs", token)) {
-            this.f.updateSongData(dataMap, token);
-          } else {
-            List<Map<String, Object>> datum = new ArrayList<>();
-            datum.add(dataMap);
-            resp.put("data", datum);
-            this.f.addSong(token, resp);
-          }
+          resp.put("data", dataMap);
+
+          this.f.addSong(token, resp);
         } catch (Exception e) {
           e.printStackTrace();
           resp.put("result", "error_data_source");
@@ -139,7 +134,6 @@ public class AddSongHandler implements Route {
 
       List<String> genres = genreObj.genres;
       resp.put("genres", genres);
-      System.out.println(resp);
     return resp;
   }
 
