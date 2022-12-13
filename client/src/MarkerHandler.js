@@ -11,13 +11,18 @@ import songData from './mockData/mockSongs.json'
 
 export default function MarkerHandler(map) {
     const tokens = Object.keys(songData);
+    let count = 0;
 
     for (const token of tokens) {
         console.log("token")
         console.log(token)
+
         const data = songData[token].data;
+        console.log("data")
         console.log(data)
+
         const track_data = data["track_data"]
+        console.log("track data")
         console.log(track_data)
 
         const geojson = data["userGeoJSON"]
@@ -25,28 +30,32 @@ export default function MarkerHandler(map) {
         console.log(geojson)
 
         const img_url = track_data["img_url"]
+        console.log("img_url")
         console.log(img_url)
 
         map.loadImage(
             img_url,
             (error, image) => {
                 if (error) throw error;
-                map.addImage('custom-marker', image);
+                map.addImage(`${count}`, image);
+                console.log("adding an image")
                 map.addSource('point', {
                     'type': 'geojson',
                     'data': geojson
-
                 })
                 map.addLayer({
                     'id':'points',
                     'type':'symbol',
                     'source':'point',
                     'layout': {
-                        'icon-image':'custom-marker'
+                        'icon-image':`${count}`,
+                        'icon-size':0.1
                     }
-                })
+                });
             })
+            count++
 
     }
+    console.log("Image Count:" + count)
 }
 

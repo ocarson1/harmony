@@ -16,21 +16,22 @@ mapboxgl.accessToken = myKey;
 
 export default function Map(props) {
   const mapContainer = useRef(null);
-  const map = useRef(null);
-  const [lng, setLng] = useState(-70.9);
+  const myMap = useRef(null);
+  const [lng, setLng] = useState(-71);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9); 
 
   useEffect(() => {
-    if (map.current) return; // initialize map only once
-    map.current = new mapboxgl.Map({
+    if (myMap.current) return; // initialize map only once
+    myMap.current = new mapboxgl.Map({
       container: mapContainer.current,
       style: props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11',
       center: [lng, lat],
-      zoom: zoom
+      zoom: zoom,
+      projection: "mercator"
     });
 
-    map.current.on('load', MarkerHandler(map.current))
+    //myMap.current.on('load', MarkerHandler(myMap.current))
 
     var geocoder = new MapboxGeocoder({
       accessToken: myKey,
@@ -40,12 +41,18 @@ export default function Map(props) {
 
   });
 
+  useEffect(()=> {
+    if (!myMap.current) return; // wait for map to initialize
+    MarkerHandler(myMap.current)
+  },[])
+
+
   useEffect(() => {
-    if (!map.current) return; // wait for map to initialize
-    map.current.on('move', () => {
-      setLng(map.current.getCenter().lng.toFixed(4));
-      setLat(map.current.getCenter().lat.toFixed(4));
-      setZoom(map.current.getZoom().toFixed(2));
+    if (!myMap.current) return; // wait for map to initialize
+    myMap.current.on('move', () => {
+      setLng(myMap.current.getCenter().lng.toFixed(4));
+      setLat(myMap.current.getCenter().lat.toFixed(4));
+      setZoom(myMap.current.getZoom().toFixed(2));
     });
   });
  
