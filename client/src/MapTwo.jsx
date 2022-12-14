@@ -5,6 +5,7 @@ import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
 //import './styles/Map.css'
 import MarkerHandler from './MarkerHandler'
+import Modal from './components/Modal'
 
 
 //TODO: redo light/dark mode switching
@@ -14,12 +15,16 @@ import MarkerHandler from './MarkerHandler'
 
 mapboxgl.accessToken = myKey;
 
-export default function Map(props) {
+export default function GenerateMap(props) {
   const mapContainer = useRef(null);
   const myMap = useRef(null);
   const [lng, setLng] = useState(-71);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9); 
+  const [modalActivation, setModalActivation] = useState
+  (false)
+  const [songSelected, setSongSelected] = useState(new Map)
+
 
   useEffect(() => {
     if (myMap.current) return; // initialize map only once
@@ -43,7 +48,7 @@ export default function Map(props) {
 
   useEffect(()=> {
     if (!myMap.current) return; // wait for map to initialize
-    MarkerHandler(myMap.current)
+    MarkerHandler(myMap.current, setModalActivation, setSongSelected)
   },[])
 
 
@@ -57,10 +62,9 @@ export default function Map(props) {
   });
  
   return (
-    <div>
-      <div ref={mapContainer} className="map-container">
-        <div id="geocoder-container"></div>
-      </div>
+    <div ref={mapContainer} className="map-container">
+      <div id="geocoder-container"></div>
+      <Modal isActivated={modalActivation} songData={songSelected}></Modal>
     </div>
   );
 }

@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
-//import Map from './Map'
-import MapTwo from './MapTwo'
+//import MapBox from './Map'
+import MapBox from './MapTwo'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
@@ -41,7 +41,7 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <MapTwo theme={theme} setTheme={setTheme} />
+          <MapBox theme={theme} setTheme={setTheme} />
           <Sidebar theme={theme} setTheme={setTheme}/> 
           <UserEntry theme={theme} setTheme={setTheme}></UserEntry>
         </div>

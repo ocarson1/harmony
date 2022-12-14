@@ -3,15 +3,16 @@ import songData from './mockData/mockSongs3.json'
 
 
 
-// change this so that JSON is a parameter instead of imported data
-
-
+// INTEGRATION TODO: change this so that JSON is a parameter instead of imported data
 // localhost:3232/getCollection?name=songs
 
 // Map docs: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addimage
 
+// Layer docs: https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#layout-property
 
-export default async function MarkerHandler(map) {
+
+
+export default async function MarkerHandler(map, setModalActivation, setSongSelected) {
     const tokens = Object.keys(songData);
     let count = 0;
     for (const token of tokens) {
@@ -54,7 +55,9 @@ export default async function MarkerHandler(map) {
                     'layout': {
                         'icon-image':token,
                         'icon-size':0.1,
-                        'icon-allow-overlap':true  //undecided if i want to keep this or not
+                        'icon-allow-overlap':true,  //undecided if i want to keep this or not
+                        'icon-offset':[0,-50] //not working
+                        
                     },
                     'paint': {
                         'icon-halo-blur':1,
@@ -65,10 +68,27 @@ export default async function MarkerHandler(map) {
             })
             console.log("Image Count:" + count)
             count++
+            //centers the map on the coordinates of a clicked marker
             map.on('click', token, (e) => {
                 console.log(token)
-                
-            })
+                console.log(e.features[0].geometry.coordinates)
+                map.flyTo({
+                    center: e.features[0].geometry.coordinates
+                });
+                setModalActivation(true)
+                setSongSelected(track_data)
+
+            });
+            //changes the cursor to a pointer when it enters a marker layer
+            map.on('mouseenter',token, () => {
+                map.getCanvas().style.cursor = 'pointer';
+            });
+
+            //changes the cursor back to its original state after leaving a marker layer
+            map.on('mouseleave', token, () => {
+                map.getCanvas().style.cursor ='';
+            });
+
 
     }
 
