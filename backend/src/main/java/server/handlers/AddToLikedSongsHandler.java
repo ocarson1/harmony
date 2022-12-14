@@ -50,11 +50,8 @@ public class AddToLikedSongsHandler implements Route {
         JSONBody = idURL.deleteAPIRequest(token);
       }
 
-      //Moshi moshi = new Moshi.Builder().build();
-      //JsonAdapter<ErrorObj> errorAdapter = moshi.adapter(ErrorObj.class);
       if (JSONBody != null) {
         resp.put("result", "error_bad_token");
-        //ErrorObj errObj = errorAdapter.fromJson(JSONBody);
       } else {
         resp.put("result", "success");
       }

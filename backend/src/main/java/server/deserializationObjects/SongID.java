@@ -14,6 +14,16 @@ public class SongID {
 
   public static class Track {
     public String id;
+    public String name;
+    public Album album;
+  }
+
+  public static class Album {
+    public List<Image> images;
+  }
+
+  public static class Image {
+    public String url;
   }
 }
 

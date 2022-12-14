@@ -30,6 +30,11 @@ public class UnitTestRecent {
 
     List<Item> items = idObj.items;
     String id = items.get(0).track.id;
+    String name = items.get(0).track.name;
+    String img_url = items.get(0).track.album.images.get(0).url;
+
     assertEquals("0JfsIu62NVXNQl2s7ATN37", id);
+    assertEquals("Me Gustas", name);
+    assertEquals("https://i.scdn.co/image/ab67616d0000b2730e036776e70ccbb71216c835", img_url);
   }
 }

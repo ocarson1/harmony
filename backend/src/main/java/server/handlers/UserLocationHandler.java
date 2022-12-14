@@ -31,32 +31,33 @@ public class UserLocationHandler implements Route {
 
   /**
    * Invoked when the userLoc endpoint is called. The request must include params of lat, lon,
-   * and the user's id.
+   * and the user's token.
    * @param request - the request object for the userLoc endpoint with HTTP request information.
    * @param response - the response object that allows response modification.
    * @return the serialized Map of String to Object containing the result.
    * @throws Exception - if an error is encountered in the retrieval process
+   * Example query: localhost:3232/userLoc?lat=[]&lon=[]&token=[]
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
     try {
       QueryParamsMap params = request.queryMap();
-      if (!params.hasKey("lat") || !params.hasKey("lon") || !params.hasKey("id")) {
+      if (!params.hasKey("lat") || !params.hasKey("lon") || !params.hasKey("token")) {
         return new Exception("Missing params.");
       }
       String lat = params.get("lat").value();
       String lon = params.get("lon").value();
-      String id = params.get("id").value();
-//      String token = params.get("token").value();
-//
-//      String url = "https://api.spotify.com/v1/me";
-//      APIUtility recURL = new APIUtility(url);
-//
-//      Moshi moshi = new Moshi.Builder().build();
-//      JsonAdapter<UserObj> recAdapter = moshi.adapter(UserObj.class);
-//
-//      String JSONBody = recURL.getAPIRequest(token);
-//      UserObj userObj = recAdapter.fromJson(JSONBody);
+      String token = params.get("token").value();
+
+      String url = "https://api.spotify.com/v1/me";
+      APIUtility recURL = new APIUtility(url);
+
+      Moshi moshi = new Moshi.Builder().build();
+      JsonAdapter<UserObj> recAdapter = moshi.adapter(UserObj.class);
+
+      String JSONBody = recURL.getAPIRequest(token);
+      UserObj userObj = recAdapter.fromJson(JSONBody);
+      String id = userObj.id;
 
       this.userMap.put("lat", lat);
       this.userMap.put("lon", lon);

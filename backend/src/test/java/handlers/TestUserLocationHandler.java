@@ -93,13 +93,13 @@ public class TestUserLocationHandler {
     Spark.init();
     Spark.awaitInitialization();
 
-    HttpURLConnection clientConnection = tryRequest("userLoc?lat=1.1.21&lon=3&id=123");
+    HttpURLConnection clientConnection = tryRequest("userLoc?lat=1.1.21&lon=3&token=123");
     assertEquals(200, clientConnection.getResponseCode());
 
     Map<String, Object> userMap = new HashMap<>();
     userMap.put("lat", "1.1.21");
     userMap.put("lon", "3");
-    userMap.put("id", "123");
+    userMap.put("token", "123");
 
     assertEquals(userMap, userLocHandle. getUserMap());
   }
