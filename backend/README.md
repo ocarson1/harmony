@@ -34,36 +34,36 @@ a high amount of traffic on our site, many sites do; and to make sure that our a
 ### Use our backend API
 You must run our server before attempting to use any of our handlers. In addition, you must have a 
 valid access token, which is retrieved through the frontend authorization process.
-1) AddSongAtLocHandler
+1) <b> AddSongAtLocHandler </b>
 Associates a specified song (retrieved from song id) to a specific location (retrieved from latitude and longitude).
-The information is added to the database.
+The information is added to the database. \
 Query structure: localhost:3232/addSongAtLoc?token=[token]&lat=[latitude]&lon=[longitude]&id=[song id]
-2) AddSongHandler
+2) <b> AddSongHandler </b>
 Associates the user's most recently listened-to song (retrieved through their access token) to a specific location (
-retrieved) from latitude and longitude).
+retrieved) from latitude and longitude). \
 Query structure: localhost:3232/add?token=[token]&lat=[latitude]&lon=[longitude]
-3) AddToLikedSongsHandler
+3) <b> AddToLikedSongsHandler </b>
 Adds a specified song (retrieved from song id) to the user's library of saved songs, or removes 
-a saved song from the library, depending on the boolean value of the add parameter.
+a saved song from the library, depending on the boolean value of the add parameter. \
 Query structure: localhost:3232/addLike?token=[token]&id=[song id]&add=[true or false]
-4) GetCollectionHandler
-Retrieves all stored data from a specified collection of the database as a serialized map of string to object.
+4) <b> GetCollectionHandler </b>
+Retrieves all stored data from a specified collection of the database as a serialized map of string to object. \
 Query structure: localhost:3232/getCollection?name=[name of collection]
-5) GetRecentSongHandler
-Retrieves the song id, name, and image url of the user's most recently played song through their access token.
+5) <b> GetRecentSongHandler </b>
+Retrieves the song id, name, and image url of the user's most recently played song through their access token. \
 Query structure: localhost:3232/getRecentSong?token=[token]
-6) GetRecommendationHandler
-Retrieves a list of song recommendations for the user based on their access token and a list of song ids.
-The recommendation algorithm is utilizing quicksort.
+6) <b> GetRecommendationHandler </b>
+Retrieves a list of song recommendations for the user based on their access token and a list of song ids. 
+The recommendation algorithm is utilizing quicksort. \
 Query structure: localhost:3232/getRecs?token=[token]&songIds=[id],[id],[id]
-7) GetTrackHandler
-Gets metadata on a specified track, retrieved through its song id and the user's access token.
+7) <b> GetTrackHandler </b>
+Gets metadata on a specified track, retrieved through its song id and the user's access token. \
 Query structure: localhost:3232/
-8) GetUserProfileHandler
-Gets information about the user's profile through their token. 
+8) <b> GetUserProfileHandler </b>
+Gets information about the user's profile through their token.  \
 Query structure: localhost:3232/getUser?token=[token]
-9) UserLocationHandler
-Places information about the user and their location into the firestore database.
+9) <b> UserLocationHandler </b>
+Places information about the user and their location into the firestore database. \
 Query structure: localhost:3232/userLoc?token=[token]&lat=[latitude]&lon=[longitude]
 
 ### Run tests
