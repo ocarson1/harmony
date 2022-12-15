@@ -2,7 +2,7 @@
 
 ## Project Details
 Project name: Harmony \
-Team members: Grace Cantarella (gcantare), Arman Deendar (), Alec Lippman (), Vivian Li (), Owen Carson\
+Team members: Grace Cantarella (gcantare), Arman Deendar (adeendar), Alec Lippman (), Vivian Li (), Owen Carson (ocarson1) \
 Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18\
 Total time for project: 
 
@@ -67,3 +67,12 @@ Places information about the user and their location into the firestore database
 Query structure: localhost:3232/userLoc?token=[token]&lat=[latitude]&lon=[longitude]
 
 ### Run tests
+Because of the structure of our tests, where in some classes each individual test takes in
+a new instance of Firebase as it is required as an instance variables, tests that should pass will
+fail if multiple tests are run at once. If a handler class takes in Firebase as a parameter, then
+we suggest running each test individually through IntelliJ, or through running a single test with mvn.
+To run a single test with mvn, use "mvn -Dtest=NameOfTestClass#nameOfTest test" where NameOfTestClass is the
+name of a test class and nameOfTest is the name of a test within that class. Make sure you have run mvn
+package before that.
+
+If you want to run all tests, run mvn package. Be aware that certain tests may fail, that should not.
