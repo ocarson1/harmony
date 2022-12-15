@@ -46,10 +46,18 @@ export default function GenerateMap(props) {
 
   });
 
+
+
+
+
+  useEffect(() => {
+    myMap.current.setStyle((props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'))
+  },[props.theme])
+
   useEffect(()=> {
     if (!myMap.current) return; // wait for map to initialize
     MarkerHandler(myMap.current, setModalActivation, setSongSelected, setModalLoc)
-  },[])
+  })
 
 
   useEffect(() => {
@@ -59,10 +67,19 @@ export default function GenerateMap(props) {
       setLat(myMap.current.getCenter().lat.toFixed(4));
       setZoom(myMap.current.getZoom().toFixed(2));
     });
+    myMap.current.on('zoom', () => {
+      setModalActivation(false)
+    })
+    myMap.current.on('drag', () => {
+      setModalActivation(false)
+    })
   });
 
 
- 
+
+
+
+
   return (
     <div ref={mapContainer} className="map-container">
       <div id="geocoder-container"></div>

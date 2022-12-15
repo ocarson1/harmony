@@ -4,7 +4,10 @@ import songData from './mockData/mockSongs3.json'
 
 
 
-// INTEGRATION TODO: change this so that JSON is a parameter instead of imported data
+//BUG: range of selection is underneath the marker, instead of on top of it
+
+
+
 // localhost:3232/getCollection?name=songs
 
 // Map docs: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addimage
@@ -50,6 +53,7 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
             // console.log("img_url")
             // console.log(img_url)
 
+            if(!map.hasImage(token)) {
             map.loadImage(
                 img_url,
                 (error, image) => {
@@ -110,14 +114,7 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
                 map.on('mouseleave', token, () => {
                     map.getCanvas().style.cursor ='';
                 });
-
-                map.on('zoom', () => {
-                    setModalActivation(false)
-                })
-                map.on('drag', () => {
-                    setModalActivation(false)
-                }
-                )
         }
     }
+}
 
