@@ -9,10 +9,11 @@ import React, { useState } from 'react';
 interface sidebarProps {
     theme: boolean;
     setTheme: Function;
+    token: string;
   }
 
 export default function GenerateSidebar(props: sidebarProps) {
-
+//usestate name setname
     return (
         <div className="sidebar">
             <Tabs className = "tabs">
@@ -37,6 +38,7 @@ export default function GenerateSidebar(props: sidebarProps) {
             </TabPanel>
             <TabPanel>
                 <div className = "profile-tab">
+                    {/* <div className="name">{getUsername(props.token)}</div> */}
                     <div className = "history">
                         History:
                     </div>
@@ -55,3 +57,10 @@ export default function GenerateSidebar(props: sidebarProps) {
 //     </div>
 //     )
 // }
+
+
+function getUsername(token: string) {
+    fetch(`https://localhost:3232/getUser?token=${token}`)
+        .then(r => r.json())
+        .then(json => {return json.name});
+}

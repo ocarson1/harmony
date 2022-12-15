@@ -22,10 +22,9 @@ export default function GenerateMap(props) {
   const [lng, setLng] = useState(-71);
   const [lat, setLat] = useState(42.35);
   const [zoom, setZoom] = useState(9); 
-  const [modalActivation, setModalActivation] = useState
-  (false)
+  const [modalActivation, setModalActivation] = useState(false)
   const [songSelected, setSongSelected] = useState(new Map)
-
+  const [modalLoc, setModalLoc] = useState([0,0])
 
   useEffect(() => {
     if (myMap.current) return; // initialize map only once
@@ -49,7 +48,7 @@ export default function GenerateMap(props) {
 
   useEffect(()=> {
     if (!myMap.current) return; // wait for map to initialize
-    MarkerHandler(myMap.current, setModalActivation, setSongSelected)
+    MarkerHandler(myMap.current, setModalActivation, setSongSelected, setModalLoc)
   },[])
 
 
@@ -67,7 +66,7 @@ export default function GenerateMap(props) {
   return (
     <div ref={mapContainer} className="map-container">
       <div id="geocoder-container"></div>
-      <Modal isActivated={modalActivation} songData={songSelected}>
+      <Modal isActivated={modalActivation} songData={songSelected} location={modalLoc}>
         {/* <button className="modal-button" onClick={setModalActivation(false)}>CLOSE</button> */}
       </Modal>
     </div>

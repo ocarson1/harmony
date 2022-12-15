@@ -13,19 +13,19 @@ import songData from './mockData/mockSongs3.json'
 
 
 
-export default async function MarkerHandler(map, setModalActivation, setSongSelected) {
+export default async function MarkerHandler(map, setModalActivation, setSongSelected, setModalLoc) {
     //fetch songdata
 
     fetch('http://localhost:3232/getCollection?name=songs')
         .then(r => r.json())
-        .then(json => {handleJSON(json.data, map, setModalActivation, setSongSelected)})
+        .then(json => {handleJSON(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
 
 //         .then(json => {console.log("Backend gave us" + JSON.parse(json));
 //             handleJSON(json, map, setModalActivation, setSongSelected)})
 // }
 }
 
-function handleJSON(json, map, setModalActivation, setSongSelected) {
+function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc) {
     const tokens = Object.keys(json);
         let count = 0;
         for (const token of tokens) {
@@ -82,17 +82,23 @@ function handleJSON(json, map, setModalActivation, setSongSelected) {
                 console.log("Image Count:" + count)
                 count++
                 //centers the map on the coordinates of a clicked marker
+
+                // click docs: https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent#point
                 map.on('click', token, (e) => {
-                    console.log(token)
-                    console.log(e.features[0].geometry.coordinates)
-                    map.flyTo({
-                        center: e.features[0].geometry.coordinates
-                    });
+
+                    var x = e.point.x
+                    var y = e.point.y
+
+                    // map.flyTo({
+                    //     center: e.features[0].geometry.coordinates
+                    // });
+
                     setModalActivation(true)
                     setSongSelected(track_data)
+                    setModalLoc([x,y])
+
                     console.log("mh" + track_data)
-
-
+                    console.log("mouse" +  e.point.x)
 
                 });
                 //changes the cursor to a pointer when it enters a marker layer
@@ -102,10 +108,16 @@ function handleJSON(json, map, setModalActivation, setSongSelected) {
 
                 //changes the cursor back to its original state after leaving a marker layer
                 map.on('mouseleave', token, () => {
-                    
+                    map.getCanvas().style.cursor ='';
                 });
 
-
+                map.on('zoom', () => {
+                    setModalActivation(false)
+                })
+                map.on('drag', () => {
+                    setModalActivation(false)
+                }
+                )
         }
     }
 

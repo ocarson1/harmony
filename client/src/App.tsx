@@ -42,7 +42,7 @@ function App() {
       <div className="App">
         <div className="web-container">
           <MapBox theme={theme} setTheme={setTheme} />
-          <Sidebar theme={theme} setTheme={setTheme}/> 
+          <Sidebar theme={theme} setTheme={setTheme} token={access_token}/> 
           <UserEntry theme={theme} setTheme={setTheme}></UserEntry>
         </div>
       </div>
