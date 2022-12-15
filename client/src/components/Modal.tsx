@@ -5,17 +5,22 @@ import '../styles/Modal.css'
 export {}
 
 interface modalProps {
-    isActivated: boolean
-    songData: ts.ESMap<Object,Object>
+    isActivated: boolean;
+    songData: ts.ESMap<string,Object>
     //add songdata map?
 }
 
-export default function Modal(props: modalProps) {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    console.log(props.songData)
-    console.log(props.songData.has("title"))
+export default function Modal({isActivated, songData}:modalProps) {
 
-    if (!props.isActivated) {
+    const variations = new Map(Object.entries(songData))
+    console.log(songData)
+    console.log(variations)
+    console.log(typeof(variations))
+    console.log(variations.get("title"))
+ 
+    
+
+    if (!isActivated) {
         return null
     }
 
@@ -26,6 +31,11 @@ export default function Modal(props: modalProps) {
                     <h4 className="modal-title">SONG INFO</h4>
                 </div>
                 <div className="modal-body">
+                    <p>Song:</p>
+                    <p>Artist:</p>
+                    <p>Album:</p>
+                    <p>Release Year:</p>
+                    <p>Genre:</p>
                     {/* <p>Song: {props.songData.get("title")}</p> */}
                 </div>
 

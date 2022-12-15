@@ -32,6 +32,11 @@
 }
 
 .modal-body {
+    position: absolute;
+    left:10px;
+    text-align:left;
+    line-height:0.1;
+    vertical-align:top;
 
 }
 

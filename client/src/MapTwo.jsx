@@ -6,6 +6,7 @@ import {myKey} from './private/key'
 //import './styles/Map.css'
 import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
+import ts from 'typescript';
 
 
 //TODO: redo light/dark mode switching
@@ -60,11 +61,15 @@ export default function GenerateMap(props) {
       setZoom(myMap.current.getZoom().toFixed(2));
     });
   });
+
+
  
   return (
     <div ref={mapContainer} className="map-container">
       <div id="geocoder-container"></div>
-      <Modal isActivated={modalActivation} songData={songSelected}></Modal>
+      <Modal isActivated={modalActivation} songData={songSelected}>
+        {/* <button className="modal-button" onClick={setModalActivation(false)}>CLOSE</button> */}
+      </Modal>
     </div>
   );
 }
