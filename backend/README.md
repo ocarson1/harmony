@@ -58,7 +58,7 @@ The recommendation algorithm is utilizing quicksort. \
 Query structure: localhost:3232/getRecs?token=[token]&songIds=[id],[id],[id]
 7) <b> GetTrackHandler </b>
 Gets metadata on a specified track, retrieved through its song id and the user's access token. \
-Query structure: localhost:3232/
+Query structure: localhost:3232/getTrack?token=[token]
 8) <b> GetUserProfileHandler </b>
 Gets information about the user's profile through their token.  \
 Query structure: localhost:3232/getUser?token=[token]
