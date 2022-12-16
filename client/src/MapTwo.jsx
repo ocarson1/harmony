@@ -23,15 +23,21 @@ export default function GenerateMap(props) {
   const [modalActivation, setModalActivation] = useState(false)
   const [songSelected, setSongSelected] = useState(new Map)
   const [modalLoc, setModalLoc] = useState([0,0])
+  const geocoder = new MapboxGeocoder({
+    accessToken: myKey,
+    mapboxgl: mapboxgl,
+  });
 
   // Initialize the map and the geocoder
   useEffect(() => {
-    if (myMap.current) return; // initialize map only once
+    if (myMap.current) return;
+   // initialize map only once
     myMap.current = new mapboxgl.Map({
       container: mapContainer.current,
       center: [lng, lat],
       zoom: zoom,
-      projection: "mercator"
+      projection: "mercator",
+      controls: [],
     });
 
     var geocoder = new MapboxGeocoder({
@@ -39,7 +45,8 @@ export default function GenerateMap(props) {
       mapboxgl: mapboxgl,
     });
     geocoder.addTo('#geocoder-container')
-
+    myMap.current.addControl(geocoder);
+    //myMap.current.on('load', MarkerHandler(myMap.current))
   });
 
 
@@ -65,9 +72,6 @@ export default function GenerateMap(props) {
       setModalActivation(false)
     });
   })
-
-
-
 
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
