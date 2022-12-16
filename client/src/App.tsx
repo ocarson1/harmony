@@ -1,6 +1,5 @@
 import React, {useState, useEffect} from 'react';
-//import Map from './Map'
-import MapTwo from './MapTwo'
+import Map from './MapBox'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
@@ -48,10 +47,10 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <MapTwo theme={theme} setTheme={setTheme} />
+          <Map theme={theme} setTheme={setTheme} />
           {/* <GeoPlaylistButton */}
           <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button>
-          <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}/> 
+          <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token}/> 
           {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}></UserEntry>}
         </div>
@@ -64,7 +63,7 @@ function App() {
       <div className="App">
         <div className="web-container">
           <img className="" src="./images/mapboxbackground.jpg"></img>
-          <LogIn href={href} clearance={entryClearance}></LogIn>
+         <LogIn href={href} clearance={entryClearance}></LogIn>
         </div>
       </div>
     )

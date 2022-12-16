@@ -10,9 +10,14 @@ interface sidebarProps {
     theme: boolean;
     setTheme: Function;
     setEntryIsShown: Function;
+    token: string;
   }
 
+
+//split this into two helper functions for each tab?
 export default function GenerateSidebar(props: sidebarProps) {
+    const [username, setUsername] = useState("<Spotify Username>")
+    const [pfp, setPfp] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
 
     const openNewEntry = () => {
         props.setEntryIsShown(true);
@@ -43,10 +48,15 @@ export default function GenerateSidebar(props: sidebarProps) {
             </TabPanel>
             <TabPanel>
                 <div className = "profile-tab">
+                    <div className="profile-tab-header">
+                        <div><img src={pfp} className="prof-pic"></img></div>
+                        <div className="username">{username}</div>
+                    </div>
                     <div className = "history">
                         History:
                     </div>
                     <HistoryInfo />
+                    <button className="logout-button">LOG OUT</button>
                 </div>
                 </TabPanel>
             </Tabs>
@@ -61,3 +71,15 @@ export default function GenerateSidebar(props: sidebarProps) {
 //     </div>
 //     )
 // }
+
+function getUsername(token: string) {
+    console.log("getting username")
+    console.log(token)
+    fetch(`https://localhost:3232/getUser?token=${token}`)
+        .then(r => r.json())
+        .then(json => {return json.name});
+}
+
+function getPfp() {
+
+}
