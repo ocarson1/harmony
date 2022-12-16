@@ -12,9 +12,7 @@ function EntryButton() {
     }
     
     return(
-        <div>
-            <button className="entry-button" onClick={openNew}>+ ADD NEW ENTRY</button>
-        </div>
+        <button className="entry-button" onClick={openNew}>+ ADD NEW ENTRY</button>
     )
 }
 

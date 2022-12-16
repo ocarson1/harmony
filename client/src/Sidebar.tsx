@@ -32,7 +32,6 @@ export default function GenerateSidebar(props: sidebarProps) {
                 </TabList>
                 <TabPanel>
             <div className="view-tab">
-                {/* <EntryButton /> */}
                 <button className="entry-button" onClick={openNewEntry}>+ ADD NEW ENTRY</button>
                 <div className = "filter-by">
                     Filter by:

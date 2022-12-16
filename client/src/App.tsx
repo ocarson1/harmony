@@ -1,11 +1,12 @@
 import React, {useState, useEffect} from 'react';
-import Map from './MapBox'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
 import UserEntry from './components/UserEntry';
 import GeoPlaylist from './components/GeoPlaylist';
-import './styles/Map.css'
+import GeoPlaylistButton from './components/GeoPlaylistButton';
+import Map from './MapBox.jsx'
+import './styles/MapBox.css'
 
 let entryClearance: boolean = false;
 
@@ -47,9 +48,9 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme} />
-          {/* <GeoPlaylistButton */}
-          <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button>
+          <Map theme={theme} setTheme={setTheme}/>
+          <GeoPlaylistButton setGeneratePlaylist={setGeneratePlaylist}/>
+          {/* <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button> */}
           <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token}/> 
           {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}></UserEntry>}

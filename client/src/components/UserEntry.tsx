@@ -1,7 +1,9 @@
 import { Dispatch, SetStateAction } from 'react';
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import '../styles/UserEntry.css'
-import Map from '../MapBox'
+import '../styles/MapBox.css'
+import Map from '../MapBoxPopup'
+
 
 interface UserEntryProps {
     theme: boolean;
@@ -26,6 +28,9 @@ function UserEntry({theme, setTheme, setEntryIsShown}: UserEntryProps){
             </div>
             <div className="entry-header-line"></div>
             <div className="entry-text">Double click on the map to plot your location to your most recently played song</div>
+            {/* <div className="entry-map">
+                <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}}/>
+            </div> */}
             <div className="entry-map">
                 <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}}/>
             </div>

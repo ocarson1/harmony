@@ -41,6 +41,10 @@
     border-radius: 9px;
 }
 
+.close-button:hover {
+    cursor: pointer;
+}
+
 .entry-header-line {
     position: absolute;
     width: 708px;
@@ -58,9 +62,10 @@
 }
 
 .entry-map {
-    position: position;
+    position: absolute;
+    overflow: hidden;
     padding-top:55px;
-    left: 20%;
+    left: 30px;
     width: 650px;
     height: 280px;
     border-radius: 25px;
@@ -68,8 +73,9 @@
 }
 
 .entry-bottom {
-    flex-direction: column;
     min-height: fit-content;
+    position: relative;
+    top: 360px;
 }
 
 .most-recent-song {
@@ -115,6 +121,10 @@
     font-size: 25px;
     text-align: center;
     color: #FFFFFF;
+}
+
+.done-button:hover {
+    cursor: pointer;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */

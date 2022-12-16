@@ -1,28 +1,16 @@
 .playlist-popup {
     position: absolute;
-    width: 726px;
-    height: 718px;
+    width: 500px;
+    height: 550px;
+    top: 10%;
+    left: 17%;
     
     background: linear-gradient(180deg, #71C7F2 0%, #9E6BC3 100%);
     border-radius: 53px;
 }
 
-.entry-header {
-    flex-direction:column;
-}
-
-.title {
-    text-align: left;
-    width: 200px;
-     
-    padding-left: 30px;
-    padding-top: 23px;
-    padding-bottom: 15px;
-    font-family: 'Montserrat';
-    font-style: normal;
-    font-weight: 700;
-    font-size: 25px;
-    color: #FFFFFF;
+.playlist-header {
+    flex-direction: column;
 }
 
 .close-button {
@@ -36,53 +24,16 @@
     border-radius: 9px;
 }
 
-.entry-header-line {
+.playlist-icon {
+    display: grid;
     position: absolute;
-    width: 708px;
-    border: 1px solid #FFFFFF;
-}
-
-.entry-text {
-    position: absolute;
-    padding-top: 18px;
-    padding-left: 30px;
-    font-style: normal;
-    font-weight: 500;
-    font-size: 16px;
-    color: #FFFFFF;
-}
-
-.entry-map {
-    position: position;
-    padding-top:55px;
-    left: 20%;
-    width: 650px;
-    height: 280px;
-    border-radius: 25px;
-    padding-bottom: 20px;
-}
-
-.entry-bottom {
-    flex-direction: column;
-    min-height: fit-content;
-}
-
-.most-recent-song {
-    display: flex;
-    position: absolute;
+    /* border-radius: 40px; */
+    width: 120px;
+    height: 120px;
     left: 30px;
-    min-width: 200px;
-    max-width: fit-content;
-    height: 60px;
-    background: #FFFFFF;
-    border-radius: 50px;
-    font-weight: 400;
-    flex-direction: column;
-}
-
-.song-icon {
-    margin-left: 10px;
-    margin-top: 10px;
+    top: 30px;
+    grid-template-columns: 60px 60px;
+    grid-template-rows: auto auto;
 }
 
 .song-info {
@@ -96,7 +47,7 @@
     min-width: fit-content;
 }
 
-.done-button {
+.add-playlist-button {
     right: 30px;
     position: absolute;
     border: none;
@@ -113,7 +64,7 @@
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
-.entry-popup .show {
+.playlist-popup .show {
     visibility: visible;
     -webkit-animation: fadeIn 1s;
     animation: fadeIn 1s
