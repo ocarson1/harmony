@@ -11,7 +11,6 @@ import './styles/MapBox.css'
 let entryClearance: boolean = false;
 
 function App() {
-  console.log(entryClearance)
 
   const CLIENT_ID = 'ce58270f079346658ebe132ae27ae27b'
   const CLIENT_SECRET = '8ce08f38b60f474896c4ce17af94d709'
@@ -27,6 +26,8 @@ function App() {
   console.log("entryIsShown " + entryIsShown)
 
   console.log(access_token)
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
+  
   useEffect(() => {
     var authParameters = {
       method: 'POST',
@@ -35,11 +36,32 @@ function App() {
       },
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
+    
+    console.log("App HREF " + window.location.hash.substring(14,209))
+    let ahr = window.location.hash.substring(14)
+    console.log(ahr.indexOf("&"))
 
-    fetch('https://accounts.spotify.com/api/token', authParameters)
-      .then(result => result.json())
-      .then(data => setAccessToken(data.access_token))
+    const urlParams = new URLSearchParams(window.location.hash)
+    console.log(urlParams)
+    if (window.location.hash !== "") {
+      console.log("youve logged in")
+      setAccessToken(window.location.hash.substring(14,209))
+    }
+
+  //   fetch('https://accounts.spotify.com/api/token', authParameters)
+  //     .then(result => result.json())
+  //     .then(data => {console.log("TOKEN " + data.access_token); setAccessToken(data.access_token)})
+  // }, [])
   }, [])
+
+  useEffect(() => {
+    console.log("The most recent token is " + access_token)
+  }, [access_token])
+
+  useEffect(()=> {
+    if (!isLoggedIn) return;
+    console.log("HREF " + window.location.href)
+  }, [isLoggedIn])
 
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
   
@@ -64,12 +86,13 @@ function App() {
       <div className="App">
         <div className="web-container">
           <img className="" src="./images/mapboxbackground.jpg"></img>
-         <LogIn href={href} clearance={entryClearance}></LogIn>
+         <LogIn href={href} setIsLoggedIn={setIsLoggedIn}></LogIn>
         </div>
       </div>
     )
     }
   }
+  //}
 
 
 

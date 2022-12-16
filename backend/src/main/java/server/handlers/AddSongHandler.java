@@ -89,7 +89,7 @@ public class AddSongHandler extends AddSong implements Route {
           this.f.addSong(token, resp);
         } catch (Exception e) {
           e.printStackTrace();
-          resp.put("result", "error_data_source");
+          resp.put("result", e.getMessage());
         }
       }
       return new ServerResponse().serialize(resp);

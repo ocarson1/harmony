@@ -1,5 +1,5 @@
 import ts, { Map } from "typescript";
-import React, { useState  } from "react";
+import React, { useState } from "react";
 import '../styles/Modal.css'
 
 export {}

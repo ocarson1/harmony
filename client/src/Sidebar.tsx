@@ -14,6 +14,8 @@ interface sidebarProps {
   }
 
 
+
+
 //split this into two helper functions for each tab?
 export default function GenerateSidebar(props: sidebarProps) {
     const [username, setUsername] = useState("<Spotify Username>")
@@ -22,6 +24,10 @@ export default function GenerateSidebar(props: sidebarProps) {
     const openNewEntry = () => {
         props.setEntryIsShown(true);
     }
+    fetch(`http://localhost:3232/getUser?token=${props.token}`)
+    .then(r => r.json())
+    .then(json => {console.log("NAME" + json.name);setUsername(json.name)});
+
 
     return (
         <div className="sidebar">
@@ -71,13 +77,13 @@ export default function GenerateSidebar(props: sidebarProps) {
 //     )
 // }
 
-function getUsername(token: string) {
-    console.log("getting username")
-    console.log(token)
-    fetch(`https://localhost:3232/getUser?token=${token}`)
-        .then(r => r.json())
-        .then(json => {return json.name});
-}
+// function getUsername(token: string) {
+//     console.log("getting username")
+//     console.log(token)
+//     fetch(`https://localhost:3232/getUser?token=${token}`)
+//         .then(r => r.json())
+//         .then(json => {setUsername(json.name)});
+// }
 
 function getPfp() {
 
