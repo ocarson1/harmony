@@ -39,7 +39,7 @@ public class GetCollectionHandler implements Route {
    * Example query: localhost:3232/getCollection?name=[]
    */
   @Override
-  public Object handle(Request request, Response response) throws Exception {
+  public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
@@ -56,8 +56,8 @@ public class GetCollectionHandler implements Route {
       resp.put("data", this.f.getCollection(name));
       return new ServerResponse().serialize(resp);
     } catch (Exception e) {
-      System.out.println(e.getMessage());
-      resp.put("result", "error_bad_request");
+      e.printStackTrace();
+      resp.put("result", e.toString());
       return new ServerResponse().serialize(resp);
     }
   }
