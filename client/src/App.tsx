@@ -1,3 +1,4 @@
+import { access } from 'fs';
 import React, { useEffect, useState, useRef } from 'react'
 // import {Routes, Route, useNavigate} from 'react-router-dom'
 import './App.css';
@@ -24,7 +25,7 @@ function App() {
 
     fetch('https://accounts.spotify.com/api/token', authParameters)
       .then(result => result.json())
-      .then(data => setAccessToken(data.access_token))
+      .then(data => {setAccessToken(data.access_token); console.log(data.access_token)})
 
 }, [])
 
