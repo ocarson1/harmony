@@ -26,7 +26,7 @@ public class GetUserProfileHandler implements Route {
    * @throws Exception - if an error is encountered in the retrieval process
    */
   @Override
-  public Object handle(Request request, Response response) throws Exception {
+  public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
