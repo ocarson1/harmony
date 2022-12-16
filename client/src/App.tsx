@@ -5,6 +5,7 @@ import './styles/App.css';
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
 import UserEntry from './components/UserEntry';
+import GeoPlaylist from './components/GeoPlaylist';
 import './styles/Map.css'
 
 let entryClearance: boolean = false;
@@ -21,6 +22,7 @@ function App() {
   const [access_token, setAccessToken] = useState("no_access");
   const [theme, setTheme] = useState(false);
   const [entryIsShown, setEntryIsShown] = useState(false);
+  const [generatePlaylist, setGeneratePlaylist] = useState(false);
 
   console.log("entryIsShown " + entryIsShown)
 
@@ -40,15 +42,17 @@ function App() {
   }, [])
 
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
- 
+  
   if (access_token !== "no_access") {
     console.log('Rendering Main')
     return (
       <div className="App">
         <div className="web-container">
           <MapTwo theme={theme} setTheme={setTheme} />
-          <button className="playlist-button">MAKE A GEO-PLAYLIST</button>
+          {/* <GeoPlaylistButton */}
+          <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button>
           <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}/> 
+          {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown}></UserEntry>}
         </div>
       </div>
