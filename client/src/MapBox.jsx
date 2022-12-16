@@ -6,6 +6,8 @@ import './styles/MapBox.css'
 import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
 import ts from 'typescript';
+import 'mapbox-gl/dist/mapbox-gl.css'
+
 
 //mapbox with react documentation:
 //https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/

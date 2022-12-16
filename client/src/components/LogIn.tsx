@@ -4,14 +4,14 @@ import '../styles/LogIn.css'
 
 interface LogInProps {
     href: string
-    clearance: boolean
+    setIsLoggedIn: Function
 }
-function LogIn({href,clearance}: LogInProps){
-    
+
+function LogIn({href, setIsLoggedIn}: LogInProps){
+
     const handleSubmit = () => {
         window.open(href, "_self")
-        clearance = true
-        console.log("clearance" + clearance)
+        setIsLoggedIn(true)
     }
 
     console.log(document.location.href);

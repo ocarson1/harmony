@@ -31,8 +31,6 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
     const tokens = Object.keys(json);
         let count = 0;
         for (const token of tokens) {
-            console.log("token")
-            console.log(token)
 
             const data = json[token].data;
             // console.log("data")
