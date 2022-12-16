@@ -116,17 +116,18 @@ public class Firebase {
    * @throws ExecutionException - if an error occurs during execution
    * @throws InterruptedException - if an error interrupts the searching process
    */
-  public Map<String, Object> getCollection(String collection)
-      throws ExecutionException, InterruptedException {
-    //this code was taken from Firestore data retrieval docs
-    ApiFuture<QuerySnapshot> future = this.db.collection(collection).get();
-// future.get() blocks on response
-    List<QueryDocumentSnapshot> documents = future.get().getDocuments();
-    Map<String, Object> map = new HashMap<>();
-    for (QueryDocumentSnapshot document : documents) {
-      map.put(document.getId(), document.getData());
+  public Map<String, Object> getCollection(String collection) {
+  Map<String, Object> map = new HashMap<>();
+    try {
+      ApiFuture<QuerySnapshot> future = this.db.collection(collection).get();
+      List<QueryDocumentSnapshot> documents = future.get().getDocuments();
+      for (QueryDocumentSnapshot document : documents) {
+        map.put(document.getId(), document.getData());
+      }
+    } catch (Exception e) {
+      map.put("error", e.getMessage());
     }
-    return map;
+      return map;
   }
 
   /**
