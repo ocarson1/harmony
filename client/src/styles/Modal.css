@@ -15,7 +15,7 @@
     position:absolute;
     margin:auto;
     background: white;
-    width: 250px;
+    width: 270px;
     height: 150px;
     border-radius: 30px;
     z-index:400;
@@ -41,10 +41,11 @@
 
 .preview-button, .add-button {
     margin: 5px;
+    font-size: 14px;
     font-weight:700;
     color: white;
     position: relative;
-    width: 100px;
+    width: 115px;
     height: 30px;
     padding:2px;
     background-color: #71C7F2;

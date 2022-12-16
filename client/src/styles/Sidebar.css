@@ -46,6 +46,10 @@
   
 }
 
+.history {
+  visibility: hidden;
+}
+
 
 
 /* .Tabs {
@@ -76,6 +80,8 @@
     padding-left: 0px;
     position:relative;
     top:-30px;
+    background: black;
+
 
   }
 
@@ -102,6 +108,35 @@
 
   *:focus {
     outline: none;
+}
+
+.profile-tab-header {
+  font-weight:700;
+  display: inline;
+  align-items: left;
+}
+
+.prof-pic {
+  position: absolute;
+  top: 50px;
+  left: 20px;
+  border-radius: 50%;
+  width: 25%
+}
+
+.username {
+  position: absolute;
+  left: 130px;
+}
+
+.logout-button {
+  font-weight: 800;
+  font-size: 20px;
+  color: white;
+  width: 164px;
+  height: 59px;
+  border-radius: 39px;
+  background: #1F1F1F;
 }
   /* .react-tabs__tab:hover {
     background: rgba(50, 224, 196, 0.15);

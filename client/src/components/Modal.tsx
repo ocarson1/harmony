@@ -20,7 +20,7 @@ export default function Modal({isActivated, songData, location}:modalProps) {
     }
 
     return(
-        <div className="modal" style={{left:(location[0]) + 'px', top:(location[1]-120)+'px'}}>
+        <div className="modal" style={{left:(location[0]) + 'px', top:(location[1]-140)+'px'}}>
             <div className="modal-content">
                 {/* <div className="modal-header">
                     <h4 className="modal-title">SONG INFO</h4>
