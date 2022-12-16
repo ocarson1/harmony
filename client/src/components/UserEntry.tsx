@@ -1,7 +1,7 @@
 import { Dispatch, SetStateAction } from 'react';
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import '../styles/UserEntry.css'
-import Map from '../MapTwo'
+import Map from '../MapBox'
 
 interface UserEntryProps {
     theme: boolean;

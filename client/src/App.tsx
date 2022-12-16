@@ -1,5 +1,5 @@
 import React, {useState, useEffect} from 'react';
-import Map from './Map'
+import Map from './MapBox'
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'

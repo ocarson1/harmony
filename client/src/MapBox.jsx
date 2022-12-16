@@ -2,7 +2,7 @@ import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
-import './styles/Map.css'
+import './styles/MapBox.css'
 import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
 import ts from 'typescript';
@@ -46,7 +46,6 @@ export default function GenerateMap(props) {
     });
     geocoder.addTo('#geocoder-container')
     myMap.current.addControl(geocoder);
-    //myMap.current.on('load', MarkerHandler(myMap.current))
   });
 
 
@@ -75,7 +74,7 @@ export default function GenerateMap(props) {
 
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
-    <div>
+    <div className="geomap-container">
       <div ref={mapContainer} className="map-container"></div>
       <div id="geocoder-container"></div>
       <Modal isActivated={modalActivation} songData={songSelected} location={modalLoc}>
