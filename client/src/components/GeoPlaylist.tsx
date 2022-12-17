@@ -13,6 +13,9 @@ function GeoPlaylist({setGeneratePlaylist}: GeoPlaylistProps){
         setGeneratePlaylist(false);
     }
 
+    // will probably need to use map.QueryRenderedFeatures function:
+    // https://docs.mapbox.com/mapbox-gl-js/api/map/#map#queryrenderedfeatures
+
     const addPlaylist = () => {
         
     }

@@ -27,20 +27,24 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
         setEntryIsShown(false);
     }
 
-    const URL = `http://localhost:3232/getRecentSong?token=${token}`
+    let URL = `http://localhost:3232/getRecentSong?token=${token}`
     fetch(URL)
     .then(r => r.json())
     .then(json => {
         if (json.result == "success") {
+            console.log("JSON SUCCESS")
             setRecentTitle(json.name)
             setRecentImage(json.img_url)
             setRecentArtist(json.artist)
             setRecentId(json.id)
         }
+        else console.log("JSON NOT SUCCESS" + token)
+        
     })
     
     const logEntry = () => {
-        const URL = `localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
+        let URL = `localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
+        console.log(URL)
         fetch(URL) // I think this is all we have to do?
 
         // might need to re-call the marker handler now

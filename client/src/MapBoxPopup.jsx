@@ -56,8 +56,8 @@ export default function GenerateMap(props) {
     myMap.current.on('dblclick', (e) => {
       marker.setLngLat(e.lngLat).addTo(myMap.current);
       console.log(e.lngLat)
-      props.setEntryLat(e.lngLat.lng)
-      props.setEntryLon(e.lngLat.lat)
+      props.setEntryLat(e.lngLat.lat)
+      props.setEntryLon(e.lngLat.lng)
     })
   })
 

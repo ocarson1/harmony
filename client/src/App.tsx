@@ -17,6 +17,7 @@ function App() {
   const REDIRECT_URI = 'http://localhost:3000'
   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
   const RESPONSE_TYPE = "token"
+  const SCOPES = "user-read-recently-played user-library-modify user-read-email user-read-private"
 
   const [access_token, setAccessToken] = useState("no_access");
   const [theme, setTheme] = useState(false);
@@ -34,8 +35,9 @@ function App() {
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
     
+
     if (window.location.hash !== "") {
-      setAccessToken(window.location.hash.substring(14,209))
+      setAccessToken(window.location.hash.substring(14,238))
     }
 
   }, [])
@@ -44,7 +46,7 @@ function App() {
     console.log("The most recent token is " + access_token)
   }, [access_token])
 
-  const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
+  const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES}`
   
   if (access_token !== "no_access") {
     console.log('Rendering Main')
