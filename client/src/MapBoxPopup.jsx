@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import mapboxgl from 'mapbox-gl'; 
+import mapboxgl, {Marker} from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
 import './styles/MapBoxPopup.css'
@@ -14,12 +14,14 @@ import 'mapbox-gl/dist/mapbox-gl.css'
 mapboxgl.accessToken = myKey;
 
 export default function GenerateMap(props) {
+
+  
   const mapContainer = useRef(null);
   const myMap = useRef(null);
 
   const [mapStyle, setMapStyle] = useState("");
-  const [lng, setLng] = useState(-71);
-  const [lat, setLat] = useState(42.35);
+  const [lng, setLng] = useState(-71.418884);
+  const [lat, setLat] = useState(41.825226);
   const [zoom, setZoom] = useState(9); 
 
   // Initialize the map and the geocoder
@@ -32,6 +34,7 @@ export default function GenerateMap(props) {
       zoom: zoom,
       projection: "mercator",
       controls: [],
+      doubleClickZoom: false
     });
   });
 
@@ -49,6 +52,13 @@ export default function GenerateMap(props) {
       setLat(myMap.current.getCenter().lat.toFixed(4));
       setZoom(myMap.current.getZoom().toFixed(2));
     });
+    let marker = new Marker()
+    myMap.current.on('dblclick', (e) => {
+      marker.setLngLat(e.lngLat).addTo(myMap.current);
+      console.log(e.lngLat)
+      props.setEntryLat(e.lngLat.lng)
+      props.setEntryLon(e.lngLat.lat)
+    })
   })
 
   // NOTE: mapContainer must be a div of its own for mapbox to work properly

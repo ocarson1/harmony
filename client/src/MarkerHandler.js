@@ -12,10 +12,12 @@ import songData from './mockData/mockSongs3.json'
 
 export default async function MarkerHandler(map, setModalActivation, setSongSelected, setModalLoc) {
     
-    //fetch song data
-    fetch('http://localhost:3232/getCollection?name=songs')
-        .then(r => r.json())
-        .then(json => {handleJSON(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
+    //fetch song data - UNCOMMENT WHEN FIREBASE BACK
+
+    // fetch('http://localhost:3232/getCollection?name=songs')
+    //     .then(r => r.json())
+    //     .then(json => {handleJSON(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
+    handleJSON(songData, map, setModalActivation, setModalActivation, setModalLoc)
 }
 
 function filterJSON(json, criteria) {
@@ -27,12 +29,12 @@ function filterJSON(json, criteria) {
 
 
 function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc) {
-    console.log(filterJSON(json,'2022'))
-    const tokens = Object.keys(json);
+    //console.log(filterJSON(json,'2022'))
+    const ids = Object.keys(json);
         let count = 0;
-        for (const token of tokens) {
+        for (const id of ids) {
 
-            const data = json[token].data;
+            const data = json[id].data;
             // console.log("data")
             // console.log(data)
 
@@ -50,24 +52,24 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
             // console.log("img_url")
             // console.log(img_url)
 
-            if(!map.hasImage(token)) {
+            if(!map.hasImage(id)) {
             map.loadImage(
                 img_url,
                 (error, image) => {
                     if (error) throw error;
                     console.log(1)
-                    map.addImage(token, image);
+                    map.addImage(id, image);
                     console.log("2 adding an image")
-                    map.addSource(token, {
+                    map.addSource(id, {
                         'type': 'geojson',
                         'data': geojson
                     })
                     map.addLayer({
-                        'id':token,
+                        'id':id,
                         'type':'symbol',
-                        'source':token,
+                        'source':id,
                         'layout': {
-                            'icon-image':token,
+                            'icon-image':id,
                             'icon-anchor':"top",
                             'icon-size':0.1,
                             'icon-allow-overlap':true,  //undecided if i want to keep this or not                          
@@ -84,7 +86,7 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
                 // click docs: https://docs.mapbox.com/mapbox-gl-js/api/events/#mapmouseevent#point
                 
                 
-                map.on('click', token, (e) => {
+                map.on('click', id, (e) => {
 
                     var x = e.point.x
                     var y = e.point.y
@@ -99,7 +101,6 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
 
                     console.log("mh" + track_data)
                     console.log("mouse" +  e.point.x)
-
                 });
 
 
@@ -107,15 +108,16 @@ function handleJSON(json, map, setModalActivation, setSongSelected, setModalLoc)
                 //     setModalActivation(false)
                 // })
                 //changes the cursor to a pointer when it enters a marker layer
-                map.on('mouseenter',token, () => {
+                map.on('mouseenter',id, () => {
                     map.getCanvas().style.cursor = 'pointer';
                 });
 
                 //changes the cursor back to its original state after leaving a marker layer
-                map.on('mouseleave', token, () => {
+                map.on('mouseleave', id, () => {
                     map.getCanvas().style.cursor ='';
                 });
         }
+        else {console.log("IMAGE ALREADY HERE")}
     }
 }
 

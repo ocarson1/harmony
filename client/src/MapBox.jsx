@@ -6,7 +6,6 @@ import './styles/MapBox.css'
 import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
 import ts from 'typescript';
-import 'mapbox-gl/dist/mapbox-gl.css'
 
 //mapbox with react documentation:
 //https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
@@ -17,9 +16,8 @@ export default function GenerateMap(props) {
   const mapContainer = useRef(null);
   const myMap = useRef(null);
 
-  const [mapStyle, setMapStyle] = useState("");
-  const [lng, setLng] = useState(-71);
-  const [lat, setLat] = useState(42.35);
+  const [lng, setLng] = useState(-71.418884);
+  const [lat, setLat] = useState(41.825226);
   const [zoom, setZoom] = useState(9); 
 
   const [modalActivation, setModalActivation] = useState(false)
@@ -46,7 +44,7 @@ export default function GenerateMap(props) {
       accessToken: myKey,
       mapboxgl: mapboxgl,
     });
-    geocoder.addTo('#geocoder-container')
+    // geocoder.addTo('#geocoder-container')
     myMap.current.addControl(geocoder);
   });
 
@@ -75,7 +73,7 @@ export default function GenerateMap(props) {
 
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
-    <div className="geomap-container">
+    <div>
       <div ref={mapContainer} className="map-container"></div>
       <div id="geocoder-container"></div>
       <Modal isActivated={modalActivation} songData={songSelected} location={modalLoc}>

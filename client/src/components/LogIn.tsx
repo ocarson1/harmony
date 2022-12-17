@@ -4,14 +4,12 @@ import '../styles/LogIn.css'
 
 interface LogInProps {
     href: string
-    setIsLoggedIn: Function
 }
 
-function LogIn({href, setIsLoggedIn}: LogInProps){
+function LogIn({href}: LogInProps){
 
     const handleSubmit = () => {
         window.open(href, "_self")
-        setIsLoggedIn(true)
     }
 
     console.log(document.location.href);

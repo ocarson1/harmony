@@ -12,8 +12,10 @@ interface modalProps {
 
 export default function Modal({isActivated, songData, location}:modalProps) {
 
+    
     const variations = new Map(Object.entries(songData))
     console.log("variations")
+    console.log(variations)
  
     if (!isActivated) {
         return null
@@ -35,7 +37,7 @@ export default function Modal({isActivated, songData, location}:modalProps) {
                 </div>
 
                 <div className="modal-footer">
-                    <button className="preview-button">PREVIEW</button>
+                    <button className="preview-button" onClick={() => window.open(variations.get("preview_url"))}>PREVIEW</button>
                     <button className="add-button">ADD TO LIKED</button>
                 </div>
                 <div className="modal-pointer"></div>

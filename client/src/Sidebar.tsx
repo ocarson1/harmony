@@ -5,12 +5,14 @@ import FilterInfo from './components/FilterInfo'
 import HistoryInfo from './components/HistoryInfo'
 import EntryButton from './components/EntryButton'
 import React, { useState } from 'react';
+import { setTokenSourceMapRange } from 'typescript';
 
 interface sidebarProps {
     theme: boolean;
     setTheme: Function;
     setEntryIsShown: Function;
     token: string;
+    setToken: Function;
   }
 
 
@@ -26,7 +28,11 @@ export default function GenerateSidebar(props: sidebarProps) {
     }
     fetch(`http://localhost:3232/getUser?token=${props.token}`)
     .then(r => r.json())
-    .then(json => {console.log("NAME" + json.name);setUsername(json.name)});
+    .then(json => {
+        console.log("NAME" + json.name);
+        setUsername(json.name);
+        setPfp(json.img_url)
+    });
 
 
     return (
@@ -61,13 +67,14 @@ export default function GenerateSidebar(props: sidebarProps) {
                         History:
                     </div>
                     <HistoryInfo />
-                    <button className="logout-button">LOG OUT</button>
+                    <button className="logout-button" onClick={() => props.setToken("no_access")}>LOG OUT</button>
                 </div>
                 </TabPanel>
             </Tabs>
         </div>
     )
 }
+//window.open('localhost:3000', '_self')
 
 // function EntryButton() {
 //     return(

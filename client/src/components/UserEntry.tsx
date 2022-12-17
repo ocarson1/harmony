@@ -3,21 +3,47 @@ import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import '../styles/UserEntry.css'
 import '../styles/MapBox.css'
 import Map from '../MapBoxPopup'
+import React, {useState} from 'react'
 
 
 interface UserEntryProps {
     theme: boolean;
     setTheme: Function;
     setEntryIsShown: Function;
+    token: string
 }
 
-function UserEntry({theme, setTheme, setEntryIsShown}: UserEntryProps){
+function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
+    const [entryLat, setEntryLat] = useState(0);
+    const [entryLon, setEntryLon] = useState(0)
+    const [recentTitle, setRecentTitle] = useState("<Song Title>")
+    const [recentImage, setRecentImage] = useState("https://img.icons8.com/ios-glyphs/512/question-mark.png")
+    const [recentArtist, setRecentArtist] = useState("<Artist>")
+    const [recentId, setRecentId] = useState("")
+
+    //add artist to the backend handler?
 
     const closeNewEntry = () => {
         setEntryIsShown(false);
     }
 
+    const URL = `http://localhost:3232/getRecentSong?token=${token}`
+    fetch(URL)
+    .then(r => r.json())
+    .then(json => {
+        if (json.result == "success") {
+            setRecentTitle(json.name)
+            setRecentImage(json.img_url)
+            setRecentArtist(json.artist)
+            setRecentId(json.id)
+        }
+    })
+    
     const logEntry = () => {
+        const URL = `localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
+        fetch(URL) // I think this is all we have to do?
+
+        // might need to re-call the marker handler now
     }
 
     return (
@@ -27,22 +53,22 @@ function UserEntry({theme, setTheme, setEntryIsShown}: UserEntryProps){
                 <button className='close-button' onClick={closeNewEntry}>X</button>
             </div>
             <div className="entry-header-line"></div>
-            <div className="entry-text">Double click on the map to plot your location to your most recently played song</div>
+            <div className="entry-text">Double click on the map to plot your location for your most recently played song</div>
             {/* <div className="entry-map">
                 <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}}/>
             </div> */}
             <div className="entry-map">
-                <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}}/>
+                <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}} setEntryLon= {setEntryLon} setEntryLat= {setEntryLat} />
             </div>
             <div className="entry-bottom">
                 <div className="most-recent-song">
-                    <img className="song-icon" src="https://i.scdn.co/image/ab67616d0000b27304b052e84325a16bc18a4c78" style={{float:'left',width:40, height:40, borderRadius:30}}></img>
+                    <img className="song-icon" src={recentImage} style={{float:'left',width:40, height:40, borderRadius:30}}></img>
                     <div className="song-info">
-                        <p style={{fontSize:16, margin:0, fontWeight:500, textAlign:'left'}}>Song Name</p>
-                        <p style={{fontSize:12, margin:0, fontWeight:400, textAlign:'left'}}>Artist Name</p>
+                        <p style={{fontSize:16, margin:0, fontWeight:500, textAlign:'left'}}>{recentTitle}</p>
+                        <p style={{fontSize:12, margin:0, fontWeight:400, textAlign:'left'}}>{recentArtist}</p>
                     </div>
                 </div>
-                <button className="done-button" onClick={logEntry}>Done</button>
+                <button className="done-button" onClick={() => {logEntry; closeNewEntry}}>Done</button>
             </div>
         </div>
     );
