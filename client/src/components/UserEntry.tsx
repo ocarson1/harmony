@@ -68,7 +68,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
                         <p style={{fontSize:12, margin:0, fontWeight:400, textAlign:'left'}}>{recentArtist}</p>
                     </div>
                 </div>
-                <button className="done-button" onClick={() => {logEntry; closeNewEntry}}>Done</button>
+                <button className="done-button" onClick={() => {logEntry(); closeNewEntry()}}>Done</button>
             </div>
         </div>
     );

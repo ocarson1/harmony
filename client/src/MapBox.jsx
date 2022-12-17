@@ -44,7 +44,7 @@ export default function GenerateMap(props) {
       accessToken: myKey,
       mapboxgl: mapboxgl,
     });
-    // geocoder.addTo('#geocoder-container')
+    geocoder.addTo('#geocoder-container')
     myMap.current.addControl(geocoder);
   });
 

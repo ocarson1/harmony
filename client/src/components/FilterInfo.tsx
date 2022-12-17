@@ -6,7 +6,7 @@ export default function FilterInfo() {
 
 
     //change this in the future to be a map of category to list of options? for scalability
-    const category1 = 'Date added'
+    const category1 = 'Year'
     const options1 = ['this week','this month','this year'];
     const category2 = 'Genre'
     const options2 = ['pop','rap','classical'];

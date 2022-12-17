@@ -114,22 +114,28 @@
 }
 
 .profile-tab-header {
+  position: absolute;
+  margin-left: -40%;
+  width: 80%;
+  height: 300px;
+  background-color: #d3cfcf;
+  font-size: 28px;
   font-weight:700;
   display: inline;
   align-items: left;
+  border-radius: 18px;
 }
 
 .prof-pic {
-  position: absolute;
-  top: 50px;
-  left: 20px;
+  position: relative;
+  top: 30px;
   border-radius: 50%;
-  width: 25%
+  width: 50%
 }
 
 .username {
-  position: absolute;
-  left: 130px;
+  position: relative;
+  top: 20%;
 }
 
 .logout-button {

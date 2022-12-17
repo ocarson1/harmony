@@ -29,9 +29,10 @@ export default function GenerateSidebar(props: sidebarProps) {
     fetch(`http://localhost:3232/getUser?token=${props.token}`)
     .then(r => r.json())
     .then(json => {
-        console.log("NAME" + json.name);
-        setUsername(json.name);
-        setPfp(json.img_url)
+        if (json.result == "success") {
+            setUsername(json.name);
+            setPfp(json.img_url)
+        }
     });
 
 
