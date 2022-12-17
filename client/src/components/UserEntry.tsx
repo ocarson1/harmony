@@ -43,7 +43,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
     })
     
     const logEntry = () => {
-        let URL = `localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
+        let URL = `http://localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
         console.log(URL)
         fetch(URL) // I think this is all we have to do?
 
