@@ -4,7 +4,7 @@ import {ToggleSwitch} from './components/ToggleSwitch';
 import FilterInfo from './components/FilterInfo'
 import HistoryInfo from './components/HistoryInfo'
 import EntryButton from './components/EntryButton'
-import React, { useState } from 'react';
+import React, { useState, useEffect} from 'react';
 import { setTokenSourceMapRange } from 'typescript';
 
 interface sidebarProps {
@@ -26,14 +26,18 @@ export default function GenerateSidebar(props: sidebarProps) {
     const openNewEntry = () => {
         props.setEntryIsShown(true);
     }
+
+    useEffect(() => {
     fetch(`http://localhost:3232/getUser?token=${props.token}`)
     .then(r => r.json())
     .then(json => {
+        console.log("Fetching getUser")
         if (json.result == "success") {
             setUsername(json.name);
             setPfp(json.img_url)
         }
     });
+}, [])
 
 
     return (

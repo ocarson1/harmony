@@ -48,7 +48,6 @@ export default function GenerateMap(props) {
     myMap.current.addControl(geocoder);
   });
 
-
   // change the style of the map if the theme value chages
   useEffect(() => {
     myMap.current.setStyle((props.theme ? 'mapbox://styles/mapbox/light-v11' : 'mapbox://styles/mapbox/dark-v11'))
@@ -58,7 +57,7 @@ export default function GenerateMap(props) {
   useEffect(()=> {
     if (!myMap.current) return; // wait for map to initialize
     MarkerHandler(myMap.current, setModalActivation, setSongSelected, setModalLoc)
-  })
+  }, [])
 
   // handle movement of the map
   useEffect(() => {

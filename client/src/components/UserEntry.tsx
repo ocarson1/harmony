@@ -31,6 +31,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
     fetch(URL)
     .then(r => r.json())
     .then(json => {
+        console.log("Fetching getRecentSong")
         if (json.result == "success") {
             console.log("JSON SUCCESS")
             setRecentTitle(json.name)
@@ -45,6 +46,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
     const logEntry = () => {
         let URL = `http://localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
         console.log(URL)
+        console.log("Fetching addSongAtLoc")
         fetch(URL) // I think this is all we have to do?
 
         // might need to re-call the marker handler now

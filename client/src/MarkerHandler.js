@@ -14,7 +14,9 @@ export default async function MarkerHandler(map, setModalActivation, setSongSele
     
     fetch('http://localhost:3232/getCollection?name=songs')
         .then(r => r.json())
-        .then(json => {jsonToMarkers(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
+        .then(json => {
+            console.log("Fetching getCollection"); 
+            jsonToMarkers(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
 
 //Uncomment to use mock data and comment out above
 //jsonToMarkers(songData, map, setModalActivation, setSongSelected, setModalLoc)
