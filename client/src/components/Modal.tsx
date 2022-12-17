@@ -1,5 +1,5 @@
 import ts, { Map } from "typescript";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import '../styles/Modal.css'
 
 export {}
@@ -12,11 +12,8 @@ interface modalProps {
 
 export default function Modal({isActivated, songData, location}:modalProps) {
 
-    
     const variations = new Map(Object.entries(songData))
-    console.log("variations")
-    console.log(variations)
- 
+
     if (!isActivated) {
         return null
     }
