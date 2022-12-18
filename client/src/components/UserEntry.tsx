@@ -36,6 +36,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
         console.log("Fetching getRecentSong")
         if (json.result == "success") {
             console.log("JSON SUCCESS")
+            console.log(json)
             setRecentTitle(json.name)
             setRecentImage(json.img_url)
             setRecentArtist(json.artist)
