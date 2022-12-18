@@ -37,8 +37,12 @@ a high amount of traffic on our site, many sites do; and to make sure that our a
 ## How To...
 
 ### Use our backend API
+
 You must run our server before attempting to use any of our handlers. In addition, you must have a 
-valid access token, which is retrieved through the frontend authorization process.
+valid access token, which is retrieved through the frontend authorization process. 
+Also, as we are using a Firestore database, you will not be able to run the server unless you have the Service Account Key
+information, which is a JSON file in our gitignore as the information needs to stay private and not be included in our github.
+Please let one of us know if you would need access to this file. 
 1) <b> AddSongAtLocHandler </b>
 Associates a specified song (retrieved from song id) to a specific location (retrieved from latitude and longitude).
 The information is added to the database. \
