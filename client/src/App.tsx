@@ -82,7 +82,6 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <img className="" src="client/images"></img>
          <LogIn href={href}></LogIn>
         </div>
       </div>

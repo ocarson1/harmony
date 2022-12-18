@@ -10,12 +10,14 @@ function LogIn(){
     console.log(document.location.href);
 
     return (
+        <div className="login-container">
         <div className="welcome-popup">
             <div className="welcome-text">Welcome to</div>
             <div className="harmony-text">Harmony</div>
             <button className="spotify-login-button" onClick={handleSubmit}>
                 LOG IN WITH SPOTIFY
             </button>
+        </div>
         </div>
     );
 }
