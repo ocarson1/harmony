@@ -1,9 +1,10 @@
 .playlist-popup {
     position: absolute;
-    width: 600px;
-    height: 600px;
-    top: 10%;
-    left: 17%;
+    width: 430px;
+    height: 635px;
+    padding:30px;
+    top: 8%;
+    left: 30%;
     
     background: linear-gradient(180deg, #71C7F2 0%, #9E6BC3 100%);
     border-radius: 53px;
@@ -16,7 +17,6 @@
 .close-button {
     position:absolute; 
     top:25px;; 
-    right:30px;
     border:none;
     width: 25px;
     height: 25px;   
@@ -34,28 +34,30 @@
 .playlist-icon {
     display: grid;
     position: absolute;
-    width: 120px;
-    height: 120px;
-    left: 30px;
+    width: 100px;
+    height: 100px;
     top: 30px;
-    grid-template-columns: 60px 60px;
+    grid-template-columns: 50px 50px;
     grid-template-rows: auto auto;
 }
 
+.song-img {
+    width: 50px;
+    height: 50px;
+}
 .playlist-title-wrapper {
     position: absolute;
 }
 
 .playlist-title {
-    padding-top: 30px;
-    padding-left: 170px;
-    padding-bottom: 10px;
+    padding-top: 18px;
+    padding-left: 120px;
     text-align: left;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    font-size: 30px;
-    margin-bottom: 0;
+    font-size: 28px;
+    margin:0;
 
     color: #FFFFFF;
 }
@@ -63,8 +65,7 @@
 .playlist-content {
     flex-direction: column;
     text-align:left;
-    padding-top:10px;
-    padding-left: 30px;
+    padding-top: 30px;
     font-family: 'Montserrat';
     font-style: normal;
 
@@ -74,7 +75,7 @@
 .songs-list {
     text-align:left;
     font-weight: 400;
-    font-size: 17px;
+    font-size: 14px;
 }
 
 .add-playlist-button {
@@ -91,6 +92,22 @@
     font-size: 25px;
     text-align: center;
     color: #FFFFFF;
+}
+
+.preview-button-playlist, .add-button-playlist {
+    margin: 5px;
+    font-size: 13px;
+    font-weight:700;
+    color: white;
+    position: relative;
+    width: 80px;
+    height: 25px;
+    padding:2px;
+    border-color: #6DCCF5;
+    background-color: #71C7F2;
+    border-radius: 39px;
+    box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.25);
+    cursor: pointer;
 }
 
 /* Toggle this class when clicking on the popup container (hide and show the popup) */
