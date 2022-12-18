@@ -18,7 +18,7 @@ import spark.Response;
 import spark.Route;
 
 /**
- *
+ * Gets metadata about a track from the Spotify API.
  */
 public class GetTrackHandler implements Route {
 
@@ -28,11 +28,11 @@ public class GetTrackHandler implements Route {
   }
 
   /**
-   *
-   * @param request
-   * @param response
-   * @return
-   * @throws Exception
+   * Called when the getTrack endpoint is invoked.
+   * @param request - the request object for the getRecs endpoint with HTTP request information.
+   * @param response - the response object that allows response modification.
+   * @return serialized map of string to object
+   * @throws Exception if error is encountered during the handling process
    */
   @Override
   public Object handle(Request request, Response response) throws Exception {
@@ -109,9 +109,9 @@ public class GetTrackHandler implements Route {
   }
 
   /**
-   *
-   * @param JSONBody
-   * @return
+   * Returns deserialized TrackObj from inputted Json body.
+   * @param JSONBody - input string of Json body
+   * @return - trackobj
    * @throws IOException
    */
   public TrackObj getTrackObj(String JSONBody) throws IOException {
@@ -122,9 +122,9 @@ public class GetTrackHandler implements Route {
   }
 
   /**
-   *
-   * @param JSONBody
-   * @return
+   * Returns deserialized genreObj from inputted json body.
+   * @param JSONBody - input json body
+   * @return - deserialized genre obj
    * @throws IOException
    */
   public GenreObj getGenreObj (String JSONBody) throws IOException {

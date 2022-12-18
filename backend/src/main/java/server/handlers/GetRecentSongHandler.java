@@ -56,11 +56,13 @@ public class GetRecentSongHandler implements Route {
       String id = items.get(0).track.id;
       String name = items.get(0).track.name;
       String img_url = items.get(0).track.album.images.get(0).url;
+      String artist = items.get(0).track.artists.get(0).name;
 
       resp.put("result", "success");
       resp.put("id", id);
       resp.put("name", name);
       resp.put("img_url", img_url);
+      resp.put("artist", artist);
       return new ServerResponse().serialize(resp);
 
     } catch (Exception e) {
