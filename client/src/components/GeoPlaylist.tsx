@@ -12,6 +12,12 @@ interface GeoPlaylistProps {
 
 function GeoPlaylist({setGeneratePlaylist, token}: GeoPlaylistProps){
     const [songIds, setSongIds] = useState("<Song Title>")
+    const [songRecs, setSongRecs] = useState([''])
+    const [artistRecs, setArtistRecs] = useState([''])
+
+    var recSongs: string[] = [];
+    var recArtists: string[] = [];
+    let fruits: string[] = ["banana", 'apple', 'hahihaiha']
 
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
@@ -36,15 +42,42 @@ function GeoPlaylist({setGeneratePlaylist, token}: GeoPlaylistProps){
     // })
 
     // let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
-    let URL = `http://localhost:3232/getRecs?token=${token}&songIds=7BgyWwbbybJr2IbQoI1gzH,3UKhzKdWIM8vd1qWPxLRkP,5tt7O3V5vwf8ltkr1Wgxrf`
+    
+    // let URL = `http://localhost:3232/getRecs?token=${token}&songIds=7BgyWwbbybJr2IbQoI1gzH,3UKhzKdWIM8vd1qWPxLRkP,5tt7O3V5vwf8ltkr1Wgxrf`
+    // fetch(URL)
+    // .then(r => r.json())
+    // .then(json => {
+    //     console.log("fetching getRecs")
+    //     if (json.result == "success") {
+    //         console.log("fetch get rec success!" + json.sorted)
+    //         const recsList = json.sorted
+    //         console.log("fetch get rec first item album name" + recsList[0]["album"]['name'])
+    //     }
+    //     else {
+    //         console.log("fetch get rec fail" + token)
+    //     }
+    // })
+
+    let URL = `http://localhost:3232/getRecs?token=${token}&songIds=2KWI43agrQEFVLM3soOmKW,7BgyWwbbybJr2IbQoI1gzH,3UKhzKdWIM8vd1qWPxLRkP,5tt7O3V5vwf8ltkr1Wgxrf`
     fetch(URL)
     .then(r => r.json())
     .then(json => {
         console.log("fetching getRecs")
         if (json.result == "success") {
-            console.log("fetch get rec success!" + json.sorted)
+            console.log("fetch get rec success!")
             const recsList = json.sorted
-            console.log("fetch get rec first item album name" + recsList[0]["album"]['name'])
+            for (let i = 0; i < 10; i++) {
+                recSongs.push(recsList[i]["name"].toString())
+                console.log("rec #" + i + " name: " + recsList[i]["name"].toString())
+                // console.log("rec #" + i + " album name: " + recsList[i]["album"][0]["name"])
+                for (let j = 0; j < recsList[i]["artists"].length; j++) {
+                    recArtists.push(recsList[i]["artists"][j]["name"].toString());
+                    console.log("rec #" + i + "artist #" + j + ": " + recsList[i]["artists"][j]["name"])
+                }
+            }
+            console.log("recSongs: " + recSongs)``
+            console.log("recArtists: " + recArtists)
+            setSongRecs(recSongs)
         }
         else {
             console.log("fetch get rec fail" + token)
@@ -61,22 +94,22 @@ function GeoPlaylist({setGeneratePlaylist, token}: GeoPlaylistProps){
                     <div style={{backgroundColor:'purple'}}></div>
                 </div>
                 <div className='playist-title'>
-                    <p className='title-location'>INPUT LOCATION HERE</p>
+                    <p className='title-location'>Your Geoplaylist</p>
                     <p className='title-time'>@ input time here</p>
                 </div>
                 <button className='close-button' onClick={closeNewPlaylist}>X</button>
             </div>
-            <div className="songs-list">
-                <p>1.</p>
-                <p>2.</p>
-                <p>3.</p>
-                <p>4.</p>
-                <p>5.</p>
-                <p>6.</p>
-                <p>7.</p>
-                <p>8.</p>
-                <p>9.</p>
-                <p>10.</p>
+            <div className="songs-list" id="songsList">
+                <p>1. {songRecs[0]}</p>
+                <p>2. {songRecs[1]}</p>
+                <p>3. {recSongs[2]}</p>
+                <p>4. {recSongs[3]}</p>
+                <p>5. {recSongs[4]}</p>
+                <p>6. {recSongs[5]}</p>
+                <p>7. {recSongs[6]}</p>
+                <p>8. {recSongs[7]}</p>
+                <p>9. {recSongs[8]}</p>
+                <p>10. {recSongs[9]}</p>
             </div>
         </div>
     );
