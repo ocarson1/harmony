@@ -50,6 +50,8 @@ public abstract class AddSong {
     List<Image> imgURLs = trackObj.album.images;
     String imgURL = imgURLs.get(0).url;
 
+
+    resp.put("songid", id);
     resp.put("title", title);
     resp.put("album", album);
     resp.put("preview_url", preview);
