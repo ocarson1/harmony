@@ -17,11 +17,13 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const [songIds, setSongIds] = useState("")
     const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
     const [previewRecs, setPreviewRecs] = useState([''])
+    const [idRecs, setIdRecs] = useState([''])
     const [recs, setRecs] = useState([''])
 
     const recImgs: string[] = [];
     const recPreviews: string[] = [];
     const recItems: string[] = [];
+    const recIds: string[] = [];
 
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
@@ -75,7 +77,8 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                         for (let i = 0; i < 10; i++) {
                             const title = recsList[i]["title"].toString()
                             const artist = recsList[i]["artist"].toString()
-                            // recIds.push(recsList[i]["img_url"].toString())
+                            recIds.push(recsList[i]["songid"].toString())
+                            console.log("rec " + i + " song id " + recsList[i]["songid"].toString())
                             recImgs.push(recsList[i]["img_url"].toString())
                             recPreviews.push(recsList[i]["preview_url"].toString())
                             recItems.push(title + " by " + artist)
@@ -83,6 +86,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                         setImgRecs(recImgs)
                         setPreviewRecs(recPreviews)
                         setRecs(recItems)
+                        setIdRecs(recIds)
                     }
                     else {
                         console.log("fetch get rec fail" + token)
@@ -112,7 +116,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                             <p style={{margin:0}} key={i}>{i+1}. {item}</p>
                             <button key={i} className="preview-button-playlist" onClick={() => window.open(previewRecs[i])}>PREVIEW</button>
                             {/* <button key={i} className="add-button-playlist" style={{width:115}} onClick={() => window.open(previewRecs[i])}>ADD TO LIKED</button> */}
-                            <AddToLikedButton token={token} songId={songIds[i]}></AddToLikedButton>
+                            <AddToLikedButton token={token} songId={idRecs[i]}></AddToLikedButton>
                         </div>)}
                     )}
                 </div>
