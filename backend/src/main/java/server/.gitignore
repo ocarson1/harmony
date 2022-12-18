@@ -1,3 +1,4 @@
 #leave out service key
 src/main/java/server/ServiceAccountKey.json
 ServiceAccountKey.json
+src/main/java/server/graph/*
