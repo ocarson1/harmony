@@ -16,6 +16,11 @@ public class SongID {
     public String id;
     public String name;
     public Album album;
+    public List<Artist> artists;
+  }
+
+  public static class Artist {
+    public String name;
   }
 
   public static class Album {

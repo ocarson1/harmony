@@ -2,6 +2,7 @@ package server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import server.APIUtility;
@@ -48,6 +49,8 @@ public class GetUserProfileHandler implements Route {
       String JSONBody = recURL.getAPIRequest(token);
       UserObj userObj = recAdapter.fromJson(JSONBody);
 
+      System.out.println(userObj.toString());
+
       resp.put("result", "success");
       resp.put("name", userObj.display_name);
       resp.put("img_url", userObj.images.get(0).url);
@@ -56,8 +59,21 @@ public class GetUserProfileHandler implements Route {
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
-      resp.put("result", "error_bad_token");
+      resp.put("result", e.getMessage());
       return new ServerResponse().serialize(resp);
     }
+  }
+
+  /**
+   * Returns a track object from the JSON body. Used for unit testing.
+   * @param JSONBody - JSON body
+   * @return - deserialized UserObj
+   * @throws IOException
+   */
+  public UserObj getUserObj(String JSONBody) throws IOException {
+    Moshi moshi = new Moshi.Builder().build();
+    JsonAdapter<UserObj> userAdapter = moshi.adapter(UserObj.class);
+
+    return userAdapter.fromJson(JSONBody);
   }
 }
