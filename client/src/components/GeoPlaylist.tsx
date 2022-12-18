@@ -17,10 +17,11 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const [songIds, setSongIds] = useState("")
     const [songRecs, setSongRecs] = useState([''])
     const [artistRecs, setArtistRecs] = useState([''])
+    const [recs, setRecs] = useState([''])
 
-    var recSongs: string[] = [];
-    var recArtists: string[] = [];
-    let fruits: string[] = ["banana", 'apple', 'hahihaiha']
+    const recSongs: string[] = [];
+    const recArtists: string[] = [];
+    const recItem: string[] = [];
 
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
@@ -31,7 +32,8 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
 
     const addPlaylist = () => {
-
+        // {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
+        // songRecs.map(function(item, i){recItem.push})
     }
 
     useEffect(() => {
@@ -65,9 +67,6 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
         },[])
 
-
-
-        
         useEffect(() => {
             if (songIds == "") return;
             let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
@@ -79,25 +78,23 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                     if (json.result == "success") {
                         console.log("fetch get rec success!")
                         const recsList = json.sorted
-            for (let i = 0; i < 10; i++) {
-                recSongs.push(recsList[i]["name"].toString())
-                console.log("rec #" + i + " name: " + recsList[i]["name"].toString())
-                // console.log("rec #" + i + " album name: " + recsList[i]["album"][0]["name"])
-                for (let j = 0; j < recsList[i]["artists"].length; j++) {
-                    recArtists.push(recsList[i]["artists"][j]["name"].toString());
-                    console.log("rec #" + i + "artist #" + j + ": " + recsList[i]["artists"][j]["name"])
-                }
-            }
-            console.log("recSongs: " + recSongs)
-            console.log("recArtists: " + recArtists)
-            setSongRecs(recSongs)
-        }
-        else {
-            console.log("fetch get rec fail" + token)
-        }
-    })
-},[songIds])
-
+                        for (let i = 0; i < 10; i++) {
+                            recSongs.push(recsList[i]["name"].toString())
+                            console.log("rec #" + i + " name: " + recsList[i]["name"].toString())
+                            for (let j = 0; j < recsList[i]["artists"].length; j++) {
+                                recArtists.push(recsList[i]["artists"][j]["name"].toString());
+                                console.log("rec #" + i + "artist #" + j + ": " + recsList[i]["artists"][j]["name"])
+                            }
+                        }
+                        console.log("recSongs: " + recSongs)
+                        console.log("recArtists: " + recArtists)
+                        setSongRecs(recSongs)
+                    }
+                    else {
+                        console.log("fetch get rec fail" + token)
+                    }
+                })
+            },[songIds])
 
     return (
         <div className="playlist-popup" id="playlistPopup">
@@ -115,16 +112,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                 <button className='close-button' onClick={closeNewPlaylist}>X</button>
             </div>
             <div className="songs-list" id="songsList">
-                <p>1. {songRecs[0]}</p>
-                <p>2. {songRecs[1]}</p>
-                <p>3. {songRecs[2]}</p>
-                <p>4. {songRecs[3]}</p>
-                <p>5. {songRecs[4]}</p>
-                <p>6. {songRecs[5]}</p>
-                <p>7. {songRecs[6]}</p>
-                <p>8. {songRecs[7]}</p>
-                <p>9. {songRecs[8]}</p>
-                <p>10. {songRecs[9]}</p>
+                {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
             </div>
         </div>
     );
