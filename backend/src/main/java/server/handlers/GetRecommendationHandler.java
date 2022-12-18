@@ -46,7 +46,7 @@ public class GetRecommendationHandler extends AddSong implements Route {
    * SONG IDS MUST BE SEPARATED BY COMMAS!
    */
   @Override
-  public Object handle(Request request, Response response) throws Exception {
+  public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
@@ -115,7 +115,7 @@ public class GetRecommendationHandler extends AddSong implements Route {
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
-      resp.put("result", "error_bad_token");
+      resp.put("result", e.getMessage());
       return new ServerResponse().serialize(resp);
     }
   }
