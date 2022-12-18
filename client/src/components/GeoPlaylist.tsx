@@ -33,7 +33,8 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
     const addPlaylist = () => {
         // {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
-        // songRecs.map(function(item, i){recItem.push})
+        const item: string = ''
+        songRecs.map(function(item, i){})
     }
 
     useEffect(() => {
