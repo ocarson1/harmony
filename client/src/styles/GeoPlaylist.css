@@ -24,57 +24,57 @@
     border-radius: 9px;
 }
 
+.playlist-icon-wrapper {
+    display:block;
+    width:auto;
+    height:auto;
+    border-radius: 20px;
+}
+
 .playlist-icon {
     display: grid;
     position: absolute;
-    width: 140px;
-    height: 140px;
+    width: 120px;
+    height: 120px;
     left: 30px;
     top: 30px;
-    grid-template-columns: 70px 70px;
+    grid-template-columns: 60px 60px;
     grid-template-rows: auto auto;
 }
 
-.playlist-title {
+.playlist-title-wrapper {
     position: absolute;
 }
 
-.title-location {
-    padding-top: 50px;
-    padding-left: 210px;
+.playlist-title {
+    padding-top: 30px;
+    padding-left: 170px;
+    padding-bottom: 10px;
     text-align: left;
     font-family: 'Montserrat';
     font-style: normal;
     font-weight: 700;
-    font-size: 25px;
-    line-height: 43px;
+    font-size: 30px;
     margin-bottom: 0;
 
     color: #FFFFFF;
 }
 
-.title-time {
-    margin-top: 0;
-    text-align: left;
-    padding-left: 210px;
+.playlist-content {
+    flex-direction: column;
+    text-align:left;
+    padding-top:10px;
+    padding-left: 30px;
     font-family: 'Montserrat';
     font-style: normal;
-    font-weight: 700;
-    font-size: 25px;
-    line-height: 43px;
 
     color: #FFFFFF;
 }
 
 .songs-list {
     text-align:left;
-    padding-left: 30px;
-    font-family: 'Montserrat';
-    font-style: normal;
     font-weight: 400;
     font-size: 17px;
-
-    color: #FFFFFF;
 }
 
 .add-playlist-button {

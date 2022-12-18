@@ -4,10 +4,13 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import server.APIUtility;
 import server.Firebase;
 import server.ServerResponse;
@@ -23,7 +26,7 @@ import spark.Route;
  * Returns a list of recommended songs based on the songs inputted.
  * The "recommended" songs are determined through a sorting algorithm.
  */
-public class GetRecommendationHandler implements Route {
+public class GetRecommendationHandler extends AddSong implements Route {
 
   private final Firebase f;
 
@@ -45,7 +48,7 @@ public class GetRecommendationHandler implements Route {
    * SONG IDS MUST BE SEPARATED BY COMMAS!
    */
   @Override
-  public Object handle(Request request, Response response) throws Exception {
+  public Object handle(Request request, Response response) {
     Map<String, Object> resp = new HashMap<>();
     try {
       QueryParamsMap params = request.queryMap();
@@ -58,6 +61,19 @@ public class GetRecommendationHandler implements Route {
       List<String> ids = Arrays.asList(params.get("songIds").value().split(","));
       if (ids.size() > 5) {
         ids = ids.subList(0, 5);
+      }
+      Set<String> artists = new HashSet<>();
+      Set<String> genres = new HashSet<>();
+
+      System.out.println("here");
+      for (String id: ids) {
+        Map<String, Object> songData = this.f.getData("songInfo", id);
+        artists.add(String.valueOf(songData.get("artist_id")));
+        ArrayList<String> genreList = (ArrayList<String>)songData.get("genres");
+        for (String genre: genreList) {
+          genreList.set(genreList.indexOf(genre), genre.replace(" ", ""));
+        }
+        genres.addAll(new HashSet<>(genreList));
       }
 //      Set<String> artists = new HashSet<>();
 //      Set<String> genres = new HashSet<>();
@@ -102,14 +118,19 @@ public class GetRecommendationHandler implements Route {
       Quicksort sort = new Quicksort(recObj.tracks);
       List<ID> sortedIDs = sort.quickSort(0, recObj.tracks.size() - 1).subList(0,10);
 
+      List<Map<String, Object>> returnIds = new ArrayList<>();
+      for (ID song : sortedIDs) {
+        returnIds.add(super.getTrackMetadata(song.id, token));
+      }
+
       resp.put("result", "success");
-      resp.put("sorted", sortedIDs);
+      resp.put("sorted", returnIds);
       return new ServerResponse().serialize(resp);
 
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
-      resp.put("result", "error_bad_token");
+      resp.put("result", e.getMessage());
       return new ServerResponse().serialize(resp);
     }
   }

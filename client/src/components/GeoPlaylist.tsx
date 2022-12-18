@@ -17,10 +17,15 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const [songIds, setSongIds] = useState("")
     const [songRecs, setSongRecs] = useState([''])
     const [artistRecs, setArtistRecs] = useState([''])
+    const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
+    const [previewRecs, setPreviewRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
+    const [recs, setRecs] = useState([''])
 
-    var recSongs: string[] = [];
-    var recArtists: string[] = [];
-    let fruits: string[] = ["banana", 'apple', 'hahihaiha']
+    const recSongs: string[] = [];
+    const recArtists: string[] = [];
+    const recImgs: string[] = [];
+    const recPreviews: string[] = [];
+    const recItem: string[] = [];
 
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
@@ -31,7 +36,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
 
     const addPlaylist = () => {
-
+        // {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
+        const item: string = ''
+        songRecs.map(function(item, i){})
     }
 
     useEffect(() => {
@@ -65,9 +72,6 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
         },[])
 
-
-
-        
         useEffect(() => {
             if (songIds == "") return;
             let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
@@ -79,52 +83,63 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                     if (json.result == "success") {
                         console.log("fetch get rec success!")
                         const recsList = json.sorted
-            for (let i = 0; i < 10; i++) {
-                recSongs.push(recsList[i]["name"].toString())
-                console.log("rec #" + i + " name: " + recsList[i]["name"].toString())
-                // console.log("rec #" + i + " album name: " + recsList[i]["album"][0]["name"])
-                for (let j = 0; j < recsList[i]["artists"].length; j++) {
-                    recArtists.push(recsList[i]["artists"][j]["name"].toString());
-                    console.log("rec #" + i + "artist #" + j + ": " + recsList[i]["artists"][j]["name"])
-                }
-            }
-            console.log("recSongs: " + recSongs)
-            console.log("recArtists: " + recArtists)
-            setSongRecs(recSongs)
-        }
-        else {
-            console.log("fetch get rec fail" + token)
-        }
-    })
-},[songIds])
+                        for (let i = 0; i < 10; i++) {
+                            recSongs.push(recsList[i]["title"].toString())
+                            console.log("rec #" + i + " title: " + recsList[i]["title"].toString())
+                            recArtists.push(recsList[i]["artist"].toString())
+                            recImgs.push(recsList[i]["img_url"].toString())
+                            recPreviews.push(recsList[i]["preview_url"].toString())
+                            console.log("rec #" + i + " artist: " + recsList[i]["artist"].toString())
+                        }
+                        setSongRecs(recSongs)
+                        setArtistRecs(recArtists)
+                        setImgRecs(recImgs)
+                        setPreviewRecs(recPreviews)
+                    }
+                    else {
+                        console.log("fetch get rec fail" + token)
+                    }
+                })
+            },[songIds])
 
+    const makeTitleArtist = () => {
+        songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})
+        previewRecs.map(function(item, i){console.log(item); return <button key={i} className="preview-button" onClick={() => window.open(item)}>PREVIEW</button>})
+    }
 
     return (
         <div className="playlist-popup" id="playlistPopup">
             <div className="playlist-header">
-                <div className='playlist-icon'>
-                    <div style={{backgroundColor:'white'}}></div>
-                    <div style={{backgroundColor:'red'}}></div>
-                    <div style={{backgroundColor:'green'}}></div>
-                    <div style={{backgroundColor:'purple'}}></div>
-                </div>
-                <div className='playist-title'>
-                    <p className='title-location'>Your Geoplaylist</p>
-                    <p className='title-time'>@ input time here</p>
+                {/* <div className='playlist-icon-wrapper'> */}
+                    <div className='playlist-icon'>
+                        <img src={imgRecs[0]} style={{width:60, height:60}}></img>
+                        <img src={imgRecs[1]} style={{width:60, height:60}}></img>
+                        <img src={imgRecs[2]} style={{width:60, height:60}}></img>
+                        <img src={imgRecs[3]} style={{width:60, height:60}}></img>
+                    </div>
+                {/* </div> */}
+                <div className='playist-title-wrapper'>
+                    <p className='playlist-title'>Your <br></br> Geoplaylist</p>
                 </div>
                 <button className='close-button' onClick={closeNewPlaylist}>X</button>
             </div>
-            <div className="songs-list" id="songsList">
-                <p>1. {songRecs[0]}</p>
-                <p>2. {songRecs[1]}</p>
-                <p>3. {songRecs[2]}</p>
-                <p>4. {songRecs[3]}</p>
-                <p>5. {songRecs[4]}</p>
-                <p>6. {songRecs[5]}</p>
-                <p>7. {songRecs[6]}</p>
-                <p>8. {songRecs[7]}</p>
-                <p>9. {songRecs[8]}</p>
-                <p>10. {songRecs[9]}</p>
+            <div className="playlist-content">
+                {/* <table>
+                    <thead>
+                    <tr>
+                        <th scope="col">TITLE</th>
+                        <th scope="col">ALBUM</th>
+                        <th scope="col"></th>
+                        <th scope="col">Most famous song</th>
+                    </tr>
+                    </thead>
+                </table> */}
+                <div className="songs-list">
+                    {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
+                </div>
+                <div>
+                    {previewRecs.map(function(item, i){console.log(item); return <button key={i} className="preview-button" onClick={() => window.open(item)}>PREVIEW</button>})}
+                </div>
             </div>
         </div>
     );

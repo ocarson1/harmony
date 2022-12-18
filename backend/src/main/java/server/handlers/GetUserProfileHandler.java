@@ -49,6 +49,8 @@ public class GetUserProfileHandler implements Route {
       String JSONBody = recURL.getAPIRequest(token);
       UserObj userObj = recAdapter.fromJson(JSONBody);
 
+      System.out.println(userObj.toString());
+
       resp.put("result", "success");
       resp.put("name", userObj.display_name);
       resp.put("img_url", userObj.images.get(0).url);
@@ -57,7 +59,7 @@ public class GetUserProfileHandler implements Route {
     } catch (Exception e) {
       System.out.println(e.getMessage());
       e.printStackTrace();
-      resp.put("result", "error_bad_token");
+      resp.put("result", e.getMessage());
       return new ServerResponse().serialize(resp);
     }
   }
