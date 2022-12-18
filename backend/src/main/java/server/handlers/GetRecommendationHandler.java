@@ -4,12 +4,10 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
-import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import server.APIUtility;
 import server.Firebase;
 import server.ServerResponse;
@@ -57,36 +55,39 @@ public class GetRecommendationHandler implements Route {
       }
       String token = params.get("token").value();
       //split individual song ids and store in array
-      String[] ids = params.get("songIds").value().split(",");
-      Set<String> artists = new HashSet<>();
-      Set<String> genres = new HashSet<>();
-
-      System.out.println("here");
-      for (String id: ids) {
-        Map<String, Object> songData = this.f.getData("songInfo", id);
-        artists.add(String.valueOf(songData.get("artist_id")));
-        ArrayList<String> genreList = (ArrayList<String>)songData.get("genres");
-        for (String genre: genreList) {
-          genreList.set(genreList.indexOf(genre), genre.replace(" ", ""));
-        }
-        genres.addAll(new HashSet<>(genreList));
+      List<String> ids = Arrays.asList(params.get("songIds").value().split(","));
+      if (ids.size() > 5) {
+        ids = ids.subList(0, 5);
       }
+//      Set<String> artists = new HashSet<>();
+//      Set<String> genres = new HashSet<>();
+
+//      System.out.println("here");
+//      for (String id: ids) {
+//        Map<String, Object> songData = this.f.getData("songInfo", id);
+//        artists.add(String.valueOf(songData.get("artist_id")));
+//        ArrayList<String> genreList = (ArrayList<String>)songData.get("genres");
+//        for (String genre: genreList) {
+//          genreList.set(genreList.indexOf(genre), genre.replace(" ", ""));
+//        }
+//        genres.addAll(new HashSet<>(genreList));
+//      }
 
       String url = "https://api.spotify.com/v1/recommendations?limit=100&seed_tracks=";
       for (String id : ids) {
         url += id + ",";
       }
       url = url.substring(0, url.length() - 1);
-      url+="&seed_artists=";
-      for (String artist : artists) {
-        url += artist + ",";
-      }
-      url = url.substring(0, url.length() - 1);
-      url+="&seed_genres=";
-      for (String genre : genres) {
-        url += genre + ",";
-      }
-      url = url.substring(0, url.length() - 1);
+//      url+="&seed_artists=";
+//      for (String artist : artists) {
+//        url += artist + ",";
+//      }
+//      url = url.substring(0, url.length() - 1);
+//      url+="&seed_genres=";
+//      for (String genre : genres) {
+//        url += genre + ",";
+//      }
+//      url = url.substring(0, url.length() - 1);
       System.out.println(url);
 
       APIUtility recURL = new APIUtility(url);
