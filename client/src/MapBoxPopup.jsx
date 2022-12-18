@@ -1,21 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import mapboxgl, {Marker} from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
 import './styles/MapBoxPopup.css'
-import MarkerHandler from './MarkerHandler'
-import Modal from './components/Modal'
-import ts from 'typescript';
 import 'mapbox-gl/dist/mapbox-gl.css'
-
-//mapbox with react documentation:
-//https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
 
 mapboxgl.accessToken = myKey;
 
 export default function GenerateMap(props) {
-
-  
   const mapContainer = useRef(null);
   const myMap = useRef(null);
 

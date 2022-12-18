@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import './styles/App.css'; 
 import Sidebar from './Sidebar'
 import LogIn from './components/LogIn'
@@ -9,10 +9,13 @@ import MapBox from './MapBox.jsx'
 import './styles/MapBox.css'
 import {LngLatBounds} from 'mapbox-gl'
 
-let entryClearance: boolean = false;
-
+/**
+ * App function that contains all the React Components and adding needed component inputs/properties,
+ * represents the web interface top-level organization. Handles needed Spotify Developer Wep API information.
+ * @returns 
+ */
 function App() {
-
+  //Spotify Wep API information
   const CLIENT_ID = 'ce58270f079346658ebe132ae27ae27b'
   const CLIENT_SECRET = '8ce08f38b60f474896c4ce17af94d709'
   const REDIRECT_URI = 'http://localhost:3000'
@@ -29,6 +32,9 @@ function App() {
   const [filterCategories, setFilterCategories] = useState(new Array)
   const [filter, setFilter] = useState(new Map)
 
+  /**
+   * Function handling POST requeset for retrieving and setting Spotify Developer access token and client credentials
+   */
   useEffect(() => {
     var authParameters = {
       method: 'POST',
@@ -37,20 +43,15 @@ function App() {
       },
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
-    
 
     if (window.location.hash !== "") {
       setAccessToken(window.location.hash.substring(14,238))
     }
-
   }, [])
-
-  useEffect(() => {
-    console.log("The most recent token is " + access_token)
-  }, [access_token])
 
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES}`
   
+  //log-in vs. logged-out interface
   if (access_token !== "no_access") {
     return (
       <div className="App">
@@ -63,7 +64,6 @@ function App() {
             setFilterCategories={setFilterCategories} 
             filter={filter}/>
           <GeoPlaylistButton setGeneratePlaylist={setGeneratePlaylist}/>
-          {/* <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button> */}
           <Sidebar 
             theme={theme} 
             setTheme={setTheme} 
@@ -79,7 +79,6 @@ function App() {
     );
   }
   else {
-    console.log('Rendering Entry')
     return (
       <div className="App">
         <div className="web-container">
@@ -90,57 +89,5 @@ function App() {
     )
     }
   }
-  //}
-
-
-
-
-// function Entrance() {
-//   const CLIENT_ID = 'ce58270f079346658ebe132ae27ae27b'
-//   const CLIENT_SECRET = '8ce08f38b60f474896c4ce17af94d709'
-//   const REDIRECT_URI = 'http://localhost:3000'
-//   const AUTH_ENDPOINT = "https://accounts.spotify.com/authorize"
-//   const RESPONSE_TYPE = "token"
-
-//   const [access_token, setAccessToken] = useState("");
-
-//   useEffect(() => {
-//     var authParameters = {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/x-www-form-urlencoded'
-//       },
-//       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
-//     }
-
-//     fetch('https://accounts.spotify.com/api/token', authParameters)
-//       .then(result => result.json())
-//       .then(data => setAccessToken(data.access_token))
-//   }, [])
-
-//   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}`
-
-//   return (
-//     <div className="App">
-//       <div className="web-container">
-//         <img className="" src="./images/mapboxbackground.jpg"></img>
-//         <LogIn href={href}></LogIn>
-//       </div>
-//     </div>
-//   );
-// }
-
-// function Main() {
-//   const [theme, setTheme] = useState(false);
-
-//   return (
-//     <div className="App">
-//       <div className="web-container">
-//         <Map theme={theme} setTheme={setTheme}/>
-//         <Sidebar theme={theme} setTheme={setTheme}/> 
-//       </div>
-//     </div>
-//   );
-// }
 
 export default App;

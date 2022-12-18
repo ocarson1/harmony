@@ -1,19 +1,29 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { useEffect } from 'react';
 import '../styles/GeoPlaylist.css'
-import Map from '../MapBox'
-import React, {useState} from 'react'
-import mapboxgl, {LngLatBounds} from 'mapbox-gl';
-import LogIn from './LogIn';
-import AddToLikedButton from './AddToLikedButton';
+import {useState} from 'react'
+import {LngLatBounds} from 'mapbox-gl';
 
+/**
+ * Interface containing the input properties for GeoPlaylist component
+ */
 interface GeoPlaylistProps {
     setGeneratePlaylist: Function
     token: string
     bounds: LngLatBounds
 }
 
+/**
+ * Component for the GeoPlaylist interface that generates a new playlist of 10 songs based on the properties of the songs on the MapBox 
+ * (within the browser bounding box) at the time. Users can preview and add the recommended songs after generation. 
+ * This is accessible and readable by a screenreader
+ * @param param0 
+ * @returns 
+ */
 function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
+    //accessible aria label and description
+    const ariaLabelPlaylist: string = "Your GeoPlaylist"
+    const ariaDescriptionPlaylist: string = "Your newly generated GeoPlaylist based on the songs displayed on your MapBox. Click on Preview to listen to each corresponding song. Click on Add to Liked Songs to add the corresponding song to your Spotify Liked Songs. Click on the top right X button to close this playlist."
+
     const [songIds, setSongIds] = useState("")
     const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
     const [previewRecs, setPreviewRecs] = useState([''])
@@ -25,6 +35,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const recItems: string[] = [];
     const recIds: string[] = [];
 
+    /**
+     * function to close the playlist
+     */
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
     }
@@ -32,6 +45,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     // will probably need to use map.QueryRenderedFeatures function:
     // https://docs.mapbox.com/mapbox-gl-js/api/map/#map#queryrenderedfeatures
 
+    /**
+     * Retrieiving Song IDs and data from the songs currently displayed within the bounding box of the mapbox
+     */
     useEffect(() => {
     fetch('http://localhost:3232/getCollection?name=songs')
         .then(r => r.json())
@@ -63,6 +79,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
         },[])
 
+        /**
+         * Getting song recommendations and adding them to the list of songs displayed on the GeoPlaylist
+         */
         useEffect(() => {
             if (songIds == "") return;
             let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
@@ -100,7 +119,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
             }
             
     return (
-        <div className="playlist-popup" id="playlistPopup">
+        <div className="playlist-popup" id="playlistPopup" aria-label={ariaLabelPlaylist} aria-description={ariaDescriptionPlaylist}>
             <div className="playlist-header">
                     <div className='playlist-icon'>
                         <img className="song-img" src={imgRecs[0]}></img>
