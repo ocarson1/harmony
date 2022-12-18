@@ -27,4 +27,5 @@ public class RecommendationObj {
   public static class Artist {
     public String name;
   }
+
 }

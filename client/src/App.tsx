@@ -29,8 +29,6 @@ function App() {
   const [filterCategories, setFilterCategories] = useState(new Array)
   const [filter, setFilter] = useState(new Map)
 
-  console.log("entryIsShown " + entryIsShown)
-
   useEffect(() => {
     var authParameters = {
       method: 'POST',
@@ -54,7 +52,6 @@ function App() {
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES}`
   
   if (access_token !== "no_access") {
-    console.log('Rendering Main')
     return (
       <div className="App">
         <div className="web-container">

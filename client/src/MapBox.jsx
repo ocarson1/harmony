@@ -79,7 +79,7 @@ export default function GenerateMap(props) {
   return (
     <div>
       <div ref={mapContainer} className="map-container"><div id="geocoder-container"></div></div>
-      <Modal isActivated={modalActivation} songData={songSelected} location={modalLoc}>
+      <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc}>
         {/* <button className="modal-button" onClick={setModalActivation(false)}>CLOSE</button> */}
       </Modal>
     </div>
