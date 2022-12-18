@@ -9,28 +9,15 @@ interface filterInfoProps {
 
 export default function FilterInfo(props: filterInfoProps) {
 
-    const [selectedOption, setSelectedOption] = useState("");
-
-    const onOptionClicked = (value: string) => () => {
-        setSelectedOption(value);
-    }
-
-
-    //change this in the future to be a map of category to list of options? for scalability
-
-
     const category1 = 'Year'
     let options1 = new Array
     const category2 = 'Genre'
     let options2 = new Array
-
-    console.log(props.categories)
     
     if (props.categories.length != 0) {
         options1 = Array.from(props.categories[0])
         options2 = Array.from(props.categories[1])
     }
-
 
 return (
     <div className="filter-info">
