@@ -5,7 +5,6 @@ import Map from '../MapBox'
 import React, {useState} from 'react'
 import mapboxgl, {LngLatBounds} from 'mapbox-gl';
 import LogIn from './LogIn';
-import AddToLikedButton from './AddToLikedButton';
 
 interface GeoPlaylistProps {
     setGeneratePlaylist: Function

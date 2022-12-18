@@ -1,7 +1,6 @@
 import ts, { isPropertySignature, Map } from "typescript";
 import React, { useEffect, useState } from "react";
 import '../styles/Modal.css'
-import AddToLikedButton from "./AddToLikedButton";
 
 export {}
 
@@ -54,7 +53,7 @@ export default function Modal({isActivated, setActivation, songData, location, t
 
                 <div className="modal-footer">
                     <button className="preview-button" onClick={() => window.open(variations.get("preview_url"))}>PREVIEW</button>
-                    <AddToLikedButton songId={""} token={token}/>
+                    <button className={"add-button"}>ADD TO LIKED</button>
                 </div>
                 <div className="modal-pointer"></div>
             </div>
