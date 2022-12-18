@@ -58,44 +58,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
         queryInput = queryInput + id + ","
     })
     queryInput = queryInput.slice(0,-1)
+    console.log('queryInput: ' + queryInput)
 
-
-    
-
-
-
-
-
-
-    // fetch('http://localhost:3232/getCollection?name=songs')
-    // .then(r => r.json())
-    // .then(json => {
-    //     console.log("Fetching getCollection"); 
-    //     Object.values(json).filter(entry => {
-    //     })
-    //     var filtered = Object.values(json).filter(entry => {
-        
-    //     })    
-    // })
-
-    // let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
-    
-    // let URL = `http://localhost:3232/getRecs?token=${token}&songIds=7BgyWwbbybJr2IbQoI1gzH,3UKhzKdWIM8vd1qWPxLRkP,5tt7O3V5vwf8ltkr1Wgxrf`
-    // fetch(URL)
-    // .then(r => r.json())
-    // .then(json => {
-    //     console.log("fetching getRecs")
-    //     if (json.result == "success") {
-    //         console.log("fetch get rec success!" + json.sorted)
-    //         const recsList = json.sorted
-    //         console.log("fetch get rec first item album name" + recsList[0]["album"]['name'])
-    //     }
-    //     else {
-    //         console.log("fetch get rec fail" + token)
-    //     }
-    // })
-
-    let URL = `http://localhost:3232/getRecs?token=${token}&songIds=2KWI43agrQEFVLM3soOmKW,7BgyWwbbybJr2IbQoI1gzH,3UKhzKdWIM8vd1qWPxLRkP,5tt7O3V5vwf8ltkr1Wgxrf`
+    let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${queryInput}`
     fetch(URL)
     .then(r => r.json())
     .then(json => {
@@ -112,7 +77,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                     console.log("rec #" + i + "artist #" + j + ": " + recsList[i]["artists"][j]["name"])
                 }
             }
-            console.log("recSongs: " + recSongs)``
+            console.log("recSongs: " + recSongs)
             console.log("recArtists: " + recArtists)
             setSongRecs(recSongs)
         }
