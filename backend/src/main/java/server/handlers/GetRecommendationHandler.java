@@ -4,6 +4,7 @@ import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -23,7 +24,7 @@ import spark.Route;
  * Returns a list of recommended songs based on the songs inputted.
  * The "recommended" songs are determined through a sorting algorithm.
  */
-public class GetRecommendationHandler implements Route {
+public class GetRecommendationHandler extends AddSong implements Route {
 
   private final Firebase f;
 
@@ -102,8 +103,13 @@ public class GetRecommendationHandler implements Route {
       Quicksort sort = new Quicksort(recObj.tracks);
       List<ID> sortedIDs = sort.quickSort(0, recObj.tracks.size() - 1).subList(0,10);
 
+      List<Map<String, Object>> returnIds = new ArrayList<>();
+      for (ID song : sortedIDs) {
+        returnIds.add(super.getTrackMetadata(song.id, token));
+      }
+
       resp.put("result", "success");
-      resp.put("sorted", sortedIDs);
+      resp.put("sorted", returnIds);
       return new ServerResponse().serialize(resp);
 
     } catch (Exception e) {
