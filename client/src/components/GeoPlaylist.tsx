@@ -18,7 +18,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
     const [previewRecs, setPreviewRecs] = useState([''])
     const [idRecs, setIdRecs] = useState([''])
-    const [recs, setRecs] = useState([''])
+    const [recs, setRecs] = useState(['Loading...'])
 
     const recImgs: string[] = [];
     const recPreviews: string[] = [];
@@ -78,10 +78,10 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                             const title = recsList[i]["title"].toString()
                             const artist = recsList[i]["artist"].toString()
                             recIds.push(recsList[i]["songid"].toString())
-                            console.log("rec " + i + " song id " + recsList[i]["song_id"].toString())
+                            console.log("rec " + i + " song id " + recsList[i]["songid"].toString())
                             recImgs.push(recsList[i]["img_url"].toString())
                             recPreviews.push(recsList[i]["preview_url"].toString())
-                            recItems.push(title + " by " + artist)
+                            recItems.push((i + 1) + ". " + title + " by " + artist)
                         }
                         setImgRecs(recImgs)
                         setPreviewRecs(recPreviews)
@@ -94,6 +94,11 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                 })
             },[songIds])
 
+            const addSong = (token: string, songId: string) => {
+                let URL = `http://localhost:3232/addLike?token=${token}&id=${songId}&add=true`;
+                fetch(URL)
+            }
+            
     return (
         <div className="playlist-popup" id="playlistPopup">
             <div className="playlist-header">
@@ -113,10 +118,10 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                     {recs.map(function(item, i){console.log(item); 
                         return (
                         <div>
-                            <p style={{margin:0}} key={i}>{i+1}. {item}</p>
+                            <p style={{margin:0}} key={i}>{item}</p>
                             <button key={i} className="preview-button-playlist" onClick={() => window.open(previewRecs[i])}>PREVIEW</button>
-                            {/* <button key={i} className="add-button-playlist" style={{width:115}} onClick={() => window.open(previewRecs[i])}>ADD TO LIKED</button> */}
-                            <AddToLikedButton token={token} songId={idRecs[i]}></AddToLikedButton>
+                            <button key={i} className="add-button-playlist" style={{width:115}} onClick={() => {addSong(token, idRecs[i])}}>ADD TO LIKED</button>
+                            {/* <AddToLikedButton token={token} songId={idRecs[i]}></AddToLikedButton> */}
                         </div>)}
                     )}
                 </div>
