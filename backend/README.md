@@ -12,7 +12,12 @@ Our backend handles requests for data from the frontend. The backend interacts w
 endpoints in order to retrieve information about songs, users, artists, etc. 
 In the backend, we have a Firebase Firestore database that has three root-level collections: users, songs, and songInfo.
 "Users" stores information based on user id number, "songs" stores data based on the access token, and "songInfo" stores info based on
-the song's id number. 
+the song's id number. Our multiple endpoints allow the frontend to retrieve information about users (ex: user profile), songs (ex: getTrack),
+and interactions between the users and songs (ex: add song, add liked song, get recommendation). 
+The backend also deals with the algorithmic complexity component of our project, which comes through the quicksort algorithm. This is implemented
+as part of our playlist recommendation functionality, which recommends songs to users based on the songs located in a specific geographic
+area. The use of quicksort allows us to design the way we want to do the recommendation, and since an initial goal of our project was to promote
+lesser-known artists and songs, the sorting is done based on the popularity value of songs related to songs that are on the map.
 
 ## Errors/Bugs
 None.
