@@ -38,16 +38,10 @@ function App() {
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
     
-
     if (window.location.hash !== "") {
       setAccessToken(window.location.hash.substring(14,238))
     }
-
   }, [])
-
-  useEffect(() => {
-    console.log("The most recent token is " + access_token)
-  }, [access_token])
 
   const href: string = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPES}`
   

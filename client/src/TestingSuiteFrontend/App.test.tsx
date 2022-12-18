@@ -19,8 +19,6 @@ test('Render Login Page', () => {
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('spotify-login-button');
 
-    userEvent.click(button);
-
 });
 
 test('Render App', () => {
@@ -33,9 +31,10 @@ test('Render App', () => {
     const button = getByText('LOG IN WITH SPOTIFY');
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('spotify-login-button');
-
-
 })
+
+
+
 
 
 
