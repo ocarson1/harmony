@@ -2,6 +2,7 @@ package server.handlers;
 
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import server.APIUtility;
@@ -61,5 +62,18 @@ public class GetUserProfileHandler implements Route {
       resp.put("result", e.getMessage());
       return new ServerResponse().serialize(resp);
     }
+  }
+
+  /**
+   * Returns a track object from the JSON body. Used for unit testing.
+   * @param JSONBody - JSON body
+   * @return - deserialized UserObj
+   * @throws IOException
+   */
+  public UserObj getUserObj(String JSONBody) throws IOException {
+    Moshi moshi = new Moshi.Builder().build();
+    JsonAdapter<UserObj> userAdapter = moshi.adapter(UserObj.class);
+
+    return userAdapter.fromJson(JSONBody);
   }
 }
