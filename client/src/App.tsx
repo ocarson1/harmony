@@ -43,7 +43,6 @@ function App() {
       },
       body: 'grant_type=client_credentials&client_id=' + CLIENT_ID + '&client_secret=' + CLIENT_SECRET
     }
-
     if (window.location.hash !== "") {
       setAccessToken(window.location.hash.substring(14,238))
     }

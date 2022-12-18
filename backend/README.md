@@ -7,6 +7,12 @@ Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gc
 Total time for project: ~90 hours
 
 ## Design Choices
+
+### Frontend
+The frontend handles the end user interaction and backend data display. By interacting with Spotify Authorization and our backend server, users are able to log in through their Spotify accounts and view all entries that have been made to the program. Through React, TypeScript, and JavaScript, the front end is dynamic and responds to various forms of user interaction.
+Much of our front end program revolves around a Mapbox interface. Because of this,
+
+
 ### Backend
 Our backend handles requests for data from the frontend. The backend interacts with the Spotify API and its various
 endpoints in order to retrieve information about songs, users, artists, etc. 
