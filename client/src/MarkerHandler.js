@@ -56,7 +56,9 @@ function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalL
 
             years.add(track_data["release_date"]);
 
-            genres.forEach((x) => {
+            let trackGenres = Array.from(track_data["genres"])
+
+            trackGenres.forEach((x) => {
             genres.add(x)
             })
             
@@ -79,7 +81,7 @@ function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalL
             console.log(filter[filterKeys[0]])
 
             //hard coded
-            if (track_data[filterKeys[0]] == filter[filterKeys[0]] || genres.has(filter[filterKeys[0]])) {
+            if (track_data[filterKeys[0]] == filter[filterKeys[0]] || trackGenres.includes(filter[filterKeys[0]])) {
 
                 console.log("TRUE")
                 map.setLayoutProperty(entry, 'visibility', 'visible');
