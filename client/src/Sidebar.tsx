@@ -13,10 +13,9 @@ interface sidebarProps {
     setEntryIsShown: Function;
     token: string;
     setToken: Function;
+    filterCategories: Array<Set<string>>
+    setFilter: Function;
   }
-
-
-
 
 //split this into two helper functions for each tab?
 export default function GenerateSidebar(props: sidebarProps) {
@@ -53,7 +52,7 @@ export default function GenerateSidebar(props: sidebarProps) {
                 <div className = "filter-by">
                     Filter by:
                 </div>
-                <FilterInfo />
+                <FilterInfo categories={props.filterCategories} setFilter={props.setFilter}/>
                 <ToggleSwitch 
                 selected ={props.theme}
                 toggleSelected={() => {

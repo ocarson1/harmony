@@ -8,43 +8,42 @@ import songData from './mockData/mockSongs3.json'
 
 
 
-
-
-export default async function MarkerHandler(map, setModalActivation, setSongSelected, setModalLoc) {
+export default async function MarkerHandler(map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter) {
     
     fetch('http://localhost:3232/getCollection?name=songs')
         .then(r => r.json())
         .then(json => {
+            if (json.result == "success") {
             console.log("Fetching getCollection"); 
-            jsonToMarkers(json.data, map, setModalActivation, setSongSelected, setModalLoc)})
-
-//Uncomment to use mock data and comment out above
-//jsonToMarkers(songData, map, setModalActivation, setSongSelected, setModalLoc)
+            console.log(json)
+            // category and criteria set so that all songs render by default
+            jsonToMarkers(json.data, map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter)}
+})
 }
 
-function filterJSON(json, criteria) {
-    var filtered = Object.values(json).filter(entry => {
-        return entry["data"]["track-data"]["release_date"] == criteria
-    })
-    return filtered
-}
+let years = new Set
+let genres = new Set
 
-function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalLoc) {
+
+function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter) {
+    
     //console.log(filterJSON(json,'2022'))
-    const ids = Object.keys(json);
-        for (const id of ids) {
+    console.log(Object.keys(json))
+    const entries = Object.keys(json);
 
-            const data = json[id].data;
+        for (const entry of entries) {
+
+            const entryData = json[entry].data;
             // console.log("data")
             // console.log(data)
 
-            const track_data = data["track-data"]
+            const track_data = entryData["track-data"]
             // console.log("track data")
             // console.log(track_data)
 
             // console.log(track_data["title"])
 
-            const geojson = data["userGeoJSON"]
+            const geojson = entryData["userGeoJSON"]
             // console.log("userGeoJson")
             // console.log(geojson)
 
@@ -52,48 +51,85 @@ function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalL
             // console.log("img_url")
             // console.log(img_url)
 
-            if(!map.hasImage(id)) {
-            map.loadImage(
-                img_url,
-                (error, image) => {
-                    if (error) throw error;
-                    map.addImage(id, image);
-                    map.addSource(id, {
-                        'type': 'geojson',
-                        'data': geojson
+            //const genres = Array.from(track_data["genres"])
+            console.log("GENRES ARRAY "+ genres)
+
+            years.add(track_data["release_date"]);
+
+            genres.forEach((x) => {
+            genres.add(x)
+            })
+            
+            if (Object.keys(filter).length != 0) {
+                console.log(filter)
+            for (let key of Object.keys(filter)) {
+                console.log(key + " = " + filter[key])
+            }
+        }
+
+            console.log(years)
+            console.log(genres)
+
+            
+
+            //if (track_data[filter] == criteria) {
+            let filterKeys = Object.keys(filter)
+
+            console.log(filterKeys[0])
+            console.log(filter[filterKeys[0]])
+
+            //hard coded
+            if (track_data[filterKeys[0]] == filter[filterKeys[0]] || genres.has(filter[filterKeys[0]])) {
+
+                console.log("TRUE")
+                map.setLayoutProperty(entry, 'visibility', 'visible');
+
+
+                if(!map.hasImage(entry)) {
+                map.loadImage(
+                    img_url,
+                    (error, image) => {
+                        if (error) throw error;
+                        map.addImage(entry, image);
+                        map.addSource(entry, {
+                            'type': 'geojson',
+                            'data': geojson
+                        })
+                        map.addLayer({
+                            'id':entry,
+                            'type':'symbol',
+                            'source':entry,
+                            'layout': {
+                                'icon-image':entry,
+                                'icon-anchor':"top",
+                                'icon-size':0.1,
+                                'icon-allow-overlap':true,  //undecided if i want to keep this or not                          
+                            },
+                        });
                     })
-                    map.addLayer({
-                        'id':id,
-                        'type':'symbol',
-                        'source':id,
-                        'layout': {
-                            'icon-image':id,
-                            'icon-anchor':"top",
-                            'icon-size':0.1,
-                            'icon-allow-overlap':true,  //undecided if i want to keep this or not                          
-                        },
+
+                    map.on('click', entry, (e) => {
+                        var x = e.point.x
+                        var y = e.point.y
+
+                        setModalActivation(true)
+                        setSongSelected(track_data)
+                        setModalLoc([x,y])
                     });
-                })
 
-                map.on('click', id, (e) => {
-                    var x = e.point.x
-                    var y = e.point.y
+                    //changes the cursor to a pointer when it enters a marker layer
+                    map.on('mouseenter',entry, () => {
+                        map.getCanvas().style.cursor = 'pointer';
+                    });
 
-                    setModalActivation(true)
-                    setSongSelected(track_data)
-                    setModalLoc([x,y])
-                });
-
-                //changes the cursor to a pointer when it enters a marker layer
-                map.on('mouseenter',id, () => {
-                    map.getCanvas().style.cursor = 'pointer';
-                });
-
-                //changes the cursor back to its original state after leaving a marker layer
-                map.on('mouseleave', id, () => {
-                    map.getCanvas().style.cursor ='';
-                });
+                    //changes the cursor back to its original state after leaving a marker layer
+                    map.on('mouseleave', entry, () => {
+                        map.getCanvas().style.cursor ='';
+                    });
         }
     }
+    else map.setLayoutProperty(entry, 'visibility', 'none');
+    }
+    setFilterCategories([years, genres])
 }
 

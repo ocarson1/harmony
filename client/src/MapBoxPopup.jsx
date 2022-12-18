@@ -20,9 +20,9 @@ export default function GenerateMap(props) {
   const myMap = useRef(null);
 
   const [mapStyle, setMapStyle] = useState("");
-  const [lng, setLng] = useState(-71.418884);
-  const [lat, setLat] = useState(41.825226);
-  const [zoom, setZoom] = useState(9); 
+  const [lng, setLng] = useState(-71.4025);
+  const [lat, setLat] = useState(41.8268);
+  const [zoom, setZoom] = useState(15); 
 
   // Initialize the map and the geocoder
   useEffect(() => {

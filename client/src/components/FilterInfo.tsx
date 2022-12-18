@@ -1,22 +1,46 @@
 
 import '../styles/FilterInfo.css'
 import Dropdown from 'react-dropdown'
+import React, {useState} from 'react'
+interface filterInfoProps {
+    categories: Array<Set<string>>
+    setFilter: Function
+}
 
-export default function FilterInfo() {
+export default function FilterInfo(props: filterInfoProps) {
+
+    const [selectedOption, setSelectedOption] = useState("");
+
+    const onOptionClicked = (value: string) => () => {
+        setSelectedOption(value);
+    }
 
 
     //change this in the future to be a map of category to list of options? for scalability
-    const category1 = 'Year'
-    const options1 = ['this week','this month','this year'];
-    const category2 = 'Genre'
-    const options2 = ['pop','rap','classical'];
 
+
+    const category1 = 'Year'
+    let options1 = new Array
+    const category2 = 'Genre'
+    let options2 = new Array
+
+    console.log(props.categories)
+    
+    if (props.categories.length != 0) {
+        options1 = Array.from(props.categories[0])
+        options2 = Array.from(props.categories[1])
+    }
 
 
 return (
     <div className="filter-info">
-        <Dropdown options={options1} value={category1} />
-        <Dropdown options={options2} value = {category2} />
+        <button className="reset-button" onClick ={() => props.setFilter(new Map)}>Reset Filters</button>
+        <Dropdown options={options1} value={category1} onChange={(e) => {
+            props.setFilter({"release_date" : e.value})
+        }}/>
+        <Dropdown options={options2} value = {category2} onChange={(e) => {
+            props.setFilter({"genres" : e.value})
+        }}/>
     </div>
 )
 }

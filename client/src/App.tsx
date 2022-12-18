@@ -5,7 +5,7 @@ import LogIn from './components/LogIn'
 import UserEntry from './components/UserEntry';
 import GeoPlaylist from './components/GeoPlaylist';
 import GeoPlaylistButton from './components/GeoPlaylistButton';
-import Map from './MapBox.jsx'
+import MapBox from './MapBox.jsx'
 import './styles/MapBox.css'
 import {LngLatBounds} from 'mapbox-gl'
 
@@ -26,6 +26,8 @@ function App() {
   const [generatePlaylist, setGeneratePlaylist] = useState(false);
   const [bounds, setBounds] = useState(new LngLatBounds)
 
+  const [filterCategories, setFilterCategories] = useState(new Array)
+  const [filter, setFilter] = useState(new Map)
 
   console.log("entryIsShown " + entryIsShown)
 
@@ -56,10 +58,22 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme} setBounds={setBounds}/>
+          <MapBox 
+            theme={theme} 
+            setTheme={setTheme}   
+            setBounds={setBounds} 
+            setFilterCategories={setFilterCategories} 
+            filter={filter}/>
           <GeoPlaylistButton setGeneratePlaylist={setGeneratePlaylist}/>
           {/* <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button> */}
-          <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token} setToken={setAccessToken}/> 
+          <Sidebar 
+            theme={theme} 
+            setTheme={setTheme} 
+            setEntryIsShown={setEntryIsShown} 
+            token={access_token} 
+            setToken={setAccessToken}
+            filterCategories={filterCategories}
+            setFilter={setFilter}/> 
           {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist} token={access_token} bounds={bounds}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token}></UserEntry>}
         </div>
