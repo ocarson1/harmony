@@ -78,7 +78,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                             const title = recsList[i]["title"].toString()
                             const artist = recsList[i]["artist"].toString()
                             recIds.push(recsList[i]["songid"].toString())
-                            console.log("rec " + i + " song id " + recsList[i]["songid"].toString())
+                            console.log("rec " + i + " song id " + recsList[i]["song_id"].toString())
                             recImgs.push(recsList[i]["img_url"].toString())
                             recPreviews.push(recsList[i]["preview_url"].toString())
                             recItems.push(title + " by " + artist)
