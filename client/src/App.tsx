@@ -7,6 +7,7 @@ import GeoPlaylist from './components/GeoPlaylist';
 import GeoPlaylistButton from './components/GeoPlaylistButton';
 import Map from './MapBox.jsx'
 import './styles/MapBox.css'
+import {LngLatBounds} from 'mapbox-gl'
 
 let entryClearance: boolean = false;
 
@@ -23,6 +24,8 @@ function App() {
   const [theme, setTheme] = useState(false);
   const [entryIsShown, setEntryIsShown] = useState(false);
   const [generatePlaylist, setGeneratePlaylist] = useState(false);
+  const [bounds, setBounds] = useState(new LngLatBounds)
+
 
   console.log("entryIsShown " + entryIsShown)
 
@@ -53,11 +56,11 @@ function App() {
     return (
       <div className="App">
         <div className="web-container">
-          <Map theme={theme} setTheme={setTheme}/>
+          <Map theme={theme} setTheme={setTheme} setBounds={setBounds}/>
           <GeoPlaylistButton setGeneratePlaylist={setGeneratePlaylist}/>
           {/* <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button> */}
           <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token} setToken={setAccessToken}/> 
-          {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist} token={access_token}></GeoPlaylist>}
+          {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist} token={access_token} bounds={bounds}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token}></UserEntry>}
         </div>
       </div>

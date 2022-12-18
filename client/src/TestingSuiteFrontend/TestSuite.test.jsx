@@ -16,5 +16,8 @@ test('render tests', () => {
     const button = getByText('LOG IN WITH SPOTIFY');
     expect(button).toBeInTheDocument();
     expect(button).toHaveClass('spotify-login-button');
-
 });
+
+
+
+
