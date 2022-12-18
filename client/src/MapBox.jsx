@@ -23,6 +23,7 @@ export default function GenerateMap(props) {
   const [modalActivation, setModalActivation] = useState(false)
   const [songSelected, setSongSelected] = useState(new Map)
   const [modalLoc, setModalLoc] = useState([0,0])
+
   const geocoder = new MapboxGeocoder({
     accessToken: myKey,
     mapboxgl: mapboxgl,
@@ -66,7 +67,12 @@ export default function GenerateMap(props) {
       setLng(myMap.current.getCenter().lng.toFixed(4));
       setLat(myMap.current.getCenter().lat.toFixed(4));
       setZoom(myMap.current.getZoom().toFixed(2));
+
+      //disable any open modals
       setModalActivation(false)
+
+      // change the bounds for the geoplaylist to use
+      props.setBounds(myMap.current.getBounds())
     });
   })
 
