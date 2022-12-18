@@ -8,12 +8,12 @@ export {}
 interface modalProps {
     isActivated: boolean;
     setActivation: Function;
-    songData: ts.ESMap<string,Object>
+    songData: ts.ESMap<string, Object>
     location: Array<number>
     token: string
 }
 
-export default function Modal({isActivated, setActivation, songData, location, token}:modalProps) {
+export default function Modal({isActivated, setActivation, songData, location, token}: modalProps) {
 
     if (!isActivated) {
         return null
@@ -21,7 +21,7 @@ export default function Modal({isActivated, setActivation, songData, location, t
 
     const variations = new Map(Object.entries(songData))
 
-    console.log(variations.get("genres"))
+    //console.log(variations.get("genres"))
 
     let genres = Array.from(variations.get("genres"))
     genres = genres.slice(0,2)
@@ -54,7 +54,7 @@ export default function Modal({isActivated, setActivation, songData, location, t
 
                 <div className="modal-footer">
                     <button className="preview-button" onClick={() => window.open(variations.get("preview_url"))}>PREVIEW</button>
-                    <AddToLikedButton songId={variations.get("id")} token={token}/>
+                    <AddToLikedButton songId={""} token={token}/>
                 </div>
                 <div className="modal-pointer"></div>
             </div>
