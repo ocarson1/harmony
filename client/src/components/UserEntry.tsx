@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useEffect } from 'react';
 import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
 import '../styles/UserEntry.css'
 import '../styles/MapBox.css'
@@ -27,6 +27,8 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
         setEntryIsShown(false);
     }
 
+    useEffect(() => {
+
     let URL = `http://localhost:3232/getRecentSong?token=${token}`
     fetch(URL)
     .then(r => r.json())
@@ -42,12 +44,14 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
         else console.log("JSON NOT SUCCESS" + token)
         
     })
+}, [])
     
     const logEntry = () => {
         let URL = `http://localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
         console.log(URL)
         console.log("Fetching addSongAtLoc")
         fetch(URL) // I think this is all we have to do?
+        window.location.reload()
 
         // might need to re-call the marker handler now
     }
