@@ -58,7 +58,7 @@ export default function GenerateMap(props) {
   useEffect(()=> {
     if (!myMap.current) return; // wait for map to initialize
     MarkerHandler(myMap.current, setModalActivation, setSongSelected, setModalLoc)
-  }, [])
+  }, [props.theme])
 
   // handle movement of the map
   useEffect(() => {
