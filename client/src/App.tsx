@@ -56,6 +56,7 @@ function App() {
       <div className="App">
         <div className="web-container">
           <MapBox 
+            token={access_token}
             theme={theme} 
             setTheme={setTheme}   
             setBounds={setBounds} 

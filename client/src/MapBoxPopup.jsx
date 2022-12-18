@@ -36,6 +36,12 @@ export default function GenerateMap(props) {
       controls: [],
       doubleClickZoom: false
     });
+    var geocoder = new MapboxGeocoder({
+      accessToken: myKey,
+      mapboxgl: mapboxgl,
+    });
+    myMap.current.addControl(geocoder);
+    geocoder.addTo('#geocoder-container-popup')
   });
 
 
@@ -64,7 +70,7 @@ export default function GenerateMap(props) {
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
     <div className="geomap-popup-container">
-      <div ref={mapContainer} className="map-popup-container"></div>
+      <div ref={mapContainer} className="map-popup-container"><div id="geocoder-container-popup"></div></div>
     </div>
   );
 }

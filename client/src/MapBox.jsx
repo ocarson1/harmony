@@ -24,11 +24,6 @@ export default function GenerateMap(props) {
   const [songSelected, setSongSelected] = useState(new Map)
   const [modalLoc, setModalLoc] = useState([0,0])
 
-  const geocoder = new MapboxGeocoder({
-    accessToken: myKey,
-    mapboxgl: mapboxgl,
-  });
-
   // Initialize the map and the geocoder
   useEffect(() => {
     if (myMap.current) return;
@@ -45,8 +40,9 @@ export default function GenerateMap(props) {
       accessToken: myKey,
       mapboxgl: mapboxgl,
     });
-    geocoder.addTo('#geocoder-container')
     myMap.current.addControl(geocoder);
+    geocoder.addTo('#geocoder-container')
+
   });
 
   // change the style of the map if the theme value chages
@@ -79,9 +75,10 @@ export default function GenerateMap(props) {
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
     <div>
-      <div ref={mapContainer} className="map-container"></div>
+      <div ref={mapContainer} className="map-container"> 
       <div id="geocoder-container"></div>
-      <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc}>
+  </div>
+      <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc} token={props.token}>
         {/* <button className="modal-button" onClick={setModalActivation(false)}>CLOSE</button> */}
       </Modal>
     </div>
