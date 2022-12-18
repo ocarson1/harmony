@@ -5,6 +5,7 @@ import com.squareup.moshi.Moshi;
 import java.io.IOException;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
@@ -57,7 +58,10 @@ public class GetRecommendationHandler implements Route {
       }
       String token = params.get("token").value();
       //split individual song ids and store in array
-      String[] ids = params.get("songIds").value().split(",");
+      List<String> ids = Arrays.asList(params.get("songIds").value().split(","));
+      if (ids.size() > 5) {
+        ids = ids.subList(0, 5);
+      }
       Set<String> artists = new HashSet<>();
       Set<String> genres = new HashSet<>();
 
@@ -77,16 +81,16 @@ public class GetRecommendationHandler implements Route {
         url += id + ",";
       }
       url = url.substring(0, url.length() - 1);
-      url+="&seed_artists=";
-      for (String artist : artists) {
-        url += artist + ",";
-      }
-      url = url.substring(0, url.length() - 1);
-      url+="&seed_genres=";
-      for (String genre : genres) {
-        url += genre + ",";
-      }
-      url = url.substring(0, url.length() - 1);
+//      url+="&seed_artists=";
+//      for (String artist : artists) {
+//        url += artist + ",";
+//      }
+//      url = url.substring(0, url.length() - 1);
+//      url+="&seed_genres=";
+//      for (String genre : genres) {
+//        url += genre + ",";
+//      }
+//      url = url.substring(0, url.length() - 1);
       System.out.println(url);
 
       APIUtility recURL = new APIUtility(url);

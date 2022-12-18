@@ -1,7 +1,7 @@
 .playlist-popup {
     position: absolute;
-    width: 500px;
-    height: 550px;
+    width: 600px;
+    height: 600px;
     top: 10%;
     left: 17%;
     
@@ -27,24 +27,54 @@
 .playlist-icon {
     display: grid;
     position: absolute;
-    /* border-radius: 40px; */
-    width: 120px;
-    height: 120px;
+    width: 140px;
+    height: 140px;
     left: 30px;
     top: 30px;
-    grid-template-columns: 60px 60px;
+    grid-template-columns: 70px 70px;
     grid-template-rows: auto auto;
 }
 
-.song-info {
-    position: inherit;
-    margin-top: 13px;
-    margin-left:60px;
-    margin-right:20px;
-    flex-direction: row;
+.playlist-title {
+    position: absolute;
+}
+
+.title-location {
+    padding-top: 50px;
+    padding-left: 210px;
+    text-align: left;
     font-family: 'Montserrat';
     font-style: normal;
-    min-width: fit-content;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 43px;
+    margin-bottom: 0;
+
+    color: #FFFFFF;
+}
+
+.title-time {
+    margin-top: 0;
+    text-align: left;
+    padding-left: 210px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 25px;
+    line-height: 43px;
+
+    color: #FFFFFF;
+}
+
+.songs-list {
+    text-align:left;
+    padding-left: 30px;
+    font-family: 'Montserrat';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 17px;
+
+    color: #FFFFFF;
 }
 
 .add-playlist-button {

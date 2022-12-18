@@ -57,7 +57,7 @@ function App() {
           <GeoPlaylistButton setGeneratePlaylist={setGeneratePlaylist}/>
           {/* <button className="playlist-button" onClick={() => {setGeneratePlaylist(true)}}>MAKE A GEO-PLAYLIST</button> */}
           <Sidebar theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token} setToken={setAccessToken}/> 
-          {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist}></GeoPlaylist>}
+          {generatePlaylist && <GeoPlaylist setGeneratePlaylist={setGeneratePlaylist} token={access_token}></GeoPlaylist>}
           {entryIsShown && <UserEntry theme={theme} setTheme={setTheme} setEntryIsShown={setEntryIsShown} token={access_token}></UserEntry>}
         </div>
       </div>
