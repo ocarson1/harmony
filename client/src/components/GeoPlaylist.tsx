@@ -25,7 +25,7 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     const recArtists: string[] = [];
     const recImgs: string[] = [];
     const recPreviews: string[] = [];
-    const recItem: string[] = [];
+    const recItems: string[] = [];
 
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
@@ -90,11 +90,13 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                             recImgs.push(recsList[i]["img_url"].toString())
                             recPreviews.push(recsList[i]["preview_url"].toString())
                             console.log("rec #" + i + " artist: " + recsList[i]["artist"].toString())
+                            recItems.push(recsList[i]["titlte"].toString() + " by " + recsList[i]["artist"].toString())
                         }
                         setSongRecs(recSongs)
                         setArtistRecs(recArtists)
                         setImgRecs(recImgs)
                         setPreviewRecs(recPreviews)
+                        setRecs(recItems)
                     }
                     else {
                         console.log("fetch get rec fail" + token)
