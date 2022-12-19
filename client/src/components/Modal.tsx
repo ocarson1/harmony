@@ -1,4 +1,4 @@
-import ts, { Map } from "typescript";
+import ts, { isPropertySignature, Map } from "typescript";
 import React, { useEffect, useState } from "react";
 import '../styles/Modal.css'
 
@@ -7,11 +7,12 @@ export {}
 interface modalProps {
     isActivated: boolean;
     setActivation: Function;
-    songData: ts.ESMap<string,Object>
+    songData: ts.ESMap<string, Object>
     location: Array<number>
+    token: string
 }
 
-export default function Modal({isActivated, setActivation, songData, location}:modalProps) {
+export default function Modal({isActivated, setActivation, songData, location, token}: modalProps) {
 
     if (!isActivated) {
         return null
@@ -19,7 +20,7 @@ export default function Modal({isActivated, setActivation, songData, location}:m
 
     const variations = new Map(Object.entries(songData))
 
-    console.log(variations.get("genres"))
+    //console.log(variations.get("genres"))
 
     let genres = Array.from(variations.get("genres"))
     genres = genres.slice(0,2)
@@ -52,7 +53,7 @@ export default function Modal({isActivated, setActivation, songData, location}:m
 
                 <div className="modal-footer">
                     <button className="preview-button" onClick={() => window.open(variations.get("preview_url"))}>PREVIEW</button>
-                    <button className="add-button">ADD TO LIKED</button>
+                    <button className={"add-button"}>ADD TO LIKED</button>
                 </div>
                 <div className="modal-pointer"></div>
             </div>

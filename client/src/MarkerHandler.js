@@ -37,7 +37,9 @@ function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalL
             // console.log("data")
             // console.log(data)
 
-            const track_data = entryData["track-data"]
+            let track_data = entryData["track-data"]
+            
+
             // console.log("track data")
             // console.log(track_data)
 

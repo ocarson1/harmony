@@ -1,21 +1,13 @@
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import mapboxgl, {Marker} from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
 import './styles/MapBoxPopup.css'
-import MarkerHandler from './MarkerHandler'
-import Modal from './components/Modal'
-import ts from 'typescript';
 import 'mapbox-gl/dist/mapbox-gl.css'
-
-//mapbox with react documentation:
-//https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
 
 mapboxgl.accessToken = myKey;
 
 export default function GenerateMap(props) {
-
-  
   const mapContainer = useRef(null);
   const myMap = useRef(null);
 
@@ -36,6 +28,12 @@ export default function GenerateMap(props) {
       controls: [],
       doubleClickZoom: false
     });
+    var geocoder = new MapboxGeocoder({
+      accessToken: myKey,
+      mapboxgl: mapboxgl,
+    });
+    myMap.current.addControl(geocoder);
+    geocoder.addTo('#geocoder-container-popup')
   });
 
 
@@ -64,7 +62,7 @@ export default function GenerateMap(props) {
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
     <div className="geomap-popup-container">
-      <div ref={mapContainer} className="map-popup-container"></div>
+      <div ref={mapContainer} className="map-popup-container"><div id="geocoder-container-popup"></div></div>
     </div>
   );
 }

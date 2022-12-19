@@ -16,7 +16,9 @@ export default function FilterInfo(props: filterInfoProps) {
     
     if (props.categories.length != 0) {
         options1 = Array.from(props.categories[0])
+        options1 = options1.sort(function(a,b){return a-b})
         options2 = Array.from(props.categories[1])
+        options2 = options2.sort()
     }
 
 return (

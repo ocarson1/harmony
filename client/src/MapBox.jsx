@@ -1,3 +1,8 @@
+/**
+ * MapBox is the class in charge of rendering the map portion of the webapp interface. Because of this, it handles
+ * most of the reactive map functionality from Mapbox Gl JS, including view changing, setting the style, and determining
+ * map interaction.
+ */
 import React, { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
@@ -7,8 +12,7 @@ import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
 import ts from 'typescript';
 
-//mapbox with react documentation:
-//https://docs.mapbox.com/help/tutorials/use-mapbox-gl-js-with-react/
+
 
 mapboxgl.accessToken = myKey;
 
@@ -23,7 +27,6 @@ export default function GenerateMap(props) {
   const [modalActivation, setModalActivation] = useState(false)
   const [songSelected, setSongSelected] = useState(new Map)
   const [modalLoc, setModalLoc] = useState([0,0])
-
 
   // Initialize the map and the geocoder
   useEffect(() => {
@@ -41,9 +44,9 @@ export default function GenerateMap(props) {
       accessToken: myKey,
       mapboxgl: mapboxgl,
     });
-  
+
     myMap.current.addControl(geocoder);
-    geocoder.addTo('#geocoder-container');
+    geocoder.addTo('#geocoder-container')
 
   });
 
@@ -78,8 +81,11 @@ export default function GenerateMap(props) {
   // NOTE: mapContainer must be a div of its own for mapbox to work properly
   return (
     <div>
-      <div ref={mapContainer} className="map-container"><div id="geocoder-container"></div></div>
-      <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc}>
+
+      <div ref={mapContainer} className="map-container"> 
+      <div id="geocoder-container"></div>
+  </div>
+      <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc} token={props.token}>
         {/* <button className="modal-button" onClick={setModalActivation(false)}>CLOSE</button> */}
       </Modal>
     </div>

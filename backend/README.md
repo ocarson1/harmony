@@ -7,6 +7,14 @@ Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gc
 Total time for project: ~90 hours
 
 ## Design Choices
+
+### Frontend
+The frontend handles the end user interaction and backend data display. By interacting with Spotify Authorization and our backend server, users are able to log in through their Spotify accounts and view all entries that have been made to the program. Through React, TypeScript, and JavaScript, the front end is dynamic and responds to various forms of user interaction.
+Much of our front end program revolves around a Mapbox interface. Because Mapbox features are optimized for Javascript, we chose to use Javascript for the files dealing with the main map components (MapBox.jsx and MarkerHandler.jsx) in order to ensure efficiency and full access to Mapbox features in the program.
+The layout design for the frontend involves a single page with two sections: a map and a sidebar. This design was chosen because of our goal to make the webapp the focus of the program -- always visible and explorable. The sidebar allows the user to filter data on the map and add new entries. 
+Within our src package, we have a package called components that contains all of the smaller components of the interface. These are designed to be reusable and scalable to further development in the project.
+
+
 ### Backend
 Our backend handles requests for data from the frontend. The backend interacts with the Spotify API and its various
 endpoints in order to retrieve information about songs, users, artists, etc. 
@@ -23,6 +31,11 @@ lesser-known artists and songs, the sorting is done based on the popularity valu
 None.
 
 ## Tests
+
+### Frontend tests
+
+Using the React Testing Library, we wrote tests to ensure that the correct features on the front end render onto the document. Because of the need for a unique token for Spotify access, we were unable to test in depth past the login interface. However, we made use of mock data from the backend in order to ensure that the program interacts properly with fetched backend data without using Firebase reads while developing.
+
 ### Backend tests
 We have multiple types of tests on the backend: unit tests, integration tests, fuzz tests, and tests involving mocks. 
 The unit tests were primarily used before we integrated the front end and the backend together, where it was imperative

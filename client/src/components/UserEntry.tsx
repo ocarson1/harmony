@@ -1,11 +1,11 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { useState, useEffect } from 'react';
 import '../styles/UserEntry.css'
 import '../styles/MapBox.css'
 import Map from '../MapBoxPopup'
-import React, {useState} from 'react'
 
-
+/**
+ * Interface containing input properties for the UserEntry component
+ */
 interface UserEntryProps {
     theme: boolean;
     setTheme: Function;
@@ -13,7 +13,18 @@ interface UserEntryProps {
     token: string
 }
 
+/**
+ * Component for the UserEntry interface where users can add a New Song Entry by plotting their most-recently played song to their location
+ * by double clicking on the map and clicking done. 
+ * This is accessible and can be read by a screenreader. 
+ * @param param0 
+ * @returns 
+ */
 function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
+    //accessible aria label and description
+    const ariaLabel: string = "New User Entry"
+    const ariaDescription: string = "Log your most-recently played song to your location by double clicking on the map and clicking Done when complete."
+
     const [entryLat, setEntryLat] = useState(0);
     const [entryLon, setEntryLon] = useState(0)
     const [recentTitle, setRecentTitle] = useState("<Song Title>")
@@ -21,53 +32,48 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
     const [recentArtist, setRecentArtist] = useState("<Artist>")
     const [recentId, setRecentId] = useState("")
 
-    //add artist to the backend handler?
-
+    /**
+     * Function for closing New Entry interface
+     */
     const closeNewEntry = () => {
         setEntryIsShown(false);
     }
 
+    /**
+     * Function for retrieving data about user's most recently played song
+     */
     useEffect(() => {
-
-    let URL = `http://localhost:3232/getRecentSong?token=${token}`
-    fetch(URL)
-    .then(r => r.json())
-    .then(json => {
-        console.log("Fetching getRecentSong")
-        if (json.result == "success") {
-            console.log("JSON SUCCESS")
-            console.log(json)
-            setRecentTitle(json.name)
-            setRecentImage(json.img_url)
-            setRecentArtist(json.artist)
-            setRecentId(json.id)
-        }
-        else console.log("JSON NOT SUCCESS" + token)
-        
-    })
-}, [])
+        let URL = `http://localhost:3232/getRecentSong?token=${token}`
+        fetch(URL)
+        .then(r => r.json())
+        .then(json => {
+            if (json.result == "success") {
+                setRecentTitle(json.name)
+                setRecentImage(json.img_url)
+                setRecentArtist(json.artist)
+                setRecentId(json.id)
+            }
+            else console.log("JSON NOT SUCCESS" + token)
+        })
+    }, [])
     
+    /**
+     * Function for logging a new entry and adding it to the overall Harmony user map
+     */
     const logEntry = () => {
         let URL = `http://localhost:3232/addSongAtLoc?id=${recentId}&lat=${entryLat}&lon=${entryLon}&token=${token}`
-        console.log(URL)
-        console.log("Fetching addSongAtLoc")
-        fetch(URL) // I think this is all we have to do?
+        fetch(URL)
         window.location.reload()
-
-        // might need to re-call the marker handler now
     }
 
     return (
-        <div className="entry-popup" id="entryPopup">
+        <div className="entry-popup" id="entryPopup" aria-label={ariaLabel} aria-description={ariaDescription}>
             <div className="entry-header">
                 <div className='title'>New Entry</div>
                 <button className='close-button' onClick={closeNewEntry}>X</button>
             </div>
             <div className="entry-header-line"></div>
             <div className="entry-text">Double click on the map to plot your location for your most recently played song</div>
-            {/* <div className="entry-map">
-                <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}}/>
-            </div> */}
             <div className="entry-map">
                 <Map theme={theme} setTheme={setTheme} style={{width:650, height:280, left:30, borderRadius:25}} setEntryLon= {setEntryLon} setEntryLat= {setEntryLat} />
             </div>

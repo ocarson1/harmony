@@ -1,32 +1,43 @@
-import { Dispatch, SetStateAction, useEffect } from 'react';
-import { collapseTextChangeRangesAcrossMultipleVersions } from 'typescript';
+import { useEffect } from 'react';
 import '../styles/GeoPlaylist.css'
-import Map from '../MapBox'
-import React, {useState} from 'react'
-import mapboxgl, {LngLatBounds} from 'mapbox-gl';
-import LogIn from './LogIn';
+import {useState} from 'react'
+import {LngLatBounds} from 'mapbox-gl';
 
+/**
+ * Interface containing the input properties for GeoPlaylist component
+ */
 interface GeoPlaylistProps {
     setGeneratePlaylist: Function
     token: string
     bounds: LngLatBounds
-    // songIds: string
 }
 
+/**
+ * Component for the GeoPlaylist interface that generates a new playlist of 10 songs based on the properties of the songs on the MapBox 
+ * (within the browser bounding box) at the time. Users can preview and add the recommended songs after generation. 
+ * This is accessible and readable by a screenreader
+ * @param param0 
+ * @returns 
+ */
 function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
-    const [songIds, setSongIds] = useState("")
-    const [songRecs, setSongRecs] = useState([''])
-    const [artistRecs, setArtistRecs] = useState([''])
-    const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
-    const [previewRecs, setPreviewRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
-    const [recs, setRecs] = useState([''])
+    //accessible aria label and description
+    const ariaLabelPlaylist: string = "Your GeoPlaylist"
+    const ariaDescriptionPlaylist: string = "Your newly generated GeoPlaylist based on the songs displayed on your MapBox. Click on Preview to listen to each corresponding song. Click on Add to Liked Songs to add the corresponding song to your Spotify Liked Songs. Click on the top right X button to close this playlist."
 
-    const recSongs: string[] = [];
-    const recArtists: string[] = [];
+    const [songIds, setSongIds] = useState("")
+    const [imgRecs, setImgRecs] = useState(["https://img.icons8.com/ios-glyphs/512/question-mark.png"])
+    const [previewRecs, setPreviewRecs] = useState([''])
+    const [idRecs, setIdRecs] = useState([''])
+    const [recs, setRecs] = useState(['Loading...'])
+
     const recImgs: string[] = [];
     const recPreviews: string[] = [];
-    const recItem: string[] = [];
+    const recItems: string[] = [];
+    const recIds: string[] = [];
 
+    /**
+     * function to close the playlist
+     */
     const closeNewPlaylist = () => {
         setGeneratePlaylist(false);
     }
@@ -34,13 +45,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
     // will probably need to use map.QueryRenderedFeatures function:
     // https://docs.mapbox.com/mapbox-gl-js/api/map/#map#queryrenderedfeatures
 
-
-    const addPlaylist = () => {
-        // {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
-        const item: string = ''
-        songRecs.map(function(item, i){})
-    }
-
+    /**
+     * Retrieiving Song IDs and data from the songs currently displayed within the bounding box of the mapbox
+     */
     useEffect(() => {
     fetch('http://localhost:3232/getCollection?name=songs')
         .then(r => r.json())
@@ -72,6 +79,9 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
 
         },[])
 
+        /**
+         * Getting song recommendations and adding them to the list of songs displayed on the GeoPlaylist
+         */
         useEffect(() => {
             if (songIds == "") return;
             let URL = `http://localhost:3232/getRecs?token=${token}&songIds=${songIds}`
@@ -84,17 +94,18 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                         console.log("fetch get rec success!")
                         const recsList = json.sorted
                         for (let i = 0; i < 10; i++) {
-                            recSongs.push(recsList[i]["title"].toString())
-                            console.log("rec #" + i + " title: " + recsList[i]["title"].toString())
-                            recArtists.push(recsList[i]["artist"].toString())
+                            const title = recsList[i]["title"].toString()
+                            const artist = recsList[i]["artist"].toString()
+                            recIds.push(recsList[i]["songid"].toString())
+                            console.log("rec " + i + " song id " + recsList[i]["songid"].toString())
                             recImgs.push(recsList[i]["img_url"].toString())
                             recPreviews.push(recsList[i]["preview_url"].toString())
-                            console.log("rec #" + i + " artist: " + recsList[i]["artist"].toString())
+                            recItems.push((i + 1) + ". " + title + " by " + artist)
                         }
-                        setSongRecs(recSongs)
-                        setArtistRecs(recArtists)
                         setImgRecs(recImgs)
                         setPreviewRecs(recPreviews)
+                        setRecs(recItems)
+                        setIdRecs(recIds)
                     }
                     else {
                         console.log("fetch get rec fail" + token)
@@ -102,43 +113,36 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                 })
             },[songIds])
 
-    const makeTitleArtist = () => {
-        songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})
-        previewRecs.map(function(item, i){console.log(item); return <button key={i} className="preview-button" onClick={() => window.open(item)}>PREVIEW</button>})
-    }
-
+            const addSong = (token: string, songId: string) => {
+                let URL = `http://localhost:3232/addLike?token=${token}&id=${songId}&add=true`;
+                fetch(URL)
+            }
+            
     return (
-        <div className="playlist-popup" id="playlistPopup">
+        <div className="playlist-popup" id="playlistPopup" aria-label={ariaLabelPlaylist} aria-description={ariaDescriptionPlaylist}>
             <div className="playlist-header">
-                {/* <div className='playlist-icon-wrapper'> */}
                     <div className='playlist-icon'>
-                        <img src={imgRecs[0]} style={{width:60, height:60}}></img>
-                        <img src={imgRecs[1]} style={{width:60, height:60}}></img>
-                        <img src={imgRecs[2]} style={{width:60, height:60}}></img>
-                        <img src={imgRecs[3]} style={{width:60, height:60}}></img>
+                        <img className="song-img" src={imgRecs[0]}></img>
+                        <img className="song-img" src={imgRecs[1]}></img>
+                        <img className="song-img" src={imgRecs[2]}></img>
+                        <img className="song-img" src={imgRecs[3]}></img>
                     </div>
-                {/* </div> */}
                 <div className='playist-title-wrapper'>
                     <p className='playlist-title'>Your <br></br> Geoplaylist</p>
                 </div>
                 <button className='close-button' onClick={closeNewPlaylist}>X</button>
             </div>
             <div className="playlist-content">
-                {/* <table>
-                    <thead>
-                    <tr>
-                        <th scope="col">TITLE</th>
-                        <th scope="col">ALBUM</th>
-                        <th scope="col"></th>
-                        <th scope="col">Most famous song</th>
-                    </tr>
-                    </thead>
-                </table> */}
                 <div className="songs-list">
-                    {songRecs.map(function(item, i){console.log(item); return <p key={i}>{i+1}. {item}</p>})}
-                </div>
-                <div>
-                    {previewRecs.map(function(item, i){console.log(item); return <button key={i} className="preview-button" onClick={() => window.open(item)}>PREVIEW</button>})}
+                    {recs.map(function(item, i){console.log(item); 
+                        return (
+                        <div>
+                            <p style={{margin:0}} key={i}>{item}</p>
+                            <button key={i} className="preview-button-playlist" onClick={() => window.open(previewRecs[i])}>PREVIEW</button>
+                            <button key={i} className="add-button-playlist" style={{width:115}} onClick={() => {addSong(token, idRecs[i])}}>ADD TO LIKED</button>
+                            {/* <AddToLikedButton token={token} songId={idRecs[i]}></AddToLikedButton> */}
+                        </div>)}
+                    )}
                 </div>
             </div>
         </div>
