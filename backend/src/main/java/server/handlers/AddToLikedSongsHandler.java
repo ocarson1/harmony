@@ -61,6 +61,7 @@ public class AddToLikedSongsHandler implements Route {
       System.out.println(e.getMessage());
       e.printStackTrace();
       resp.put("result", "error_bad_token");
+      System.out.println(new ServerResponse().serialize(resp));
       return new ServerResponse().serialize(resp);
     }
   }

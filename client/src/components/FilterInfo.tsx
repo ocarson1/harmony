@@ -11,10 +11,13 @@ export default function FilterInfo(props: filterInfoProps) {
   const [selectedCategory1, setSelectedCategory1] = useState('Year');
   const [selectedCategory2, setSelectedCategory2] = useState('Genre');
 
-  const options1 = Array.from(props.categories[0]).sort(function(a: any,b: any){
-    return a - b;
-  });
-  const options2 = Array.from(props.categories[1]).sort();
+ 
+  const options1 = props.categories[0] ? Array.from(props.categories[0]).sort(function(a: any,b: any){return a-b}) : [];
+  const options2 = props.categories[1] ? Array.from(props.categories[1]).sort() : [];
+//   var options1 = new Array;
+//   var options2 = new Array;
+//     options1 = Array.from(props.categories[0]) && options1.sort(function(a, b) { return a - b })
+//     options2 = Array.from(props.categories[1]).sort();
 
   function reset() {
     setSelectedCategory1('Year');
