@@ -25,18 +25,12 @@ function LogIn({href}: LogInProps){
     }
 
     return (
-<<<<<<< HEAD
-        <div className="welcome-popup">
-            <div className="login-container">
-=======
         <div className="welcome-popup" aria-label={ariaLabel} aria-description={ariaDescription}>
->>>>>>> bc1d87f970c39b78854ed5a7192db8e47c9fd690
             <div className="welcome-text">Welcome to</div>
             <div className="harmony-text">Harmony</div>
             <button className="spotify-login-button" onClick={handleSubmit}>
                 LOG IN WITH SPOTIFY
             </button>
-        </div>
         </div>
     );
 }

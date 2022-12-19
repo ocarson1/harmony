@@ -10,6 +10,7 @@
     margin-top:-250px; /* negative half of height above */
     background: linear-gradient(180deg, #6FCAF4 0%, #A65BBA 100%);
     border-radius: 40px;
+    padding-right: -500px;
 }
 
 .entry-header {
