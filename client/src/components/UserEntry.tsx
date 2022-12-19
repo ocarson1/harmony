@@ -81,7 +81,7 @@ function UserEntry({theme, setTheme, setEntryIsShown, token}: UserEntryProps){
                 <div className="most-recent-song">
                     <img className="song-icon" src={recentImage} style={{float:'left',width:40, height:40, borderRadius:30}}></img>
                     <div className="song-info">
-                        <p style={{fontSize:16, margin:0, fontWeight:500, textAlign:'left'}}>{recentTitle}</p>
+                        <p style={{fontSize:16, margin:0, fontWeight:500, textAlign:'left', textOverflow:'ellipsis'}}>{recentTitle}</p>
                         <p style={{fontSize:12, margin:0, fontWeight:400, textAlign:'left'}}>{recentArtist}</p>
                     </div>
                 </div>

@@ -1,8 +1,3 @@
-import mapboxgl from "mapbox-gl";
-import ts from "typescript";
-import songData from './mockData/mockSongs3.json'
-
-
 /**
  * The MarkerHandler class is in charge of rendering all of the song entry markers on the map accordingly.
  * @param {*} map the map to render the entries onto

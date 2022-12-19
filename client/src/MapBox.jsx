@@ -3,14 +3,13 @@
  * most of the reactive map functionality from Mapbox Gl JS, including view changing, setting the style, and determining
  * map interaction.
  */
-import React, { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import mapboxgl from 'mapbox-gl'; 
 import * as MapboxGeocoder from '@mapbox/mapbox-gl-geocoder'
 import {myKey} from './private/key'
 import './styles/MapBox.css'
 import MarkerHandler from './MarkerHandler'
 import Modal from './components/Modal'
-import ts from 'typescript';
 
 mapboxgl.accessToken = myKey;
 
@@ -82,13 +81,13 @@ export default function GenerateMap(props) {
     });
   })
 
-
-  // NOTE: mapContainer must be a div of its own for mapbox to work properly
+  //accessible aria label and descrption
+  const ariaLabel = "Mapbox"
+  const ariaDescription = "View global song entries here. Drag to move, scroll to zoom in/out."
 
   return (
     <div>
-
-      <div ref={mapContainer} className="map-container"> 
+      <div ref={mapContainer} className="map-container" aria-label={ariaLabel} aria-description={ariaDescription}> 
       <div id="geocoder-container"></div>
   </div>
       <Modal isActivated={modalActivation} setActivation={setModalActivation} songData={songSelected} location={modalLoc} token={props.token}>

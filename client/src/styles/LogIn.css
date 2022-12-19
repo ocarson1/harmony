@@ -1,5 +1,5 @@
 .web-container {
-    /* background-image: url(/Users/aleclippman/Desktop/cs0320/term-project-adeendar-alippman-gcantare-ocarson1-vli18/client/images/mapboxbackground.jpg); */
+    /* background-image: url(/client/images/mapboxbackground.jpg); */
     background-size: cover;
     position: absolute;
     top: 0;
@@ -9,15 +9,12 @@
 }
 
 .welcome-popup {
-    /* position: absolute;
-    margin: 0 auto; */
     position:fixed;
     top:50%;
     left:50%;
 
     margin-top:-137px;
     margin-left:-235px;
-    /* transform:translate(-50%,-50%); */
     width: 470px;
     height: 274px;
     background: linear-gradient(180deg, #6DCCF5 0%, #A65AB9 100%);

@@ -71,8 +71,11 @@ export default function GenerateMap(props) {
     })
   })
 
+  const ariaLabel = "New Entry MapBox"
+  const ariaDescription = "Log your new entry in this map by double-clicking on a location"
+
   return (
-    <div className="geomap-popup-container">
+    <div className="geomap-popup-container" aria-label={ariaLabel} aria-description={ariaDescription}>
       <div ref={mapContainer} className="map-popup-container"><div id="geocoder-container-popup"></div></div>
     </div>
   );

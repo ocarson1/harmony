@@ -19,7 +19,6 @@
     width: 30%;
     height: 100%;
     background: #EBEBEB;
-    /* display: inline-block; */
     z-index: 10000;
     top:30px;
     box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.25);
@@ -61,34 +60,17 @@
   text-align: center;
 
   color: #000000;
-  
 }
 
 .history {
   visibility: hidden;
 }
 
-
-
-/* .Tabs {
-    width: 80%;
-    height: auto;
-    min-height: 400px;
-    background: #053742;
-    margin: 3.5rem auto 1.5rem;
-    padding: 2rem 1rem;
-    color: #000000;
-    border-radius: 2rem;
-  } */
-
   .react-tabs {
-
-
     -webkit-tap-highlight-color: transparent;
   }
 
   .react-tabs__tab-list {
-
     width: 100%;
     margin: 0 auto 2rem;
     display: flex;
@@ -99,13 +81,9 @@
     position:relative;
     top:-30px;
     background: transparent;
-
-
   }
 
   .react-tabs__tab {
-    /* box-shadow: 0px 4px 20px 5px rgba(0, 0, 0, 0.25); */
-
     font-weight: 700;
     font-size: 24px;
     line-height: 29px;
@@ -162,7 +140,4 @@
   border-radius: 39px;
   background: #1F1F1F;
 }
-  /* .react-tabs__tab:hover {
-    background: rgba(50, 224, 196, 0.15);
-  } */
 
