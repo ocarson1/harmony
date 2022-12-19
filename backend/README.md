@@ -14,7 +14,6 @@ Much of our front end program revolves around a Mapbox interface. Because Mapbox
 The layout design for the frontend involves a single page with two sections: a map and a sidebar. This design was chosen because of our goal to make the webapp the focus of the program -- always visible and explorable. The sidebar allows the user to filter data on the map and add new entries. 
 Within our src package, we have a package called components that contains all of the smaller components of the interface. These are designed to be reusable and scalable to further development in the project.
 
-
 ### Backend
 Our backend handles requests for data from the frontend. The backend interacts with the Spotify API and its various
 endpoints in order to retrieve information about songs, users, artists, etc. 
@@ -28,7 +27,8 @@ area. The use of quicksort allows us to design the way we want to do the recomme
 lesser-known artists and songs, the sorting is done based on the popularity value of songs related to songs that are on the map.
 
 ## Errors/Bugs
-None.
+Frontend:
+"Add to Liked" button currently doesn't work for the map's pop-up modals
 
 ## Tests
 
@@ -48,6 +48,17 @@ We use fuzz testing to ensure that our handlers will not break the server if the
 a high amount of traffic on our site, many sites do; and to make sure that our app is scalable, we utilized random testing for this purpose.
 
 ## How To...
+
+### Use Harmony!
+
+User Requirements:
+You must have a valid MapBox access token which can be requested through the MapBox website to be able to access the map on Harmony. 
+You must also have a Spotify account to be able to Log in to Harmony.
+
+How to Use:
+As a first-time user, you will be directed to Harmony's Log-In Page. Log-in to Harmony through logging in with your Spotify account and authorize Harmony to access your Spotify user-listening data.
+
+After logging in, you will see Harmony's main interface composed of a map of songs, a sidebar, and various buttons. Drag and hold to move around the map, scroll to zoom in and out. Click on the images on the map to view corresponding song information in its popup where you can preview the song and add the song to your Spotify Liked Songs. Navigate to the SideBar and click "Add New Entry" to add your own most-recently played song to Harmony's geo-music map. Double click on the map to plot your most-recently played song to your location - click done when complete and your entry will be added to the map! The sidebar also contains a filtering option to filter through the displayed songs on the map based on the year of release and music genre. Toggle dark/light mode at the bottom of the view tab. The Geocoder in the embedded maps allow you to find a specific location in the world and navigate there. Click on "Make a Geoplaylist" button to create a geoplaylist of 10 generated recommended songs based on the data of the songs currently displayed on the your map, within the bounds of ths browser. You can preview these songs and them to your Spotify Liked Songs. Finally, you can view your username in the profile tab of the Sidebar and click log out to log out of Harmony!
 
 ### Use our backend API
 
