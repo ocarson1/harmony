@@ -4,7 +4,7 @@
 Project name: Harmony \
 Team members: Grace Cantarella (gcantare), Arman Deendar (adeendar), Alec Lippman (alippman), Vivian Li (vli18), Owen Carson (ocarson1) \
 Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18 \
-Total time for project: ~90 hours
+Total time for project: ~120 hours
 
 ## About the Project
 Our project is called Harmony, and our aim was to build a musical map where users can share songs they listen to at the location where
