@@ -3,7 +3,7 @@
 ## Project Details
 Project name: Harmony \
 Team members: Grace Cantarella (gcantare), Arman Deendar (adeendar), Alec Lippman (alippman), Vivian Li (vli18), Owen Carson (ocarson1) \
-Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18\
+Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18 \
 Total time for project: ~90 hours
 
 ## Design Choices
