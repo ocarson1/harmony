@@ -3,8 +3,16 @@
 ## Project Details
 Project name: Harmony \
 Team members: Grace Cantarella (gcantare), Arman Deendar (adeendar), Alec Lippman (alippman), Vivian Li (vli18), Owen Carson (ocarson1) \
-Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18\
-Total time for project: ~90 hours
+Link to repo:  https://github.com/cs0320-f2022/term-project-adeendar-alippman-gcantare-ocarson1-vli18 \
+Total time for project: ~100 hours
+
+## About the Project
+Our project is called Harmony, and our aim was to build a musical map where users can share songs they listen to at the location where
+they listened to each song, and to allow our users to be able to view geographically where other users are listening to certain songs. 
+Users can also discover new music through the playlist generation feature, where our backend designs a unique playlist for them based off
+the songs in the geographic region that they are zoomed into. From there, they can add the playlist songs to their saved songs library, or even
+preview the songs before liking them. Our project also provides a light and dark mode for accessibility. 
+We also provide filtering functionality, so our users can narrow down genres or specific release-years. 
 
 ## Design Choices
 
