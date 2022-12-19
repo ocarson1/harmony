@@ -2,12 +2,16 @@ import mapboxgl from "mapbox-gl";
 import ts from "typescript";
 import songData from './mockData/mockSongs3.json'
 
-// Map docs: https://docs.mapbox.com/mapbox-gl-js/api/map/#map#addimage
 
-// Layer docs: https://docs.mapbox.com/mapbox-gl-js/style-spec/layers/#layout-property
-
-
-
+/**
+ * The MarkerHandler class is in charge of rendering all of the song entry markers on the map accordingly.
+ * @param {*} map the map to render the entries onto
+ * @param {*} setModalActivation the function to activate the modal if an entry is selected
+ * @param {*} setSongSelected the function communicating with the modal about entry data
+ * @param {*} setModalLoc the function that changes the location of the modal on the window according to marker interaction
+ * @param {*} setFilterCategories a function that is passed through to the sidebar to communicate filter categories from parsed marker data
+ * @param {*} filter a filter map to filter markers
+ */
 export default async function MarkerHandler(map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter) {
     
     fetch('http://localhost:3232/getCollection?name=songs')
@@ -16,79 +20,45 @@ export default async function MarkerHandler(map, setModalActivation, setSongSele
             if (json.result == "success") {
             console.log("Fetching getCollection"); 
             console.log(json)
-            // category and criteria set so that all songs render by default
             jsonToMarkers(json.data, map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter)}
 })
 }
 
+// These global variables contain parsed entry data that will be used to determine filtering categories in the sidebar
 let years = new Set
 let genres = new Set
 
-
+/**
+ * This method takes in the parsed data from the API call to the backend and contains the logic behind determing when/where to render song markers.
+ * @param {*} map the map to render the entries onto
+ * @param {*} setModalActivation the function to activate the modal if an entry is selected
+ * @param {*} setSongSelected the function communicating with the modal about entry data
+ * @param {*} setModalLoc the function that changes the location of the modal on the window according to marker interaction
+ * @param {*} setFilterCategories a function that is passed through to the sidebar to communicate filter categories from parsed marker data
+ * @param {*} filter a filter map to filter markers
+ */
 function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalLoc, setFilterCategories, filter) {
     
-    //console.log(filterJSON(json,'2022'))
-    console.log(Object.keys(json))
     const entries = Object.keys(json);
 
         for (const entry of entries) {
-
             const entryData = json[entry].data;
-            // console.log("data")
-            // console.log(data)
-
-            let track_data = entryData["track-data"]
-            
-
-            // console.log("track data")
-            // console.log(track_data)
-
-            // console.log(track_data["title"])
-
+            const track_data = entryData["track-data"]
             const geojson = entryData["userGeoJSON"]
-            // console.log("userGeoJson")
-            // console.log(geojson)
-
             const img_url = track_data["img_url"]
-            // console.log("img_url")
-            // console.log(img_url)
 
-            //const genres = Array.from(track_data["genres"])
-            console.log("GENRES ARRAY "+ genres)
-
+            // add to the filter data global variables
             years.add(track_data["release_date"]);
-
             let trackGenres = Array.from(track_data["genres"])
-
             trackGenres.forEach((x) => {
             genres.add(x)
             })
-            
-            if (Object.keys(filter).length != 0) {
-                console.log(filter)
-            for (let key of Object.keys(filter)) {
-                console.log(key + " = " + filter[key])
-            }
-        }
 
-            console.log(years)
-            console.log(genres)
-
-            
-
-            //if (track_data[filter] == criteria) {
+            //handle filtering based on the passed in filter map
             let filterKeys = Object.keys(filter)
-
-            console.log(filterKeys[0])
-            console.log(filter[filterKeys[0]])
-
-            //hard coded
             if (track_data[filterKeys[0]] == filter[filterKeys[0]] || trackGenres.includes(filter[filterKeys[0]])) {
 
-                console.log("TRUE")
-                map.setLayoutProperty(entry, 'visibility', 'visible');
-
-
+                map.setLayoutProperty(entry, 'visibility', 'visible'); // in case it was filtered out prior
                 if(!map.hasImage(entry)) {
                 map.loadImage(
                     img_url,
@@ -107,7 +77,7 @@ function jsonToMarkers(json, map, setModalActivation, setSongSelected, setModalL
                                 'icon-image':entry,
                                 'icon-anchor':"top",
                                 'icon-size':0.1,
-                                'icon-allow-overlap':true,  //undecided if i want to keep this or not                          
+                                'icon-allow-overlap':true,                        
                             },
                         });
                     })

@@ -2,8 +2,6 @@ import ts, { isPropertySignature, Map } from "typescript";
 import React, { useEffect, useState } from "react";
 import '../styles/Modal.css'
 
-export {}
-
 interface modalProps {
     isActivated: boolean;
     setActivation: Function;
@@ -12,6 +10,11 @@ interface modalProps {
     token: string
 }
 
+/**
+ * The modal class is in charge of rendering the modal popup based on song markers
+ * @param param
+ * @returns 
+ */
 export default function Modal({isActivated, setActivation, songData, location, token}: modalProps) {
 
     if (!isActivated) {
@@ -19,8 +22,6 @@ export default function Modal({isActivated, setActivation, songData, location, t
     }
 
     const variations = new Map(Object.entries(songData))
-
-    //console.log(variations.get("genres"))
 
     let genres = Array.from(variations.get("genres"))
     genres = genres.slice(0,2)
@@ -39,16 +40,12 @@ export default function Modal({isActivated, setActivation, songData, location, t
             <button className='modal-close-button' onClick={() => setActivation(false)}>X</button>
 
             <div className="modal-content">
-                {/* <div className="modal-header">
-                    <h4 className="modal-title">SONG INFO</h4>
-                </div> */}
                 <div className="modal-body">
                     <p><strong>Song:</strong> {variations.get("title")}</p>
                     <p><strong>Artist:</strong> {variations.get("artist")}</p>
                     <p><strong>Album:</strong> {variations.get("album")}</p>
                     <p><strong>Release Year:</strong> {variations.get("release_date")}</p>
                     <p><strong>Genre:</strong> {genreString}</p>
-                    {/* <p>Song: {props.songData.get("title")}</p> */}
                 </div>
 
                 <div className="modal-footer">
