@@ -17,7 +17,11 @@ interface sidebarProps {
     setFilter: Function;
   }
 
-//split this into two helper functions for each tab?
+/**
+ * THe sidebar class is in charge of rendering the sidebar that interacts with the map.
+ * @param props are from the sidebarProps interface and contain states that interact with the map
+ * @returns the interactive rendering of the sidebar
+ */
 export default function GenerateSidebar(props: sidebarProps) {
     const [username, setUsername] = useState("<Spotify Username>")
     const [pfp, setPfp] = useState("https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png")
@@ -77,25 +81,4 @@ export default function GenerateSidebar(props: sidebarProps) {
             </Tabs>
         </div>
     )
-}
-//window.open('localhost:3000', '_self')
-
-// function EntryButton() {
-//     return(
-//         <div>
-//     <button className="entry-button">+ ADD NEW ENTRY</button>
-//     </div>
-//     )
-// }
-
-// function getUsername(token: string) {
-//     console.log("getting username")
-//     console.log(token)
-//     fetch(`https://localhost:3232/getUser?token=${token}`)
-//         .then(r => r.json())
-//         .then(json => {setUsername(json.name)});
-// }
-
-function getPfp() {
-
 }
