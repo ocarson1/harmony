@@ -140,7 +140,6 @@ function GeoPlaylist({setGeneratePlaylist, token, bounds}: GeoPlaylistProps){
                             <p style={{margin:0}} key={i}>{item}</p>
                             <button key={i} className="preview-button-playlist" onClick={() => window.open(previewRecs[i])}>PREVIEW</button>
                             <button key={i} className="add-button-playlist" style={{width:115}} onClick={() => {addSong(token, idRecs[i])}}>ADD TO LIKED</button>
-                            {/* <AddToLikedButton token={token} songId={idRecs[i]}></AddToLikedButton> */}
                         </div>)}
                     )}
                 </div>

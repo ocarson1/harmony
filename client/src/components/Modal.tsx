@@ -2,6 +2,9 @@ import ts, { isPropertySignature, Map } from "typescript";
 import React, { useEffect, useState } from "react";
 import '../styles/Modal.css'
 
+/**
+ * Inteface for the input properties of the Modal Component
+ */
 interface modalProps {
     isActivated: boolean;
     setActivation: Function;
@@ -11,12 +14,16 @@ interface modalProps {
 }
 
 /**
- * The modal class is in charge of rendering the modal popup based on song markers
+ * The modal class is in charge of rendering the modal popup based on song markers. 
+ * This is accessible and readable by a screenreader.
  * @param param
  * @returns 
  */
 export default function Modal({isActivated, setActivation, songData, location, token}: modalProps) {
-
+    //accessible aria label and description
+    const ariaLabel: string = "Modal Pop-Up"
+    const ariaDescription: string = "This is where the information of the selected song on the map is displayed. Preview the song here or add to your Spotify liked songs."
+    
     if (!isActivated) {
         return null
     }
@@ -36,7 +43,7 @@ export default function Modal({isActivated, setActivation, songData, location, t
     genreString = genreString.concat(" ...");
 
     return(
-        <div className="modal" style={{left:(location[0]) + 'px', top:(location[1]-140)+'px'}}>
+        <div className="modal" aria-label={ariaLabel} aria-description={ariaDescription} style={{left:(location[0]) + 'px', top:(location[1]-140)+'px'}}>
             <button className='modal-close-button' onClick={() => setActivation(false)}>X</button>
 
             <div className="modal-content">

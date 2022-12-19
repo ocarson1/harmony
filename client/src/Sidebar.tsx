@@ -2,10 +2,7 @@ import './styles/Sidebar.css'
 import {Tab, Tabs, TabList, TabPanel} from "react-tabs";
 import {ToggleSwitch} from './components/ToggleSwitch';
 import FilterInfo from './components/FilterInfo'
-import HistoryInfo from './components/HistoryInfo'
-import EntryButton from './components/EntryButton'
-import React, { useState, useEffect} from 'react';
-import { setTokenSourceMapRange } from 'typescript';
+import { useState, useEffect} from 'react';
 
 interface sidebarProps {
     theme: boolean;
@@ -42,7 +39,6 @@ export default function GenerateSidebar(props: sidebarProps) {
     });
 }, [])
 
-
     return (
         <div className="sidebar">
             <Tabs className = "tabs">
@@ -71,10 +67,6 @@ export default function GenerateSidebar(props: sidebarProps) {
                         <div><img src={pfp} className="prof-pic"></img></div>
                         <div className="username">{username}</div>
                     </div>
-                    <div className = "history">
-                        History:
-                    </div>
-                    <HistoryInfo />
                     <button className="logout-button" onClick={() => props.setToken("no_access")}>LOG OUT</button>
                 </div>
                 </TabPanel>
